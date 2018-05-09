@@ -7,9 +7,9 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify, { theme: {
-  primary: '#ee44aa',
-  secondary: '#424242',
-  accent: '#82B1FF',
+  primary: '#BED609',
+  secondary: '#b2c400',
+  accent: '#dea12b',
   error: '#FF5252',
   info: '#2196F3',
   success: '#4CAF50',
@@ -22,6 +22,18 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created () {
+    var config = {
+      apiKey: "AIzaSyApZlXNnuN_bChc3PIbPs4ikI6inLussy4",
+      authDomain: "coloniaferiasvoltz.firebaseapp.com",
+      databaseURL: "https://coloniaferiasvoltz.firebaseio.com",
+      storageBucket: "coloniaferiasvoltz.appspot.com",
+      projectId: "coloniaferiasvoltz",
+      messagingSenderId: "358510411110"
+    };
+    firebase.initializeApp(config);
+  }
 })

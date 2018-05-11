@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router'
-import * as firebase from 'firebase'
 import VuexPersist from 'vuex-persist/dist/index'
 
 Vue.use(Vuex)
@@ -10,6 +9,8 @@ const vuexLocalStorage = new VuexPersist({
   key: 'vuex',
   storage: window.localStorage
 })
+
+import Constants from '../utility/constants'
 
 
 export const store = new Vuex.Store({
@@ -27,6 +28,44 @@ export const store = new Vuex.Store({
         title: 'Title Second'
       }
     ],
+    plans: [
+      {
+        id: 1,
+        price: 5990,
+        period: Constants.MORNING,
+        num_of_days: 7,
+      },
+      {
+        id: 2,
+        price: 5990,
+        period: Constants.AFTERNOON,
+        num_of_days: 7,
+      },
+      {
+        id: 3,
+        price: 5990 * 2,
+        period: Constants.WHOLE,
+        num_of_days: 7,
+      },
+      {
+        id: 4,
+        price: 990,
+        period: Constants.MORNING,
+        num_of_days: 7,
+      },
+      {
+        id: 5,
+        price: 990,
+        period: Constants.AFTERNOON,
+        num_of_days: 7,
+      },
+      {
+        id: 6,
+        price: 990 * 2,
+        period: Constants.WHOLE,
+        num_of_days: 7,
+      },
+    ]
   },
   mutations: {},
   action: {},
@@ -35,6 +74,9 @@ export const store = new Vuex.Store({
       return state.messages.sort((messageA, messageB) => {
         return messageA.sent > messageB.sent
       })
+    },
+    plans (state) {
+      return state.plans
     }
   }
 })

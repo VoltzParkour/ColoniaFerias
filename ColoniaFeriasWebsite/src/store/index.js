@@ -28,6 +28,7 @@ export const store = new Vuex.Store({
         title: 'Title Second'
       }
     ],
+    colonies: [],
     plans: [
       {
         id: 1,
@@ -77,6 +78,9 @@ export const store = new Vuex.Store({
     },
     plans (state) {
       return state.plans
+    },
+    colonies (state) {
+      return state.colonies
     }
   }
 })

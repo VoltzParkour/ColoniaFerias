@@ -29,7 +29,9 @@
       :clipped-left="clipped"
       class="primary"
     >
-      <!--<v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>-->
+      <v-toolbar-side-icon @click.stop="goAdmin">
+        <v-icon>account_circle</v-icon>
+      </v-toolbar-side-icon>
       <v-toolbar-title class="accent--text" v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -57,6 +59,11 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'Voltz'
+    }
+  },
+  methods: {
+    goAdmin () {
+      this.$router.push({ name: "Admin" });
     }
   },
   name: 'App'

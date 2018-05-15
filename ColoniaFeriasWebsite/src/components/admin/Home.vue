@@ -1,6 +1,6 @@
 <template>
+  <v-slide-y-transition mode="out-in">
   <v-container fluid>
-    <v-slide-y-transition mode="out-in">
       <v-container v-bind="{ [`grid-list-xl`]: true }" fluid
                    v-if="Colonies.length > 0">
         <v-layout row wrap>
@@ -27,12 +27,13 @@
         <v-flex>
           <header> Nenhum colônia</header>
           <v-card-actions>
-            <v-btn>Adicionar Colônia</v-btn>
+            <v-btn @click.stop="goColonyForm">Adicionar Colônia</v-btn>
           </v-card-actions>
         </v-flex>
       </v-container>
-    </v-slide-y-transition>
   </v-container>
+  </v-slide-y-transition>
+
 </template>
 
 <script>
@@ -44,7 +45,9 @@
       }
     },
     methods: {
-
+      goColonyForm() {
+        this.$router.push({ name: "ColonyForm" });
+      }
     }
   }
 </script>

@@ -1,0 +1,51 @@
+<template>
+  <v-container grid-list-md text-xs-center>
+    <v-layout row wrap>
+      <v-flex offset-xs1 offset-sm1>
+        <v-layout row wrap>
+          <v-flex xs4 v-for="i in 7" :key="i">
+            <h3>{{weekDaysNames[i - 1]}}</h3>
+            <v-layout>
+              <v-flex>
+                <v-card :class="weekDaysSelected[2 * i - 2] ? 'primary white--text' : 'light'"
+                        @click.native="selectWeekDay(2 * i - 2)">
+                  <v-card-text class="px-0">Manhã</v-card-text>
+                </v-card>
+              </v-flex>
+              <v-flex>
+                <v-card :class="weekDaysSelected[2 * i - 1]  ? 'primary white--text' : 'light'"
+                        @click.native="selectWeekDay(2 * i - 1)">
+                  <v-card-text class="px-0">Tarde</v-card-text>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</template>
+
+<script>
+  import Vue from 'vue'
+
+  export default {
+    name: "WeekDaysPicker",
+    data() {
+      return {
+        weekDaysSelected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+      }
+    },
+    methods: {
+      selectWeekDay(i) {
+        Vue.set(this.weekDaysSelected, i, !this.weekDaysSelected[i])
+        this.$emit('weekDaysSelectedChange', this.weekDaysSelected)
+      },
+    },
+  }
+</script>
+
+<style scoped>
+
+</style>

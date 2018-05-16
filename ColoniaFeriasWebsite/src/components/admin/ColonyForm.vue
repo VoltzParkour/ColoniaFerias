@@ -38,37 +38,10 @@
               </v-flex>
             </v-layout>
 
-            <v-layout>
-              <v-flex xs10 offset-xs1 offset-sm1>
-                <v-layout row wrap>
-                  <v-slide-x-reverse-transition>
-                    <v-flex md6 lg4 class="mb-3">
-                      <v-layout mb2>
-                        <h3 class="ml-3 grey--text">Primeiro Dia</h3>
-                      </v-layout>
-                      <v-date-picker :min="today"
-                                     locale="pt-br"
-                                     v-model="startDate"
-                      >
-                      </v-date-picker>
-                    </v-flex>
-                  </v-slide-x-reverse-transition>
 
-                  <v-slide-x-transition>
-                    <v-flex md6 lg8 v-show="startDateSelected">
-                      <v-layout mb2>
-                        <h3 class="ml-3 grey--text">Último dia</h3>
-                      </v-layout>
-                      <v-date-picker :min="startDate"
-                                     v-model="endDate"
-                                     locale="pt-br"
-                      ></v-date-picker>
-                    </v-flex>
-                  </v-slide-x-transition>
-                </v-layout>
+            <DatePicker v-on:startDateChanged="startDate = $event"
+                        v-on:endDateChanged="endDate = $event"></DatePicker>
 
-              </v-flex>
-            </v-layout>
 
             <v-layout>
               <v-flex xs10 mt-4 offset-xs1 offset-sm1>
@@ -76,20 +49,7 @@
               </v-flex>
             </v-layout>
 
-            <v-container grid-list-md text-xs-center>
-              <v-layout row wrap>
-                <v-flex offset-xs1 offset-sm1>
-                  <v-layout row wrap>
-                    <v-flex xs4 v-for="i in 7" :key="i">
-                      <v-card :class="weekDaysSelected[i - 1] ? 'primary white--text' : 'light'"
-                              @click.native="selectWeekDay(i - 1)">
-                        <v-card-text class="px-0">{{weekDaysNames[i - 1]}}</v-card-text>
-                      </v-card>
-                    </v-flex>
-                  </v-layout>
-                </v-flex>
-              </v-layout>
-            </v-container>
+            <WeekDaysPicker v-on:weekDaysSelectedChange="weekDaysSelected = $event"></WeekDaysPicker>
 
             <v-layout row>
               <v-flex xs10 offset-xs1 sm6 offset-sm3>
@@ -126,7 +86,8 @@
 
 <script>
 
-  import Vue from 'vue'
+  import DatePicker from '../models/DateRangePicker'
+  import WeekDaysPicker from '../models/WeekDaysPicker'
 
   export default {
     name: "ColonyForm",
@@ -140,7 +101,7 @@
         startDateSelected: false,
         endDateSelected: false,
         startDate: (new Date()).toISOString().substr(0, 10),
-        weekDaysSelected: [false, false, false, false, false, false, false],
+        weekDaysSelected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
         endDate: '',
         description: '',
@@ -152,24 +113,13 @@
       },
       changedValue() {
       },
-      selectWeekDay(i) {
-        // this.weekDaysSelected[i] = !this.weekDaysSelected[i]
-        Vue.set(this.weekDaysSelected, i, !this.weekDaysSelected[i])
-      },
       formIsValid() {
 
       }
     },
-    watch: {
-      startDate: function (newVal) {
-        this.startDateSelected = true
-        if (this.endDate === '') {
-          this.endDate = newVal
-        }
-        if (Date.parse(this.endDate) < Date.parse(this.startDate)) {
-          this.endDate = this.startDate
-        }
-      }
+    components: {
+      DatePicker,
+      WeekDaysPicker
     }
   }
 </script>

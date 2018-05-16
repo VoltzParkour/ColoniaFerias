@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,11 +19,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ColonyForm.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ColonyForm.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
+            <state relative-caret-position="68">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
+              <folding>
+                <element signature="e#3252#3306#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeekDaysPicker.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateRangePicker.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -85,7 +104,10 @@
       <list>
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/forms/AddColony.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue" />
       </list>
     </option>
   </component>
@@ -1397,9 +1419,9 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="351" />
-    <option name="y" value="-21" />
-    <option name="width" value="1377" />
+    <option name="x" value="-1368" />
+    <option name="y" value="-8" />
+    <option name="width" value="1376" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -1447,6 +1469,14 @@
               <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
               <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ColoniaFerias" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
+              <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="router" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -1484,18 +1514,18 @@
       <option name="presentableId" value="Default" />
       <updated>1526048492949</updated>
       <workItem from="1526048497690" duration="19000" />
-      <workItem from="1526407189643" duration="12443000" />
+      <workItem from="1526407189643" duration="17586000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12462000" />
+    <option name="totallyTimeSpent" value="17605000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-1368" y="-8" width="1376" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21701112" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20403588" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -1555,10 +1585,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/forms/AddColony.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="80" column="23" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="23" />
+        <state relative-caret-position="68">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="e#3252#3306#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="62" selection-start-line="10" selection-start-column="62" selection-end-line="10" selection-end-column="62" />
         </state>
       </provider>
     </entry>

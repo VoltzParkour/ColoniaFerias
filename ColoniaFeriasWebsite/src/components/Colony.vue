@@ -1,28 +1,23 @@
 <template>
   <v-slide-y-transition mode="out-in">
-  <v-container fluid>
+    <v-container fluid>
       <v-container v-bind="{ [`grid-list-xl`]: true }" fluid
                    v-if="Colonies.length > 0">
-        <v-flex>
-          <v-card-actions>
-            <v-btn @click.stop="goColonyForm">Adicionar Colônia</v-btn>
-          </v-card-actions>
-        </v-flex>
         <v-layout row wrap>
           <v-flex xs4
                   v-for="colony in Colonies"
                   :key="colony.id">
             <v-card tile>
-              <v-card-title v-bind:style="styleHeader"> {{ colony.start_date }} - {{colony.end_date}}</v-card-title>
-              <!--<div>-->
-                <!--<div> {{ plan.price | priceFilter }}</div>-->
-                <!--<div> {{ plan.price | priceFilter}}</div>-->
-              <!--</div>-->
+              <v-card-title v-bind:style="styleHeader"> {{ colony.num_days }} dias</v-card-title>
+              <div>
+                <div> {{ plan.price | priceFilter }}</div>
+                <div> {{ plan.price | priceFilter}}</div>
+              </div>
               <!--<v-card-text> {{ plan.price }}</v-card-text>-->
               <!--<v-card-text> {{ plan.num_of_days }}</v-card-text>-->
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="primary"> Esta </v-btn>
+                <v-btn class="primary"> Adicionar ao Carrinho </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -36,7 +31,7 @@
           </v-card-actions>
         </v-flex>
       </v-container>
-  </v-container>
+    </v-container>
   </v-slide-y-transition>
 
 </template>
@@ -45,8 +40,8 @@
 
   export default {
     computed: {
-      Colonies() {
-        return this.$store.getters.colonies
+      Plan() {
+        return this.$store.getters.selectedPlan
       }
     },
     methods: {

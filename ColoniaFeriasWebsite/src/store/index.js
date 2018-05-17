@@ -30,46 +30,55 @@ export const store = new Vuex.Store({
     ],
     colonies: [],
     plans: [
-      {
-        id: 1,
-        price: 5990,
-        period: Constants.MORNING,
-        num_of_days: 7,
-      },
-      {
-        id: 2,
-        price: 5990,
-        period: Constants.AFTERNOON,
-        num_of_days: 7,
-      },
-      {
-        id: 3,
-        price: 5990 * 2,
-        period: Constants.WHOLE,
-        num_of_days: 7,
-      },
-      {
-        id: 4,
-        price: 990,
-        period: Constants.MORNING,
-        num_of_days: 7,
-      },
-      {
-        id: 5,
-        price: 990,
-        period: Constants.AFTERNOON,
-        num_of_days: 7,
-      },
-      {
-        id: 6,
-        price: 990 * 2,
-        period: Constants.WHOLE,
-        num_of_days: 7,
-      },
-    ]
+      // {
+      //   id: 1,
+      //   price: 5990,
+      //   period: Constants.MORNING,
+      //   num_of_days: 7,
+      // },
+      // {
+      //   id: 2,
+      //   price: 5990,
+      //   period: Constants.AFTERNOON,
+      //   num_of_days: 7,
+      // },
+      // {
+      //   id: 3,
+      //   price: 5990 * 2,
+      //   period: Constants.WHOLE,
+      //   num_of_days: 7,
+      // },
+      // {
+      //   id: 4,
+      //   price: 990,
+      //   period: Constants.MORNING,
+      //   num_of_days: 7,
+      // },
+      // {
+      //   id: 5,
+      //   price: 990,
+      //   period: Constants.AFTERNOON,
+      //   num_of_days: 7,
+      // },
+      // {
+      //   id: 6,
+      //   price: 990 * 2,
+      //   period: Constants.WHOLE,
+      //   num_of_days: 7,
+      // },
+    ],
+    selectedPlan: '',
   },
-  mutations: {},
-  action: {},
+  mutations: {
+    createColony (state, payload) {
+      state.colonies.push(payload)
+    }
+  },
+  actions: {
+    CreateColony ({commit}, payload) {
+      commit('createColony', payload)
+    }
+  },
   getters: {
     messages (state) {
       return state.messages.sort((messageA, messageB) => {
@@ -81,6 +90,9 @@ export const store = new Vuex.Store({
     },
     colonies (state) {
       return state.colonies
+    },
+    selectedPlan (state) {
+      return state.selectedPlan
     }
   }
 })

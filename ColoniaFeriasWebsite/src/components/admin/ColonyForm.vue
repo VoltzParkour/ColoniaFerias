@@ -27,8 +27,7 @@
                   label="Descrição"
                   id="descricao"
                   multi-line
-                  v-model="description"
-                  required></v-text-field>
+                  v-model="description"></v-text-field>
               </v-flex>
             </v-layout>
 
@@ -78,13 +77,17 @@
           <v-spacer></v-spacer>
           <v-btn flat
                  color="primary"
-                 @click.native="dialog = false"
                  :disabled="!formIsValid"
                  type="submit">Criar
           </v-btn>
-          <v-btn flat color="primary" @click.native="dialog = false">Cancelar</v-btn>
         </v-card-actions>
       </form>
+      <v-alert v-model="showAlert"
+               type="error"
+               dismissible
+                transition="slide-y-reverse-transition">
+        {{errorMessage}}
+      </v-alert>
     </v-container>
   </v-slide-y-transition>
 
@@ -112,16 +115,67 @@
         weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
         endDate: '',
         description: '',
-        imageUrl: ''
+        imageUrl: '',
+        errorMessage: '',
+        showAlert: false
+      }
+    },
+    watch: { weekDaysSelected: function(value) {
+          this.showAlert = false
+      }
+
+    },
+    computed: {
+      formIsValid() {
+        let start = new Date(this.startDate)
+        let end = new Date(this.endDate)
+        if (start > end) {
+          return false
+        }
+        let weekDaysEmpty = true
+        for (let weekDays in  this.weekDaysSelected) {
+          if (weekDays)
+            weekDaysEmpty = false
+        }
+        if (weekDaysEmpty){
+          return false
+        }
+        return true
       }
     },
     methods: {
       onCreateColony() {
+        let start = new Date(this.startDate)
+        let end = new Date(this.endDate)
+        if (start > end) {
+          this.errorMessage = 'Data final é anterior à data inicial'
+          this.showAlert = true
+          return false
+        }
+        let weekDaysEmpty = true
+        for (let weekDays in this.weekDaysSelected) {
+          if (this.weekDaysSelected[weekDays]) {
+            weekDaysEmpty = false
+          }
+        }
+        if (weekDaysEmpty){
+          this.errorMessage = 'Nenhum dia da semana selecionado'
+          this.showAlert = true
+          return false
+        }
+        let savedColonies = this.$store.getters.colonies
+        let colony = {
+          id: savedColonies.length,
+          plans: this.plans,
+          week_days: this.weekDaysSelected,
+          start_date: this.startDate,
+          end_date: this.endDate,
+          description: this.description,
+          title: this.title
+        }
+        this.$store.dispatch('CreateColony', colony)
       },
       changedValue() {
-      },
-      formIsValid() {
-
       }
     },
     components: {

@@ -51,21 +51,27 @@
 
             <WeekDaysPicker v-on:weekDaysSelectedChange="weekDaysSelected = $event"></WeekDaysPicker>
 
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm6 offset-sm3>
-                <v-text-field
-                  name="imageUrl"
-                  label="Url"
-                  id="imageUrl"
-                  v-model="imageUrl"
-                ></v-text-field>
+            <v-layout>
+              <v-flex xs10 mt-4 offset-xs1 offset-sm1>
+                <PlanAdder></PlanAdder>
               </v-flex>
             </v-layout>
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm6 offset-sm3>
-                <img height="150px" :src="imageUrl"/>
-              </v-flex>
-            </v-layout>
+
+            <!--<v-layout row>-->
+              <!--<v-flex xs10 offset-xs1 sm6 offset-sm3>-->
+                <!--<v-text-field-->
+                  <!--name="imageUrl"-->
+                  <!--label="Url"-->
+                  <!--id="imageUrl"-->
+                  <!--v-model="imageUrl"-->
+                <!--&gt;</v-text-field>-->
+              <!--</v-flex>-->
+            <!--</v-layout>-->
+            <!--<v-layout row>-->
+              <!--<v-flex xs10 offset-xs1 sm6 offset-sm3>-->
+                <!--<img height="150px" :src="imageUrl"/>-->
+              <!--</v-flex>-->
+            <!--</v-layout>-->
           </v-flex>
         </v-layout>
         <v-card-actions>
@@ -88,6 +94,7 @@
 
   import DatePicker from '../models/DateRangePicker'
   import WeekDaysPicker from '../models/WeekDaysPicker'
+  import PlanAdder from '../models/PlanAdder'
 
   export default {
     name: "ColonyForm",
@@ -119,7 +126,8 @@
     },
     components: {
       DatePicker,
-      WeekDaysPicker
+      WeekDaysPicker,
+      PlanAdder
     }
   }
 </script>

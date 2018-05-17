@@ -166,7 +166,7 @@
         let savedColonies = this.$store.getters.colonies
         let colony = {
           id: savedColonies.length,
-          plans: this.plans,
+          plans: this.$store.getters.selectedPlans,
           week_days: this.weekDaysSelected,
           start_date: this.startDate,
           end_date: this.endDate,

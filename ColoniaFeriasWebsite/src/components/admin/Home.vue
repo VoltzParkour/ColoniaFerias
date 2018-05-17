@@ -13,7 +13,7 @@
                   v-for="colony in Colonies"
                   :key="colony.id">
             <v-card tile>
-              <v-card-title v-bind:style="styleHeader"> {{ colony.start_date }} - {{colony.end_date}}</v-card-title>
+              <v-card-title> {{ colony.start_date }} - {{colony.end_date}}</v-card-title>
               <!--<div>-->
                 <!--<div> {{ plan.price | priceFilter }}</div>-->
                 <!--<div> {{ plan.price | priceFilter}}</div>-->
@@ -22,7 +22,7 @@
               <!--<v-card-text> {{ plan.num_of_days }}</v-card-text>-->
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="primary"> Esta </v-btn>
+                <v-btn class="primary" @click.stop="goColony(colony)"> Esta </v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -51,7 +51,11 @@
     },
     methods: {
       goColonyForm() {
-        this.$router.push({ name: "ColonyForm" });
+        this.$router.push({ name: "ColonyForm" })
+      },
+      goColony(colony) {
+        this.$store.dispatch('selectColony', colony)
+        this.$router.push({name: "Colony"})
       }
     }
   }

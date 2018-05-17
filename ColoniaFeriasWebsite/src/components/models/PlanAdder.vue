@@ -101,11 +101,10 @@
           price: this.price.substring(1, this.price.length),
           num_days: this.numDays
         }
-        console.log(plan.price)
-        console.log(plan.num_days)
         this.plans.push(plan)
         this.$emit('addPlan', this.plans)
         this.dialog = false
+        this.$store.dispatch('setCreatePlans', this.plans)
       },
     },
     components: {

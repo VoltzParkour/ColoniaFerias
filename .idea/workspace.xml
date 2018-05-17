@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,8 +28,8 @@
       <file leaf-file-name="ColonyForm.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="100" selection-start-line="99" selection-end-line="100" />
+            <state relative-caret-position="240">
+              <caret line="171" column="33" selection-start-line="171" selection-start-column="33" selection-end-line="171" selection-end-column="33" />
               <folding>
                 <element signature="e#2900#2950#0" expanded="true" />
               </folding>
@@ -40,8 +40,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+            <state relative-caret-position="1275">
+              <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -52,26 +52,17 @@
       <file leaf-file-name="PlanAdder.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="108" column="8" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
+            <state relative-caret-position="391">
+              <caret line="106" selection-start-line="106" selection-end-line="106" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlanCard.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PlanCard.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WeekDaysPicker.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-291">
-              <caret line="9" column="66" selection-start-line="9" selection-start-column="63" selection-end-line="9" selection-end-column="66" />
+            <state relative-caret-position="187">
+              <caret line="41" column="16" lean-forward="true" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -100,17 +91,17 @@
       <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="274">
+              <caret line="56" column="42" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="42" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Colony.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Colony.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+            <state relative-caret-position="153">
+              <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -140,6 +131,7 @@
       <find>i</find>
       <find>form</find>
       <find>price</find>
+      <find>style</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,16 +140,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/forms/AddColony.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCard.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" />
       </list>
     </option>
   </component>
@@ -278,12 +270,12 @@
       <updated>1526048492949</updated>
       <workItem from="1526048497690" duration="19000" />
       <workItem from="1526407189643" duration="31665000" />
-      <workItem from="1526563678745" duration="11516000" />
+      <workItem from="1526563678745" duration="14239000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43200000" />
+    <option name="totallyTimeSpent" value="45923000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -381,20 +373,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-563">
-          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="53" selection-start-line="4" selection-start-column="53" selection-end-line="4" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -412,51 +390,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js">
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+        <state relative-caret-position="274">
+          <caret line="56" column="42" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="100" selection-start-line="99" selection-end-line="100" />
+        <state relative-caret-position="240">
+          <caret line="171" column="33" selection-start-line="171" selection-start-column="33" selection-end-line="171" selection-end-column="33" />
           <folding>
             <element signature="e#2900#2950#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue">
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/DateRangePicker.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="108" column="8" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
+        <state relative-caret-position="-563">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+        <state relative-caret-position="187">
+          <caret line="41" column="16" lean-forward="true" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/store/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
         </state>
       </provider>
     </entry>

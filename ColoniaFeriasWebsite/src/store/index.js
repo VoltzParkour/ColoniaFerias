@@ -12,6 +12,7 @@ const vuexLocalStorage = new VuexPersist({
 
 import Constants from '../utility/constants'
 
+// localStorage.removeItem('vuex')
 
 export const store = new Vuex.Store({
   plugins: [vuexLocalStorage.plugin],
@@ -67,16 +68,29 @@ export const store = new Vuex.Store({
       //   num_of_days: 7,
       // },
     ],
-    selectedPlan: '',
+    selectedColony: '',
+    selectedPlans: '',
   },
   mutations: {
-    createColony (state, payload) {
+    addColony (state, payload) {
       state.colonies.push(payload)
+    },
+    setSelectedColony (state, payload) {
+      state.selectedColony = payload
+    },
+    setSelectedPlans (state, payload) {
+      state.selectedPlans = payload
     }
   },
   actions: {
     CreateColony ({commit}, payload) {
-      commit('createColony', payload)
+      commit('addColony', payload)
+    },
+    selectColony ({commit}, payload) {
+      commit('setSelectedColony', payload)
+    },
+    setCreatePlans({commit}, payload) {
+      commit('setSelectedPlans', payload)
     }
   },
   getters: {
@@ -85,14 +99,14 @@ export const store = new Vuex.Store({
         return messageA.sent > messageB.sent
       })
     },
-    plans (state) {
-      return state.plans
+    selectedPlans (state) {
+      return state.selectedPlans
     },
     colonies (state) {
       return state.colonies
     },
-    selectedPlan (state) {
-      return state.selectedPlan
+    selectedColony (state) {
+      return state.selectedColony
     }
   }
 })

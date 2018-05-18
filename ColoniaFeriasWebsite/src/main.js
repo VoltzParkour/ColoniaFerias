@@ -6,6 +6,7 @@ import router from './router'
 import { store } from './store'
 import * as firebase from 'firebase'
 import PriceFilter from './filters/price'
+import MonthNameFilter from './filters/month_name'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -22,6 +23,7 @@ Vue.use(Vuetify, { theme: {
 Vue.config.productionTip = false
 
 Vue.filter('priceFilter', PriceFilter)
+Vue.filter('monthNameFilter', MonthNameFilter)
 
 /* eslint-disable no-new */
 new Vue({

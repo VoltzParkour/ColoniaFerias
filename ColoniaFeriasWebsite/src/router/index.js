@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
-import Colony from '@/components/Colony'
+import Colony from '@/components/admin/Colony'
 
 Vue.use(Router)
 

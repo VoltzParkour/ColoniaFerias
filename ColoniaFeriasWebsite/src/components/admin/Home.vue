@@ -24,7 +24,7 @@
                     <v-icon>close</v-icon>
                   </v-btn>
                 </v-card-actions>
-                <h3 class="top_left_header">{{ dateGetYear(colony.start_date)}} </h3>
+                <h3 class="top_left_header grey--text">{{ dateGetYear(colony.start_date)}} </h3>
               </v-card-text>
               <v-card-title>
                 <v-layout row wrap>

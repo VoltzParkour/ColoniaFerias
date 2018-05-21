@@ -32,7 +32,7 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
-  created () {
+  created: function() {
     var config = {
       apiKey: "AIzaSyApZlXNnuN_bChc3PIbPs4ikI6inLussy4",
       authDomain: "coloniaferiasvoltz.firebaseapp.com",

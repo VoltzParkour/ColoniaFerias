@@ -40,9 +40,9 @@
         name: "DateRangePicker",
       data () {
           return {
-            startDateSelected: false,
-            startDate: (new Date()).toISOString().substr(0, 10),
-            endDate: '',
+            startDateSelected: this.$store.getters.selectedColony === null ? false : true,
+            startDate: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.start_date,
+            endDate: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.end_date,
             today: new Date().toISOString(),
           }
       },

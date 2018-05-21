@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 import router from '../router'
 import VuexPersist from 'vuex-persist/dist/index'
 
@@ -12,7 +13,7 @@ const vuexLocalStorage = new VuexPersist({
 
 import Constants from '../utility/constants'
 
-// localStorage.removeItem('vuex')
+localStorage.removeItem('vuex')
 
 export const store = new Vuex.Store({
   plugins: [vuexLocalStorage.plugin],
@@ -68,26 +69,120 @@ export const store = new Vuex.Store({
       //   num_of_days: 7,
       // },
     ],
-    selectedColony: '',
+    selectedColony: null,
+    colonyParticipants: '',
     selectedPlans: '',
   },
   mutations: {
     addColony (state, payload) {
       state.colonies.push(payload)
     },
+    setColonies (state, payload) {
+      state.colonies = payload
+    },
     setSelectedColony (state, payload) {
       state.selectedColony = payload
+    },
+    clearSelectedColony (state, payload) {
+      state.selectedColony = null
+    },
+    setColonyParticipants (state, payload) {
+      state.colonyParticipants = payload
     },
     setSelectedPlans (state, payload) {
       state.selectedPlans = payload
     }
   },
   actions: {
-    CreateColony ({commit}, payload) {
-      commit('addColony', payload)
+    CreateColony ({commit, getters}, payload) {
+      if (getters.selectedColony != null) {
+        firebase.database().ref('Colonies').child(getters.selectedColony.id)
+          .set(payload)
+          .then(
+            (data) => {
+
+            }
+          )
+      } else {
+        firebase.database().ref('Colonies').push(payload)
+          .then((data) => {
+            // console.log(data)
+            // commit('addColony', payload)
+            router.push('/admin')
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+    },
+    LoadColonies ({commit}) {
+      // firebase.database().ref('Colonies').on('value')
+      firebase.database().ref('Colonies').once('value')
+        .then(
+          (data) => {
+            const colonies = []
+            const obj = data.val()
+            for (let key in obj) {
+              colonies.push({
+                id: key,
+                title: obj[key].title,
+                description: obj[key].description,
+                start_date: obj[key].start_date,
+                end_date : obj[key].end_date,
+                plans: obj[key].plans,
+                week_days: obj[key].week_days
+              })
+            }
+            commit('setColonies', colonies)
+          }
+        )
+        .catch(
+          (error) => {
+            console.log(error)
+          }
+        )
+    },
+    LoadColonyParticipants ({commit, getters}) {
+      firebase.database().ref('colony_buyers').child(getters.selectedColony.id).once('value')
+        .then(
+          (data) => {
+            const colony_buyers = []
+            const obj = data.val()
+            for (let key in obj) {
+              let colonyParticipant = {
+                cpf: key,
+                name: obj[key].name,
+                age: obj[key].age,
+                responsable : obj[key].responsable,
+                days: obj[key].days
+              }
+              let days = []
+              for (let selectedDay in obj[key].days) {
+                days.push({
+                  day: selectedDay,
+                  morning: obj[key].days[selectedDay].morning,
+                  afternoon: obj[key].days[selectedDay].afternoon
+                })
+              }
+              colonyParticipant = {
+                colonyParticipant,
+                days
+              }
+              colony_buyers.push(
+                colonyParticipant)
+            }
+            commit('setColonyParticipants', colony_buyers)
+          }
+        )
     },
     selectColony ({commit}, payload) {
       commit('setSelectedColony', payload)
+    },
+    deleteColony ({commit}, payload) {
+
+    },
+    clearSelectedColony ({commit}) {
+      commit('clearSelectedColony')
     },
     setCreatePlans({commit}, payload) {
       commit('setSelectedPlans', payload)
@@ -104,6 +199,9 @@ export const store = new Vuex.Store({
     },
     colonies (state) {
       return state.colonies
+    },
+    colonyParticipants (state) {
+      return state.colonyParticipants
     },
     selectedColony (state) {
       return state.selectedColony

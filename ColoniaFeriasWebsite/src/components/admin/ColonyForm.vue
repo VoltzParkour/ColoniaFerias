@@ -78,7 +78,7 @@
           <v-btn flat
                  color="primary"
                  :disabled="!formIsValid"
-                 type="submit">Criar
+                 type="submit">{{ addString }}
           </v-btn>
         </v-card-actions>
       </form>
@@ -104,17 +104,17 @@
     data() {
       return {
         id: (new Date()).getMilliseconds(),
-        title: '',
+        title: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.title,
         createDate: '',
         //2018-05-18
         today: new Date().toISOString(),
         startDateSelected: false,
         endDateSelected: false,
-        startDate: (new Date()).toISOString().substr(0, 10),
-        weekDaysSelected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        startDate: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.start_date,
+        weekDaysSelected: this.$store.getters.selectedColony === null ? [false, false, false, false, false, false, false, false, false, false, false, false, false, false] : this.$store.getters.selectedColony.week_days,
         weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
-        endDate: '',
-        description: '',
+        endDate: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.end_date,
+        description: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.description,
         imageUrl: '',
         errorMessage: '',
         showAlert: false
@@ -126,21 +126,11 @@
 
     },
     computed: {
-      formIsValid() {
-        let start = new Date(this.startDate)
-        let end = new Date(this.endDate)
-        if (start > end) {
-          return false
+      addString() {
+        if (this.$store.getters.selectedColony) {
+          return 'Editar'
         }
-        let weekDaysEmpty = true
-        for (let weekDays in  this.weekDaysSelected) {
-          if (weekDays)
-            weekDaysEmpty = false
-        }
-        if (weekDaysEmpty){
-          return false
-        }
-        return true
+        return 'Criar'
       }
     },
     methods: {
@@ -165,7 +155,6 @@
         }
         let savedColonies = this.$store.getters.colonies
         let colony = {
-          id: savedColonies.length,
           plans: this.$store.getters.selectedPlans,
           week_days: this.weekDaysSelected,
           start_date: this.startDate,
@@ -176,12 +165,36 @@
         this.$store.dispatch('CreateColony', colony)
       },
       changedValue() {
-      }
+      },
+      formIsValid() {
+        let start = new Date(this.startDate)
+        let end = new Date(this.endDate)
+        if (start > end) {
+          return false
+        }
+        let weekDaysEmpty = true
+        for (let weekDays in  this.weekDaysSelected) {
+          if (weekDays)
+            weekDaysEmpty = false
+        }
+        if (weekDaysEmpty){
+          return false
+        }
+        return true
+      },
     },
     components: {
       DatePicker,
       WeekDaysPicker,
       PlanAdder
+    },
+    beforeMount () {
+      let selectedColony = this.$store.getters.selectedColony
+      if (selectedColony != null) {
+        this.startDate = selectedColony.start_date
+        this.endDate = selectedColony.end_date
+        this.weekDaysSelected = selectedColony.week_days
+      }
     }
   }
 </script>

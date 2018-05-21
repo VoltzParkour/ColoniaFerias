@@ -33,7 +33,7 @@
     name: "WeekDaysPicker",
     data() {
       return {
-        weekDaysSelected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        weekDaysSelected: this.$store.getters.selectedColony === null ? [false, false, false, false, false, false, false, false, false, false, false, false, false, false] : this.$store.getters.selectedColony.week_days,
         weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
       }
     },

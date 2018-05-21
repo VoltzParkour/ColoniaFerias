@@ -16,7 +16,15 @@
           >
             <v-card tile>
               <v-card-text>
-                <h3 class="top_right_header">{{ dateGetYear(colony.start_date)}} </h3>
+                <v-card-actions class="top_right_header">
+                  <v-btn flat class="primary--text" @click.stop="editColony(colony)">
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn flat class="primary--text" @click.stop="eraseColony">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </v-card-actions>
+                <h3 class="top_left_header">{{ dateGetYear(colony.start_date)}} </h3>
               </v-card-text>
               <v-card-title>
                 <v-layout row wrap>
@@ -76,18 +84,29 @@
         this.$store.dispatch('selectColony', colony)
         this.$router.push({name: "Colony"})
       },
+      editColony(colony) {
+        this.$store.dispatch('selectColony', colony)
+        this.$router.push({name: "ColonyForm"})
+      },
+      eraseColony(colony) {
+        this.$store.dispatch('deleteColony', colony)
+      },
       dateGetDay(dateString) {
         let date = new Date(dateString)
-        return date.getDay()
+        return date.getUTCDate()
       },
       dateGetMonth(dateString) {
         let date = new Date(dateString)
-        return date.getMonth()
+        return date.getMonth() + 1
       },
       dateGetYear(dateString) {
         let date = new Date(dateString)
         return date.getFullYear()
       }
+    },
+    beforeMount() {
+      this.$store.dispatch('LoadColonies')
+      this.$store.dispatch('clearSelectedColony')
     }
   }
 </script>
@@ -102,8 +121,17 @@
   }
 
   .top_right_header {
-    top: 10px
-    right: 16px
+    top: 0px
+    left: 196px
+    position: absolute
+    max-width 36px
+    max-height 36px
+    z-index 2
+  }
+
+  .top_left_header {
+    top: 6px
+    left: 16px
     position: absolute
     max-width 36px
     max-height 36px

@@ -20,7 +20,7 @@
                   <v-btn flat class="primary--text" @click.stop="editColony(colony)">
                     <v-icon>edit</v-icon>
                   </v-btn>
-                  <v-btn flat class="primary--text" @click.stop="eraseColony">
+                  <v-btn flat class="primary--text" @click.stop="showDeleteDialog(colony)">
                     <v-icon>close</v-icon>
                   </v-btn>
                 </v-card-actions>
@@ -63,6 +63,26 @@
           </v-card-actions>
         </v-flex>
       </v-container>
+
+
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            <h3>Apagar Colônia</h3>
+            <v-spacer></v-spacer>
+          </v-card-title>
+          <v-card-text>
+            <span>Tem certeza que deseja apagar esta colônia?</span>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" flat @click.stop="eraseColony">Apagar</v-btn>
+            <v-btn color="primary" flat @click.stop="dialog=false">Cancelar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+
     </v-container>
   </v-slide-y-transition>
 
@@ -71,6 +91,12 @@
 <script>
 
   export default {
+    data () {
+      return {
+        dialog: false,
+        selectedColonyToDelete: ''
+      }
+    },
     computed: {
       Colonies() {
         return this.$store.getters.colonies
@@ -88,8 +114,13 @@
         this.$store.dispatch('selectColony', colony)
         this.$router.push({name: "ColonyForm"})
       },
-      eraseColony(colony) {
-        this.$store.dispatch('deleteColony', colony)
+      showDeleteDialog(colony) {
+        this.selectedColonyToDelete = colony
+        this.dialog = true
+      },
+      eraseColony() {
+        this.$store.dispatch('deleteColony', this.selectedColonyToDelete)
+        this.dialog = false
       },
       dateGetDay(dateString) {
         let date = new Date(dateString)

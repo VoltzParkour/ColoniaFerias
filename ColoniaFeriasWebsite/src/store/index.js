@@ -80,6 +80,9 @@ export const store = new Vuex.Store({
     setColonies (state, payload) {
       state.colonies = payload
     },
+    removeColony (state, payload) {
+      state.colonies.splice(payload, 1)
+    },
     setSelectedColony (state, payload) {
       state.selectedColony = payload
     },
@@ -178,8 +181,20 @@ export const store = new Vuex.Store({
     selectColony ({commit}, payload) {
       commit('setSelectedColony', payload)
     },
-    deleteColony ({commit}, payload) {
-
+    deleteColony ({commit, getters}, payload) {
+      firebase.database().ref('Colonies')
+        .child(payload.id)
+        .remove()
+        .then(
+          (data) => {
+            for (let i = 0; i < getters.colonies.length; i++) {
+              if (payload.id === getters.colonies[i].id) {
+                commit('removeColony', i)
+              }
+            }
+            // location.reload()
+          }
+        )
     },
     clearSelectedColony ({commit}) {
       commit('clearSelectedColony')

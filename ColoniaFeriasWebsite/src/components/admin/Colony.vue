@@ -29,7 +29,7 @@
                 :headers="headers"
                 :items="getParticipantByDate(date)"
                 hide-actions
-                item-key="period"
+                item-key="cpfPart"
                 class="elevation-1"
                 no-data-text="Ninguem para este dia"
               >
@@ -43,7 +43,7 @@
                 </template>
                 <template slot="expand" slot-scope="props">
                   <v-card flat>
-                    <v-card-text>{{ props.item.participant.responsable }}</v-card-text>
+                    <v-card-text>Responsável: {{ props.item.participant.responsable }}</v-card-text>
                   </v-card>
                 </template>                
               </v-data-table>
@@ -134,10 +134,13 @@
                   period = 'Tarde'
                 }
               }
+              let cpfPart = colonyParticipants[colonyParticipant]['colonyParticipant'].cpf
+              
               let participant = colonyParticipants[colonyParticipant]['colonyParticipant']
               participants.push({
                 participant,
-                period
+                period,
+                cpfPart
               })
             }
           }

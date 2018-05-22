@@ -69,6 +69,7 @@ export const store = new Vuex.Store({
       //   num_of_days: 7,
       // },
     ],
+    cart: [],
     selectedColony: null,
     colonyParticipants: '',
     selectedPlans: '',
@@ -94,6 +95,9 @@ export const store = new Vuex.Store({
     },
     setSelectedPlans (state, payload) {
       state.selectedPlans = payload
+    },
+    addPlanToCart (state, payload) {
+      state.cart.push(payload)
     }
   },
   actions: {
@@ -133,7 +137,8 @@ export const store = new Vuex.Store({
                 start_date: obj[key].start_date,
                 end_date : obj[key].end_date,
                 plans: obj[key].plans,
-                week_days: obj[key].week_days
+                week_days: obj[key].week_days,
+                active: true
               })
             }
             commit('setColonies', colonies)
@@ -201,6 +206,9 @@ export const store = new Vuex.Store({
     },
     setCreatePlans({commit}, payload) {
       commit('setSelectedPlans', payload)
+    },
+    addPlanToCart ({commit}, payload) {
+      commit('addPlanToCart', payload)
     }
   },
   getters: {
@@ -220,6 +228,9 @@ export const store = new Vuex.Store({
     },
     selectedColony (state) {
       return state.selectedColony
+    },
+    cart (state) {
+      return state.cart
     }
   }
 })

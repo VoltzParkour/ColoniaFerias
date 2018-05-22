@@ -7,6 +7,9 @@ import { store } from './store'
 import * as firebase from 'firebase'
 import PriceFilter from './filters/price'
 import MonthNameFilter from './filters/month_name'
+import MonthNameFullDateFilter from './filters/month_name_from_full_date'
+import DayFilter from './filters/day'
+import YearFilter from './filters/year'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -24,6 +27,9 @@ Vue.config.productionTip = false
 
 Vue.filter('priceFilter', PriceFilter)
 Vue.filter('monthNameFilter', MonthNameFilter)
+Vue.filter('monthNameFullDateFilter', MonthNameFullDateFilter)
+Vue.filter('dayFilter', DayFilter)
+Vue.filter('yearFilter', YearFilter)
 
 /* eslint-disable no-new */
 new Vue({

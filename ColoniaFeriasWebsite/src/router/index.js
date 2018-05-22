@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
+import Cart from '@/components/client/Cart'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/colony',
       name: 'Colony',
       component: Colony
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
   ]
 })

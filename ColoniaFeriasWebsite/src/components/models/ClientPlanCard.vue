@@ -3,37 +3,38 @@
     <v-layout row wrap>
       <v-flex>
         <v-card>
-          <v-card-text class="grey lighten-5 header_text_box">
-            <v-layout row wrap>
-              <h1 class="header ml-4 mt-3">{{ plan.num_days }}</h1>
-              <v-flex>
-                <v-select
-                  :items="items"
-                  v-model="selection"
-                  label="Período"
-                  single-line
-                ></v-select>
-              </v-flex>
-            </v-layout>
-            <h2 class="sub-header ml-2">dias</h2>
-
-          </v-card-text>
-          <v-card-text style="height: 56px; position: relative">
-            <v-btn
-              absolute
-              fab
-              top
-              right
-              color="primary--text"
-              @click.stop="addPlanToCart"
-            >
-              <v-icon>add_shopping_cart</v-icon>
-            </v-btn>
-            <h3 class="bottom">
-              {{ plan.price | priceFilter}}
-            </h3>
-          </v-card-text>
-        </v-card>
+        <v-card-media :src="this.backgroundImage" height="120px">
+        </v-card-media>
+            <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
+              <v-layout row wrap>
+                <h1 class="header ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</h1>
+                <v-flex>
+                  <v-select
+                    :items="items"
+                    v-model="selection"
+                    label="Período"
+                    single-line
+                  ></v-select>
+                </v-flex>
+              </v-layout>
+              <h2 class="body-2 grey--text" style="margin-top: -23px; margin-left: -7px">DIAS</h2>
+            </v-card-text>
+            <v-card-text class="green lighten-5"  style="height: 56px; position: relative">
+              <v-btn
+                absolute
+                fab
+                top
+                right
+                color="success white--text"
+                @click.stop="addPlanToCart"
+              >
+                <v-icon>add_shopping_cart</v-icon>
+              </v-btn>
+              <h3 class="bottom fontsp">
+                Total parcial: {{ plan.price | priceFilter}}
+              </h3>
+            </v-card-text>
+          </v-card>
         <v-alert :value="alert" type="error">
           Escolha um período.
         </v-alert>
@@ -50,7 +51,8 @@
       return {
         items: ['Manhã', 'Tarde', 'Integral'],
         selection: '',
-        alert: false
+        alert: false,
+        backgroundImage: 'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg'
       }
     },
     methods: {
@@ -64,7 +66,11 @@
           }
           this.$store.dispatch('addPlanToCart', plan)
         }
-      }
+      },
+      calculate () {
+        
+      },
+      
     },
     watch: {
       selection: function(data) {

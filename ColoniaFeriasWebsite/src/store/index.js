@@ -28,8 +28,9 @@ export const store = new Vuex.Store({
         imageUrl: 'https://www.timeshighereducation.com/sites/default/files/istock-499343530.jpg',
         id: 'second',
         title: 'Title Second'
-      }
+      },
     ],
+    messages: [],
     colonies: [],
     plans: [
       // {

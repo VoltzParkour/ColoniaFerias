@@ -35,7 +35,10 @@
               </h3>
             </v-card-text>
           </v-card>
-        <v-alert :value="alert" type="error">
+        <v-alert v-model="success" type="success" dismissible>
+          Plano adicionado ao carrinho!
+        </v-alert>
+        <v-alert :value="alert" type="error" dismissable>
           Escolha um período.
         </v-alert>
       </v-flex>
@@ -52,6 +55,7 @@
         items: ['Manhã', 'Tarde', 'Integral'],
         selection: '',
         alert: false,
+        success: false,
         backgroundImage: 'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg'
       }
     },
@@ -64,6 +68,7 @@
             plan: this.plan,
             period: this.selection.replace('ã', 'a').toLowerCase()
           }
+          this.success = true
           this.$store.dispatch('addPlanToCart', plan)
         }
       },

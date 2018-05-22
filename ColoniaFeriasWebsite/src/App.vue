@@ -28,15 +28,20 @@
       app
       :clipped-left="clipped"
       class=""
-      flat
-    >
-    <v-divider  class="primary ml-0" style="height: 5px"></v-divider>
+      flat>
+      <v-toolbar-items class="ml-0 mr-0">
+        <v-btn small flat @click.stop="goHome" class="primary" light>
+          <v-icon>home</v-icon>
+          <v-card-text>Início</v-card-text>
+        </v-btn>
+      </v-toolbar-items>
+    <v-divider  class="primary mr-2 ml-0" style="height: 15px"></v-divider>
     <img src='http://voltzparkour.com/blogs/logo.png' width="110px" >
-    <v-divider  class="primary mr-0" style="height: 5px"></v-divider>
+    <v-divider  class="primary ml-3 mr-0" style="height: 15px"></v-divider>
       <v-toolbar-items>
-        <v-btn v-show="1" flat @click.stop="goCart">
+        <v-btn small flat @click.stop="goCart" class="primary" light>
           <v-icon>shopping_cart</v-icon>
-          <v-card-text>{{ cart.length }}</v-card-text>
+          <v-card-text>{{ cart.length == 0 ? 'nenhum': cart.length}} plano{{cart.length > 1 ? 's':''}}  (R${{cartTotal}})</v-card-text>
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -49,10 +54,10 @@
     <v-footer :fixed="fixed" app class="primaryt">
       <span>  Voltz&copy; 2018</span>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click.stop="goAdmin">
-        <v-icon>account_circle</v-icon>
-      </v-toolbar-side-icon>
-      <span class="mr-1" @click.stop="goAdmin">Admin</span>
+        <v-btn small flat @click.stop="goAmin" class="primary" light>
+          <v-icon>account_circle</v-icon>
+          <v-card-text>ADMIN</v-card-text>
+        </v-btn>
     </v-footer>
   </v-app>
 </template>
@@ -79,13 +84,25 @@
     goAdmin () {
       this.$router.push({ name: "Admin" });
     },
-      goCart() {
+    goCart () {
         this.$router.push({name: "Cart"})
-      }
+      },
+    goHome () {
+      this.$router.push({ name: "Home"})
+    }
     },
     computed: {
       cart () {
         return this.$store.getters.cart
+      },
+      cartTotal () {
+        let total = 0
+        console.log(this.cart)
+        for (let i in this.cart) {
+          console.log(this.cart[i])
+          total = total + parseInt(this.cart[i].plan.price)
+        }
+        return (total/100).toString().replace('.',',')
       }
     },
     name: 'App'

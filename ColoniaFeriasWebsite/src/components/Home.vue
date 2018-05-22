@@ -14,7 +14,7 @@
                   <span class="display-2 right fontsp">{{ colony.title }} -</span>
                 </v-flex>
                 <v-flex style="margin-top: 10px">
-                  <span class="headline fontsp">{{ colony.start_date | dayFilter }} de {{ colony.start_date | monthNameFullDateFilter }} - 
+                  <span class="headline fontsp">{{ colony.start_date | dayFilter }} de {{ colony.start_date | monthNameFullDateFilter }} até 
                         {{ colony.end_date | dayFilter }} de {{ colony.end_date | monthNameFullDateFilter }}</span>
                 </v-flex>
               </v-layout>

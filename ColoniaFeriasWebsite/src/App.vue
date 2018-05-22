@@ -30,23 +30,15 @@
       class=""
       flat
     >
-<<<<<<< HEAD
     <v-divider  class="primary ml-0" style="height: 5px"></v-divider>
     <img src='http://voltzparkour.com/blogs/logo.png' width="110px" >
     <v-divider  class="primary mr-0" style="height: 5px"></v-divider>
-=======
-      <v-toolbar-side-icon @click.stop="goAdmin">
-        <v-icon>account_circle</v-icon>
-      </v-toolbar-side-icon>
-      <v-toolbar-title class="accent--text" v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn v-show="cart.length > 0" flat @click.stop="goCart">
+        <v-btn v-show="1" flat @click.stop="goCart">
           <v-icon>shopping_cart</v-icon>
           <v-card-text>{{ cart.length }}</v-card-text>
         </v-btn>
       </v-toolbar-items>
->>>>>>> d0ee6d034c420223a09bec9b9097b37fa6c8d162
     </v-toolbar>
     <v-content>
       <div >
@@ -79,30 +71,14 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Voltz'
-<<<<<<< HEAD
-      }],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Voltz',
-      backgroundImage: 'http://voltzparkour.com/blogs/back.png'
+        title: 'Voltz',
+        backgroundImage: 'http://voltzparkour.com/blogs/back.png'
     }
   },
   methods: {
     goAdmin () {
       this.$router.push({ name: "Admin" });
-    }
-  },
-  name: 'App'
-}
-=======
-      }
     },
-    methods: {
-      goAdmin() {
-        this.$router.push({name: "Admin"});
-      },
       goCart() {
         this.$router.push({name: "Cart"})
       }
@@ -114,7 +90,6 @@
     },
     name: 'App'
   }
->>>>>>> d0ee6d034c420223a09bec9b9097b37fa6c8d162
 </script>
 
 <style>

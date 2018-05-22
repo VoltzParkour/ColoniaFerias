@@ -4,21 +4,18 @@
       <v-container v-bind="{ [`grid-list-xl`]: true }" fluid>
         <v-layout row wrap>
           <v-flex xs4
-                  v-for="plan in plans"
-                  :key="plan.id">
-            <v-card tile>
-              <v-card-title v-bind:style="styleHeader"> {{ plan.num_of_days }} dias</v-card-title>
-              <div>
-                <div> {{ plan.price | priceFilter }}</div>
-                <div> {{ plan.price | priceFilter}}</div>
-              </div>
-              <!--<v-card-text> {{ plan.price }}</v-card-text>-->
-              <!--<v-card-text> {{ plan.num_of_days }}</v-card-text>-->
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn class="primary"> Adicionar ao Carrinho </v-btn>
-              </v-card-actions>
-            </v-card>
+                  v-for="colony in colonies"
+                  :key="colony.id"
+          v-if="colony.active">
+            <h1>{{ colony.title }}</h1>
+            <h2>{{ colony.start_date | dayFilter }} de {{ colony.start_date | monthNameFullDateFilter }} - {{ colony.end_date | dayFilter }} de {{ colony.end_date | monthNameFullDateFilter }}</h2>
+            <v-container grid-list-md>
+              <v-layout row wrap>
+                <v-flex v-for="plan in colony.plans" :key="plan.id">
+                  <plan-card :plan="plan"></plan-card>
+                </v-flex>
+              </v-layout>
+            </v-container>
           </v-flex>
         </v-layout>
       </v-container>
@@ -27,6 +24,8 @@
 </template>
 
 <script>
+  import PlanCard from './models/ClientPlanCard'
+
   export default {
     data () {
       return {
@@ -38,10 +37,16 @@
       }
     },
     computed: {
-      plans() {
-        return this.$store.getters.plans
+      colonies() {
+        return this.$store.getters.colonies
       }
-    }
+    },
+    beforeMount() {
+      this.$store.dispatch('LoadColonies')
+    },
+    components: {
+      PlanCard
+    },
   }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

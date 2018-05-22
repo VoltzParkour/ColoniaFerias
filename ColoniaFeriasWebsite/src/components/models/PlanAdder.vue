@@ -78,7 +78,7 @@
 </template>
 
 <script>
-  import PlanCard from '../models/PlanCard'
+  import PlanCard from './PlanCardList'
 
   export default {
     name: "PlanAdder",

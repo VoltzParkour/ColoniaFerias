@@ -14,7 +14,7 @@
       </v-layout>
 
       <v-expansion-panel>
-        <v-expansion-panel-content v-for="date in ArrayOfDays" :key="date">
+        <v-expansion-panel-content v-for="date in ArrayOfDays" @click="$refs[modal.ref].open()" :key="date">
           <div slot="header">{{ date.substring(7, date.length) }} de {{ dateGetMonth(date) | monthNameFilter }} de {{
             date.substring(0, 4)}}
           </div>
@@ -29,15 +29,23 @@
                 :headers="headers"
                 :items="getParticipantByDate(date)"
                 hide-actions
+                item-key="period"
                 class="elevation-1"
                 no-data-text="Ninguem para este dia"
               >
                 <template slot="items" slot-scope="props">
+                 <tr @click="props.expanded = !props.expanded">
                   <td>{{ props.item.participant.name }}</td>
                   <td>{{ props.item.participant.cpf }}</td>
                   <td>{{ props.item.participant.age }}</td>
                   <td>{{ props.item.period }}</td>
+                  </tr>
                 </template>
+                <template slot="expand" slot-scope="props">
+                  <v-card flat>
+                    <v-card-text>{{ props.item.participant.responsable }}</v-card-text>
+                  </v-card>
+                </template>                
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -49,6 +57,8 @@
 </template>
 
 <script>
+
+
 
   export default {
     data() {
@@ -62,7 +72,7 @@
             value: 'name'
           },
           {text: 'CPF', value: 'cpf'},
-          { text: 'Idade', value: 'age' },
+          {text: 'Idade', value: 'age' },
           {text: 'Período', value: 'period'},
         ],
       }

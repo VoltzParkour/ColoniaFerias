@@ -29,16 +29,17 @@
       :clipped-left="clipped"
       class=""
       flat>
-      <v-toolbar-items class="ml-0 mr-0">
-        <v-btn small flat @click.stop="goHome" class="primary" light>
+      <!-- <v-toolbar-items class="ml-0 mr-0">
+        <v-btn small flat @click.stop="goHome" class="primary hidden-xs-only" light>
           <v-icon>home</v-icon>
-          <v-card-text>Início</v-card-text>
+          Início
         </v-btn>
-      </v-toolbar-items>
-    <v-divider  class="primary mr-2 ml-0" style="height: 15px"></v-divider>
-    <img src='http://voltzparkour.com/blogs/logo.png' width="110px" >
-    <v-divider  class="primary ml-3 mr-0" style="height: 15px"></v-divider>
-      <v-toolbar-items>
+      </v-toolbar-items> -->
+    <v-divider class="primary mr-2 ml-0" style="height: 15px"></v-divider>
+    <img src='http://voltzparkour.com/blogs/logo.png' width="110px" @click.stop="goHome" style="cursor: pointer;">
+    <v-divider class="primary ml-3 mr-0" style="height: 15px"></v-divider>
+    <v-divider v-for="n in 10" :key="n" class="primary ml-0 mr-0" style="height: 15px"></v-divider>
+      <v-toolbar-items class="mr-0">
         <v-btn small flat @click.stop="goCart" class="primary" light>
           <v-icon>shopping_cart</v-icon>
           <v-card-text>{{ cart.length == 0 ? 'nenhum': cart.length}} plano{{cart.length > 1 ? 's':''}}  (R${{cartTotal}})</v-card-text>
@@ -54,7 +55,7 @@
     <v-footer :fixed="fixed" app class="primaryt">
       <span>  Voltz&copy; 2018</span>
       <v-spacer></v-spacer>
-        <v-btn small flat @click.stop="goAmin" class="primary" light>
+        <v-btn small flat @click.stop="goAdmin" class="primary" light>
           <v-icon>account_circle</v-icon>
           <v-card-text>ADMIN</v-card-text>
         </v-btn>

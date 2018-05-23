@@ -9,55 +9,75 @@
           </v-card-actions>
         </v-flex>
         <v-layout row wrap>
-          <v-flex xs4
+          <v-flex xs12 md6 lg3 xl2
                   v-for="colony in Colonies"
-                  :key="colony.id"
-                  @click.stop="goColony(colony)"
-          >
+                  :key="colony.id">
             <v-card tile>
-              <v-card-text>
-                <v-card-actions class="top_right_header">
-                  <v-btn flat class="primary--text" @click.stop="editColony(colony)">
-                    <v-icon>edit</v-icon>
-                  </v-btn>
-                  <v-btn flat class="primary--text" @click.stop="showDeleteDialog(colony)">
-                    <v-icon>close</v-icon>
-                  </v-btn>
-                </v-card-actions>
-                <h3 class="top_left_header grey--text">{{ dateGetYear(colony.start_date)}} </h3>
-              </v-card-text>
-              <v-card-title>
-                <v-layout row wrap>
-                  <v-flex>
-                    <h1 class="main_text">{{ dateGetDay(colony.start_date) }}</h1>
-                    {{ dateGetMonth(colony.start_date) | monthNameFilter}}
-                  </v-flex>
-                  <v-flex>
-                    <h1 class="main_text"> - </h1>
-                  </v-flex>
-                  <v-flex>
-                  <h1 class="main_text">{{ dateGetDay(colony.end_date) }}</h1>
-                    {{ dateGetMonth(colony.end_date) | monthNameFilter}}
-                  </v-flex>
-                </v-layout>
-              </v-card-title>
-              <!--<div>-->
-              <!--<div> {{ plan.price | priceFilter }}</div>-->
-              <!--<div> {{ plan.price | priceFilter}}</div>-->
-              <!--</div>-->
-              <!--<v-card-text> {{ plan.price }}</v-card-text>-->
-              <!--<v-card-text> {{ plan.num_of_days }}</v-card-text>-->
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <!--<v-btn class="primary" @click.stop="goColony(colony)"> Esta</v-btn>-->
-              </v-card-actions>
+              <v-container fluid class="ma-1 pa-1">
+                <v-card-text>
+                  <v-layout row>
+                      <v-flex headline xs class="ma-0 pa-0">
+                        {{ dateGetYear(colony.start_date)}}
+                      </v-flex>
+                      <v-spacer></v-spacer>
+                      <v-flex xs10 class="ma-0  pa-0">
+                        <v-card-actions class="ma-0 pa-0 right" >
+                          <v-btn small flat class="primary--text" @click.stop="editColony(colony)">
+                            <v-icon>edit</v-icon>
+                            Editar
+                          </v-btn>
+                          <v-btn small flat class="red--text" @click.stop="showDeleteDialog(colony)">
+                            <v-icon>close</v-icon>
+                            Excluir
+                          </v-btn>
+                        </v-card-actions>
+                      </v-flex>
+                  </v-layout>
+                </v-card-text>
+                <v-divider></v-divider>
+              </v-container>
+                <v-card-title class="pt-0">
+                  <v-layout row wrap>
+                    <v-flex class="pt-2 pb-0">
+                      <span class="main_text">{{ dateGetDay(colony.start_date) }}</span>
+                      <span>{{ dateGetMonth(colony.start_date) | monthNameFilter}}</span>
+                    </v-flex>
+                    <v-flex class="pt-2 pb-0">
+                      <span class="main_text"> - </span>
+                    </v-flex>
+                    <v-flex class="pt-2 pb-0">
+                    <span class="main_text">{{ dateGetDay(colony.end_date) }}</span>
+                      <span>{{ dateGetMonth(colony.end_date) | monthNameFilter}}</span>
+                    </v-flex>
+                  </v-layout>
+                </v-card-title>
+
+                <v-container fluid class="ma-1 pa-1">
+                <v-card-text>
+                  <v-layout row>
+                      <v-flex xs5 class="ma-0 pa-0">
+                        <span class="subheading ma-0 pa-0 grey--text"> {{nInscritos(colony.id)}} inscrições</span>
+                      </v-flex>
+                      <v-spacer></v-spacer>
+                      <v-flex xs5 class="ma-0 pa-0">
+                        <v-card-actions class="ma-0 pa-0 right" >
+                          <v-btn small flat class="grey--text" @click.stop="goColony(colony)">
+                            <v-icon>details</v-icon>
+                            Ver detalhes!
+                          </v-btn>
+                        </v-card-actions>
+                      </v-flex>
+                  </v-layout>
+                </v-card-text>
+              </v-container>
+
             </v-card>
           </v-flex>
         </v-layout>
       </v-container>
       <v-container v-else>
         <v-flex>
-          <header> Nenhum colônia</header>
+          <header> Nenhuma colônia</header>
           <v-card-actions>
             <v-btn @click.stop="goColonyForm">Adicionar Colônia</v-btn>
           </v-card-actions>
@@ -101,6 +121,9 @@
     computed: {
       Colonies() {
         return this.$store.getters.colonies
+      },
+      buyersCount () {
+        return this.$store.getters.buyersCount
       }
     },
     methods: {
@@ -134,10 +157,19 @@
       dateGetYear(dateString) {
         let date = new Date(dateString)
         return date.getFullYear()
+      },
+      nInscritos (id) {
+        console.log(this.buyersCount)
+        if (this.buyersCount[id]) {
+          return this.buyersCount[id]
+        } else {
+          return 0
+        }
       }
     },
     beforeMount() {
       this.$store.dispatch('LoadColonies')
+      this.$store.dispatch('LoadBuyersCount')
       this.$store.dispatch('clearSelectedColony')
     }
   }
@@ -150,11 +182,12 @@
     margin-left 4px
     color: grey
     font-size: 300%
+    font-weight: 500;
   }
 
   .top_right_header {
     top: 0px
-    left: 196px
+    left: 0px
     position: absolute
     max-width 36px
     max-height 36px

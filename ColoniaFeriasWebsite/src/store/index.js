@@ -74,6 +74,7 @@ export const store = new Vuex.Store({
     selectedColony: null,
     colonyParticipants: '',
     selectedPlans: '',
+    buyersCount: {}
   },
   mutations: {
     addColony (state, payload) {
@@ -99,6 +100,9 @@ export const store = new Vuex.Store({
     },
     addPlanToCart (state, payload) {
       state.cart.push(payload)
+    },
+    setBuyersCount (state, payload) {
+      state.buyersCount = payload
     }
   },
   actions: {
@@ -210,6 +214,24 @@ export const store = new Vuex.Store({
     },
     addPlanToCart ({commit}, payload) {
       commit('addPlanToCart', payload)
+    },
+    LoadBuyersCount ({commit}) {
+      firebase.database().ref('colony_buyers').once('value')
+      .then(
+        (data) => {
+          const buyersCount = {}
+          const obj = data.val()
+          for (let colonia in obj) {
+            buyersCount[colonia] = Object.keys(obj[colonia]).length
+          }
+          console.log(buyersCount)
+          commit('setBuyersCount', buyersCount)
+        })
+      .catch(
+        (error) => {
+          console.log(error)
+        }
+      )
     }
   },
   getters: {
@@ -232,6 +254,9 @@ export const store = new Vuex.Store({
     },
     cart (state) {
       return state.cart
+    },
+    buyersCount (state) {
+      return state.buyersCount
     }
   }
 })

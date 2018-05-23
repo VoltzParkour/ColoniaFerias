@@ -7,7 +7,7 @@
         </v-card-media>
             <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
               <v-layout row wrap>
-                <h1 class="header ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</h1>
+                <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</span>
                 <v-flex>
                   <v-select
                     :items="items"
@@ -15,9 +15,15 @@
                     label="Período"
                     single-line
                   ></v-select>
+                  
+                </v-flex>
+                
+              </v-layout>
+              <v-layout row>
+                <v-flex style="margin-top:-45px;" :style="margemToc">
+                  <span class="title grey--text fontsp" >DIAS</span>
                 </v-flex>
               </v-layout>
-              <h2 class="body-2 grey--text" style="margin-top: -23px; margin-left: -7px">DIAS</h2>
             </v-card-text>
             <v-card-text class="green lighten-5"  style="height: 56px; position: relative">
               <v-btn
@@ -30,9 +36,9 @@
               >
                 <v-icon>add_shopping_cart</v-icon>
               </v-btn>
-              <h3 class="bottom fontsp">
-                Total parcial: {{ plan.price | priceFilter}}
-              </h3>
+              <span class="headline fontsp">
+                {{ plan.price | priceFilter}}
+              </span>
             </v-card-text>
           </v-card>
         <v-alert v-model="success" type="success" dismissible>
@@ -71,15 +77,19 @@
           this.success = true
           this.$store.dispatch('addPlanToCart', plan)
         }
-      },
-      calculate () {
-        
-      },
-      
+      }
     },
     watch: {
       selection: function(data) {
         this.alert = false
+      }
+    },
+    computed: {
+      margemToc () {
+        if (parseInt(this.plan.num_days) > 9) {
+          return "margin-left: 1px"
+        }
+        return "margin-left: -13px"
       }
     }
   }

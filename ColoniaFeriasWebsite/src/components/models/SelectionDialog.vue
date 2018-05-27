@@ -1,5 +1,5 @@
 <template>
-  <v-dialog persistent width="450px" v-model="registerDialog">
+  <v-dialog width="450px" v-model="registerDialog">
     <v-btn
       absolute
       fab
@@ -35,12 +35,12 @@
                   <v-layout row wrap>
                     <v-container>
                       <v-layout row wrap>
- 
-                          <v-flex xs6 sm4 md3 v-for="(day,i) in dates" :key="i">
+                          <v-flex xs6 sm4 md3 style="border: solid 1px; border-radius: 15px; border-color: #f2f2f2" v-for="(day,i) in dates" :key="i">
                             <span class="body-2">{{day.date | dayFilter }} de {{ day.date | monthNameFullDateFilter }} </span>
                             <div>({{day.date | weekdayFilter }})</div>
                             <v-flex v-for="(turno,j) in day.turnos" :key="j">
                               <v-card 
+                                flat
                                 :class=" datesStatus[turno.pos]  ? ' body-1 primary white--text' : 'body-1 green lighten-5'"
                                 @click.native="selectDate(turno.pos)"
                                 style="cursor: pointer;">
@@ -48,7 +48,6 @@
                               </v-card>
                             </v-flex>
                           </v-flex>
-
                       </v-layout>
                     </v-container>
                   </v-layout>
@@ -130,7 +129,15 @@
             }
             this.$emit('addCart', emitObj)
             this.registerDialog = false
+            this.resetSelection()
         }
+      },
+      resetSelection () {
+        var arr = [];
+        for (var i = 0; i < this.datesStatus.length; i++) {
+          arr.push(false);
+        }
+        this.datesStatus = arr;
       }
     },
     created () {

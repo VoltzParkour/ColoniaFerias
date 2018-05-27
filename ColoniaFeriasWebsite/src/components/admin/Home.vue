@@ -159,7 +159,6 @@
         return date.getFullYear()
       },
       nInscritos (id) {
-        console.log(this.buyersCount)
         if (this.buyersCount[id]) {
           return this.buyersCount[id]
         } else {

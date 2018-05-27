@@ -63,10 +63,6 @@
           this.success = true
           this.$store.dispatch('addPlanToCart', plan)
       },
-      addPlanToCartFinal (data) {
-        console.log(data.Selection)
-        console.log(data.Selection2)
-      },
       showModalFunc () {
         this.showModal = true
       }

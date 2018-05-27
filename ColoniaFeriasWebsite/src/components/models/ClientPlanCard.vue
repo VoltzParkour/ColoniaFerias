@@ -9,33 +9,18 @@
               <v-layout row wrap>
                 <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</span>
                 <v-flex>
-                  <v-select
-                    :items="items"
-                    v-model="selection"
-                    label="Período"
-                    single-line
-                  ></v-select>
-                  
+                 
                 </v-flex>
                 
               </v-layout>
               <v-layout row>
-                <v-flex style="margin-top:-45px;" :style="margemToc">
+                <v-flex style="margin-top:-25px;" :style="margemToc">
                   <span class="title grey--text fontsp" >DIAS</span>
                 </v-flex>
               </v-layout>
             </v-card-text>
             <v-card-text class="green lighten-5"  style="height: 56px; position: relative">
-              <v-btn
-                absolute
-                fab
-                top
-                right
-                color="success white--text"
-                @click.stop="addPlanToCart"
-              >
-                <v-icon>add_shopping_cart</v-icon>
-              </v-btn>
+              <selection-dialog-home @addCart="addPlanToCart" :plan="plan" :colony="colony"></selection-dialog-home>                  
               <span class="headline fontsp">
                 {{ plan.price | priceFilter}}
               </span>
@@ -53,30 +38,37 @@
 </template>
 
 <script>
+
   export default {
     name: "client-plan-card",
-    props: ['plan'],
+    props: ['plan','colony'],
     data() {
       return {
+        filled: true,
         items: ['Manhã', 'Tarde', 'Integral'],
         selection: '',
         alert: false,
         success: false,
-        backgroundImage: 'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg'
+        backgroundImage: 'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg',
+        showModal: true
       }
     },
     methods: {
-      addPlanToCart () {
-        if (this.selection == '') {
-          this.alert = true
-        } else {
+      addPlanToCart (data) {
           let plan = {
             plan: this.plan,
-            period: this.selection.replace('ã', 'a').toLowerCase()
-          }
+            period: data.selection.replace('ã', 'a').toLowerCase(),
+            dates: data.dates
+            }
           this.success = true
           this.$store.dispatch('addPlanToCart', plan)
-        }
+      },
+      addPlanToCartFinal (data) {
+        console.log(data.Selection)
+        console.log(data.Selection2)
+      },
+      showModalFunc () {
+        this.showModal = true
       }
     },
     watch: {

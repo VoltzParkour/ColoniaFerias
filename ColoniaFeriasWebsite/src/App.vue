@@ -98,9 +98,7 @@
       },
       cartTotal () {
         let total = 0
-        console.log(this.cart)
         for (let i in this.cart) {
-          console.log(this.cart[i])
           total = total + parseInt(this.cart[i].plan.price)
         }
         return (total/100).toString().replace('.',',')

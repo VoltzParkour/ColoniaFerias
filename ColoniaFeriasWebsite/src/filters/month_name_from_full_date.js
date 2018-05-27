@@ -1,6 +1,6 @@
 export default (value) => {
   let date = new Date(value)
-  let month = date.getMonth() + 1
+  let month = date.getUTCMonth() + 1
   switch (month) {
     case 1:
       return 'Janeiro'

@@ -22,7 +22,7 @@
             <v-container grid-list-md>
               <v-layout row wrap>
                 <v-flex xs12 sm6 lg3 v-for="plan in colony.plans" :key="plan.id">
-                  <plan-card :plan="plan"></plan-card>
+                  <plan-card :colony="colony" :plan="plan"></plan-card>
                 </v-flex>
               </v-layout>
             </v-container>

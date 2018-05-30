@@ -9,7 +9,7 @@
           </v-card-actions>
         </v-flex>
         <v-layout row wrap>
-          <v-flex xs12 md6 lg3 xl2
+          <v-flex xs12 md6 lg3
                   v-for="colony in Colonies"
                   :key="colony.id">
             <v-card tile>
@@ -159,7 +159,6 @@
         return date.getFullYear()
       },
       nInscritos (id) {
-        console.log(this.buyersCount)
         if (this.buyersCount[id]) {
           return this.buyersCount[id]
         } else {

@@ -123,7 +123,7 @@
             if (date1.getDate() === date2.getDate()
               && date1.getMonth() === date2.getMonth()
               && date1.getFullYear() === date2.getFullYear()) {
-              console.log('add: ' + colonyParticipants[colonyParticipant]['colonyParticipant'].name)
+              //console.log('add: ' + colonyParticipants[colonyParticipant]['colonyParticipant'].name)
               let period = ''
               if (colonyParticipants[colonyParticipant]['days'][day].morning && colonyParticipants[colonyParticipant]['days'][day].afternoon) {
                 period = 'Integral'

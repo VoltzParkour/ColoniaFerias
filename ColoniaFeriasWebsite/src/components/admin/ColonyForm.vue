@@ -112,7 +112,7 @@
         endDateSelected: false,
         startDate: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.start_date,
         weekDaysSelected: this.$store.getters.selectedColony === null ? [false, false, false, false, false, false, false, false, false, false, false, false, false, false] : this.$store.getters.selectedColony.week_days,
-        weekDaysNames: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+        weekDaysNames: ['Domingo','Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         endDate: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.end_date,
         description: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.description,
         imageUrl: '',
@@ -153,7 +153,6 @@
           this.showAlert = true
           return false
         }
-        let savedColonies = this.$store.getters.colonies
         let colony = {
           plans: this.$store.getters.selectedPlans,
           week_days: this.weekDaysSelected,
@@ -163,7 +162,11 @@
           title: this.title
         }
         this.$store.dispatch('CreateColony', colony)
+        this.goAdmin()
       },
+      goAdmin () {
+      this.$router.push({ name: "Admin" });
+        },
       changedValue() {
       },
       formIsValid() {

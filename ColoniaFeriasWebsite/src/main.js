@@ -10,8 +10,11 @@ import MonthNameFilter from './filters/month_name'
 import MonthNameFullDateFilter from './filters/month_name_from_full_date'
 import DayFilter from './filters/day'
 import YearFilter from './filters/year'
+import WeekdayFilter from './filters/weekdayFilter'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+
+import SelectionDialog from './components/models/SelectionDialog'
 
 Vue.use(Vuetify, { theme: {
   primary: '#BED609',
@@ -31,6 +34,9 @@ Vue.filter('monthNameFilter', MonthNameFilter)
 Vue.filter('monthNameFullDateFilter', MonthNameFullDateFilter)
 Vue.filter('dayFilter', DayFilter)
 Vue.filter('yearFilter', YearFilter)
+Vue.filter('weekdayFilter', WeekdayFilter)
+
+Vue.component('selection-dialog-home', SelectionDialog)
 
 /* eslint-disable no-new */
 new Vue({

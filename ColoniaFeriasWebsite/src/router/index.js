@@ -5,6 +5,7 @@ import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
 import Cart from '@/components/client/Cart'
+import Login from '@/components/login/login'
 
 Vue.use(Router)
 
@@ -18,7 +19,10 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: AdminHome
+      component: AdminHome,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/colony_form',
@@ -31,9 +35,23 @@ export default new Router({
       component: Colony
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
       path: '/cart',
       name: 'Cart',
       component: Cart
     }
   ]
+})
+
+Router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) next('login')
+ // else if (!requiresAuth && currentUser) next('admin')
+  else next()
 })

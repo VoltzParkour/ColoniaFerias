@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
     name: 'Login',
     data: function(){
@@ -18,11 +19,12 @@ export default {
     },
     methods: {
         signIn: function() {
+
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-                function(user) {
+                (user) => {
                     alert('Login feito com sucesso')
                 },
-                function(err) {
+                (err) => {
                     alert('Falha no Login')
                 }
             );

@@ -16,6 +16,30 @@ import 'vuetify/dist/vuetify.min.css'
 
 import SelectionDialog from './components/models/SelectionDialog'
 
+let app;
+let config = {
+  apiKey: "AIzaSyApZlXNnuN_bChc3PIbPs4ikI6inLussy4",
+  authDomain: "coloniaferiasvoltz.firebaseapp.com",
+  databaseURL: "https://coloniaferiasvoltz.firebaseio.com",
+  storageBucket: "coloniaferiasvoltz.appspot.com",
+  projectId: "coloniaferiasvoltz",
+  messagingSenderId: "358510411110"
+};
+
+firebase.initializeApp(config)
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!app) {
+/* eslint-disable no-new */
+  app = new Vue({
+    el: '#app',
+    router,
+    store,
+    components: { App },
+    template: '<App/>'
+    })
+  }})
+  
+
 Vue.use(Vuetify, { theme: {
   primary: '#BED609',
   primaryt: '#BCD601',
@@ -38,22 +62,3 @@ Vue.filter('weekdayFilter', WeekdayFilter)
 
 Vue.component('selection-dialog-home', SelectionDialog)
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>',
-  created: function() {
-    var config = {
-      apiKey: "AIzaSyApZlXNnuN_bChc3PIbPs4ikI6inLussy4",
-      authDomain: "coloniaferiasvoltz.firebaseapp.com",
-      databaseURL: "https://coloniaferiasvoltz.firebaseio.com",
-      storageBucket: "coloniaferiasvoltz.appspot.com",
-      projectId: "coloniaferiasvoltz",
-      messagingSenderId: "358510411110"
-    };
-    firebase.initializeApp(config);
-  }
-})

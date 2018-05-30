@@ -6,10 +6,12 @@ import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
 import Cart from '@/components/client/Cart'
 import Login from '@/components/login/login'
+import * as firebase from 'firebase'
 
 Vue.use(Router)
 
-export default new Router({
+//export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -47,11 +49,13 @@ export default new Router({
   ]
 })
 
-Router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser;
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if (requiresAuth && !currentUser) next('login')
- // else if (!requiresAuth && currentUser) next('admin')
+  else if (!requiresAuth && currentUser) next('admin')
   else next()
 })
+
+export default router

@@ -5,8 +5,10 @@
       fab
       top
       right
+      large
       color="success white--text"
       slot="activator"
+      style="z-index: 1"
     >
       <v-icon>add_shopping_cart</v-icon>
     </v-btn>

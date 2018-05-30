@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex>
         <v-card>
-        <v-card-media :src="this.backgroundImage" height="120px">
+        <v-card-media :src="this.backgroundImage" height="180px">
         </v-card-media>
             <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
               <v-layout row wrap>
@@ -49,7 +49,11 @@
         selection: '',
         alert: false,
         success: false,
-        backgroundImage: 'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg',
+        backgroundImageFull: [
+          'http://voltzparkour.com/wp-content/uploads/2017/12/voltz.jpg',
+          'https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/backgrounds%2Fcards%2Fvoltz01.png?alt=media&token=acc9698e-fe02-41f6-b940-19ccacdbd367',
+          'https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/backgrounds%2Fcards%2Fvoltz02.png?alt=media&token=875c4703-4537-41e9-bdbe-d40c697cd396'
+        ],
         showModal: true
       }
     },
@@ -78,6 +82,9 @@
           return "margin-left: 1px"
         }
         return "margin-left: -13px"
+      },
+      backgroundImage () {
+        return this.backgroundImageFull[Math.floor(Math.random() * this.backgroundImageFull.length)];
       }
     }
   }

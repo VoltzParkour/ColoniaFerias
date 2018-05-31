@@ -6,6 +6,7 @@
         <v-flex>
           <v-card-actions>
             <v-btn @click.stop="goColonyForm" class="primary">Adicionar Colônia</v-btn>
+            <v-btn @click.stop="logout" class="primary">Sair</v-btn>
           </v-card-actions>
         </v-flex>
         <v-layout row wrap>
@@ -110,6 +111,7 @@
 
 <script>
 
+import firebase from 'firebase'
 
   export default {
     data () {
@@ -158,6 +160,11 @@
         let date = new Date(dateString)
         return date.getFullYear()
       },
+      logout() {
+        firebase.auth().signOut().then(() => {
+          this.$router.replace('login')
+        })
+        },
       nInscritos (id) {
         if (this.buyersCount[id]) {
           return this.buyersCount[id]

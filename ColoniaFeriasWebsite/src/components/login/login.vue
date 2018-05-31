@@ -40,20 +40,21 @@ export default {
     text-align: center;
 }
 input {
-    margin: 10px 0;
+    margin: 10px;
     padding: 15px;
+    width: 20%;
+    background-color: transparent;
+    border: 1px black solid;
+//    text-align: center;
 }
 button {
     margin-top: 20px;
-    width: 10%;
+    width: 20%;
     cursor: pointer;
-}
-p {
-    margin: 40px;
-    font-size: 13px;
-}
-p a {
-    text-decoration: underline;
-    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 22px;
+    color: white;
+    background: #42b983;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
     <div class="login">
         <h3> Sign In</h3>
-        <input type="text" placeholder="Email"><br>
-        <input type="password" placeholder="Senha"><br>
+        <input type="text" v-model="email" placeholder="Email"><br>
+        <input type="password" v-model="password" placeholder="Senha"><br>
         <button v-on:click="signIn">Entrar</button>
     </div>
 </template>
@@ -22,7 +22,8 @@ export default {
 
             firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
-                    alert('Login feito com sucesso')
+                    alert('Login feito com sucesso'),
+                    this.$router.replace('admin')
                 },
                 (err) => {
                     alert('Falha no Login')

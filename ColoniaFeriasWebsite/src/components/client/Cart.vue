@@ -6,7 +6,8 @@
           <h1 class="primary--text">Nova Inscrição</h1>
         </v-flex>
       </v-layout>
-      <form @submit.prevent="onCreateUser">
+      <form
+        @submit.prevent="onSubmitForm">
       <!-- <form> -->
         <v-layout row>
           <v-flex xs12>
@@ -128,7 +129,7 @@
 
 <script>
 
-  export default {
+export default {
     data() {
       return {
         // teste: [
@@ -138,25 +139,25 @@
         //   this.$store.getters.colonies[3].title,
         // ],
         selection: '',
-        name: '',
+        name: 'jnsadjsa',
         nameRules: [v => !!v || 'Nome é obrigatório'],
-        age: '',
+        age: '34',
         ageRules: [
         v => !!v || 'Idade é obrigatória'
       ],
-        name_resp: '',
-        cpf: '',
+        name_resp: 'cascsa',
+        cpf: '34554366659',
         cpfRules: [
         v => !!v || 'CPF é obrigatório',
         v => v.length == 11 || 'CPF precisa ter 11 dígitos'
       ],
         tel: '',
-        celphone: '',
+        celphone: '887678887',
         celRules: [
         v => !!v || 'Celular é obrigatório',
         v => v.length == 11 || 'Celular precisa ter 11 dígitos'
       ],
-        email: '',
+        email: '32423@gmail.com',
         emailRules: [
         v => !!v || 'E-mail é obrigatório',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail precisa ser válido'
@@ -168,7 +169,7 @@
         return this.name !== '' &&
           this.age !== '' &&
           this.name_resp !== '' &&
-          this.cel !== '' &&
+          this.celphone !== '' &&
           this.email !== '' &&
           this.cpf !== ''
         },
@@ -177,12 +178,84 @@
           return this.$store.getters.colonies
         }
       },
+  created() {
+    let recaptchaScript = document.createElement('script')
+    // recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js')
+    //sandbox
+    recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
+    document.head.appendChild(recaptchaScript)
+  },
     methods: {
+
+      onSubmitForm () {
+        console.log('çomecou')
+        let payload = {
+          checkout: {
+            sender: {
+              name: this.name_resp,
+              email: this.email,
+              phone: {
+                areaCode: this.celphone.substring(0, 2),
+                number: this.celphone.substring(2, this.celphone.length)
+              },
+              documents: {
+                document: {
+                  type: 'CPF',
+                  value: this.cpf
+                }
+              },
+            },
+            currency: 'BRL',
+            items: {
+              item: {
+                id: 0,
+                description: 'descricao',
+                amount: '99.99',
+                quantity: 1,
+              }
+            },
+            redirectURL: 'localhost:8080'
+          }
+        }
+        console.log('mandando dispatch')
+        this.$store.dispatch('requestPayPalSessionId', payload)
+          .then( response => {
+            console.log('idazao: ' + response.id)
+            PagSeguroDirectPayment.setSessionId(response.id)
+            PagSeguroDirectPayment.onSenderHashReady(function(response){
+              if(response.status == 'error') {
+                console.log(response.message);
+                return false;
+              }
+
+              var hash = response.senderHash;//Hash estará disponível nesta variável.
+              console.log('hash: ' + hash)
+              PagSeguroDirectPayment.getPaymentMethods({
+                amount: this.$store.getters.cartAmount,
+                success: function(response) {
+                  console.log('methods: ' + response)
+                },
+                error: function(response) {
+                  //tratamento do erro
+                },
+                complete: function(response) {
+                  //tratamento comum para todas chamadas
+                }
+              });
+            });
+          })
+          .catch( error => {
+''
+          })
+      },
 
       onCreateUser() {
         if (!this.formIsValid) {
           return
         }
+
+        PagSeguroLightbox('2e576af2d1b34fa7a6580d3dc7c8311a')
+        return
 
         let responsable = {
           name_resp: this.name_resp,
@@ -230,44 +303,9 @@
         days.splice(0,this.$store.getters.cart[j].dates.length)
 
       }
-
-        // for(let i = 0; i < days.length; i++){
-        //   for(let j = i+1; j < days.length; j++){
-        //     if(days[i].day === days[j].day){
-        //       days.day
-        //     }
-        //   }
-        // }
-
-
-  //      let colonyName = this.selection
-  //   let colonyId = '-LDUmFGwINBwthrWVTPY'
-  //     let colonyId = []
-       //this.$store.getters.cart[0].colonyId
-
-  //      let colonyId = ''
-        //this.$store.getters.colonies[1].id
-
-       // for (let i = 0; i < this.$store.getters.colonies.length; i++){
-       //   if(this.$store.getters.colonies[i].title == colonyName){
-       //     colonyId = this.$store.getters.colonies[i].id
-       //   }
-       // }
-      // for(let j = 0; j < this.$store.getters.cart.length; j++){
-      //
-      //   let userData = {
-      //     name: this.name,
-      //     age: this.age,
-      //     responsable,
-      //     days,
-      //     colonyId[i]
-      //   }
-      //
-      //   this.$store.dispatch('createColonyParticipant', userData)
-      //
-      // }
         this.$router.push('/')
-      }
+      },
+
 
     // },
     // components: {

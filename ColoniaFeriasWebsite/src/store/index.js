@@ -2,7 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as firebase from 'firebase'
 import router from '../router'
+import axios from 'axios'
 import VuexPersist from 'vuex-persist/dist/index'
+
+// axios.defaults.baseURL = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+var email = 'luisfnicolau@hotmail.com'
+var token = '503F25BCA32146728390BA730AA376F1'
 
 Vue.use(Vuex)
 
@@ -37,7 +44,8 @@ export const store = new Vuex.Store({
     selectedColony: null,
     colonyParticipants: [],
     selectedPlans: '',
-    buyersCount: {}
+    buyersCount: {},
+    cartAmount: null,
   },
   mutations: {
     addColony (state, payload) {
@@ -62,6 +70,11 @@ export const store = new Vuex.Store({
       state.selectedPlans = payload
     },
     addPlanToCart (state, payload) {
+      if (state.cartAmount === null) {
+        state.cartAmount = parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
+      } else {
+        state.cartAmount = state.cartAmount + parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
+      }
       state.cart.push(payload)
     },
     setBuyersCount (state, payload) {
@@ -224,6 +237,41 @@ export const store = new Vuex.Store({
           console.log(error)
         }
       )
+    },
+    requestPayPalSessionId ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        let url = 'http://api.colonia.ferias/api/payment'
+        axios.get(url)
+          .then(
+            function (response) {
+              console.log(response)
+              resolve(response.data)
+              // console.log('sessionid: ' + response.data.session.id)
+            }
+          )
+          .catch(
+            function (error) {
+              reject(error)
+              console.log(error)
+            }
+          )
+      })
+    },
+
+    requestPayPalCheckout ({commit}, payload) {
+      let url = 'checkout?email='+ email + '&'+ 'token=' + token
+
+      axios.post(url, payload)
+        .then(
+          function (response) {
+            console.log(response)
+          }
+        )
+        .catch(
+          function (error) {
+            console.log(error)
+          }
+        )
     }
   },
   getters: {
@@ -246,6 +294,9 @@ export const store = new Vuex.Store({
     },
     cart (state) {
       return state.cart
+    },
+    cartAmount(state) {
+      return state.cartAmount
     },
     buyersCount (state) {
       return state.buyersCount

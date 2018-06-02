@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import { store } from './store'
+import axios from 'axios'
 import * as firebase from 'firebase'
 import PriceFilter from './filters/price'
 import MonthNameFilter from './filters/month_name'
@@ -38,7 +39,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     template: '<App/>'
     })
   }})
-  
+
+window.axios = require('axios')
+// window.axios.defaults.headers.common['Accept'] = 'application/xml; charset=ISO-8859-1'
+window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+// axios.defaults.baseURL = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2';
+window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 Vue.use(Vuetify, { theme: {
   primary: '#BED609',

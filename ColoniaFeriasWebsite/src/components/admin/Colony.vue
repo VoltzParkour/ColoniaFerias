@@ -1,17 +1,17 @@
 <template>
   <v-slide-y-transition mode="out-in">
     <v-container fluid>
-      <v-layout row wrap>
-        <!--<v-icon class="grey&#45;&#45;text mr-3">filter_list</v-icon>-->
-        <v-flex xs2>
-          <v-select
-            :items="filter_itens"
-            v-model="filter_choice"
-            :label="filter_choice"
-            append-icon="filter_list"
-            single-line></v-select>
-        </v-flex>
-      </v-layout>
+      <!--<v-layout row wrap>-->
+        <!--&lt;!&ndash;<v-icon class="grey&#45;&#45;text mr-3">filter_list</v-icon>&ndash;&gt;-->
+        <!--<v-flex xs2>-->
+          <!--<v-select-->
+            <!--:items="filter_itens"-->
+            <!--v-model="filter_choice"-->
+            <!--:label="filter_choice"-->
+            <!--append-icon="filter_list"-->
+            <!--single-line></v-select>-->
+        <!--</v-flex>-->
+      <!--</v-layout>-->
 
       <v-expansion-panel>
         <v-expansion-panel-content v-for="date in ArrayOfDays" @click="$refs[modal.ref].open()" :key="date">
@@ -45,7 +45,7 @@
                   <v-card flat>
                     <v-card-text>Responsável: {{ props.item.participant.responsable }}</v-card-text>
                   </v-card>
-                </template>                
+                </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -136,7 +136,7 @@ import firebase from 'firebase'
                 }
               }
               let cpfPart = colonyParticipants[colonyParticipant]['colonyParticipant'].cpf
-              
+
               let participant = colonyParticipants[colonyParticipant]['colonyParticipant']
               participants.push({
                 participant,

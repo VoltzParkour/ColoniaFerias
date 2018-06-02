@@ -9,9 +9,9 @@
               <v-layout row wrap>
                 <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</span>
                 <v-flex>
-                 
+
                 </v-flex>
-                
+
               </v-layout>
               <v-layout row>
                 <v-flex style="margin-top:-25px;" :style="margemToc">
@@ -20,7 +20,7 @@
               </v-layout>
             </v-card-text>
             <v-card-text class="green lighten-5"  style="height: 56px; position: relative">
-              <selection-dialog-home @addCart="addPlanToCart" :plan="plan" :colony="colony"></selection-dialog-home>                  
+              <selection-dialog-home @addCart="addPlanToCart" :plan="plan" :colony="colony"></selection-dialog-home>
               <span class="headline fontsp">
                 {{ plan.price | priceFilter}}
               </span>
@@ -62,7 +62,8 @@
           let plan = {
             plan: this.plan,
             period: data.selection.replace('ã', 'a').toLowerCase(),
-            dates: data.dates
+            dates: data.dates,
+            colonyId: this.colony.id
             }
           this.success = true
           this.$store.dispatch('addPlanToCart', plan)

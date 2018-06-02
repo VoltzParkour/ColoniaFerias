@@ -32,47 +32,10 @@ export const store = new Vuex.Store({
     ],
     messages: [],
     colonies: [],
-    plans: [
-      // {
-      //   id: 1,
-      //   price: 5990,
-      //   period: Constants.MORNING,
-      //   num_of_days: 7,
-      // },
-      // {
-      //   id: 2,
-      //   price: 5990,
-      //   period: Constants.AFTERNOON,
-      //   num_of_days: 7,
-      // },
-      // {
-      //   id: 3,
-      //   price: 5990 * 2,
-      //   period: Constants.WHOLE,
-      //   num_of_days: 7,
-      // },
-      // {
-      //   id: 4,
-      //   price: 990,
-      //   period: Constants.MORNING,
-      //   num_of_days: 7,
-      // },
-      // {
-      //   id: 5,
-      //   price: 990,
-      //   period: Constants.AFTERNOON,
-      //   num_of_days: 7,
-      // },
-      // {
-      //   id: 6,
-      //   price: 990 * 2,
-      //   period: Constants.WHOLE,
-      //   num_of_days: 7,
-      // },
-    ],
+    plans: [],
     cart: [],
     selectedColony: null,
-    colonyParticipants: '',
+    colonyParticipants: [],
     selectedPlans: '',
     buyersCount: {}
   },
@@ -103,6 +66,9 @@ export const store = new Vuex.Store({
     },
     setBuyersCount (state, payload) {
       state.buyersCount = payload
+    },
+    createColonyParticipant (state, payload) {
+      state.colonyParticipants.push(payload)
     }
   },
   actions: {
@@ -127,6 +93,32 @@ export const store = new Vuex.Store({
           })
       }
     },
+
+
+    createColonyParticipant ({commit, getters}, payload) {
+      const user = {
+        name: payload.name,
+        age: payload.age,
+        responsable: payload.responsable,
+        days: payload.days
+      }
+      let selectedColonyId = payload.colonyId
+      let string = 'colony_buyers/' + selectedColonyId
+      firebase.database().ref(string).push(user)
+        .then((data) => {
+          const key = data.key
+          commit('createColonyParticipant', {
+            ...user,
+            id: key
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // Reach out to firebase and store it
+    },
+
+
     LoadColonies ({commit}) {
       // firebase.database().ref('Colonies').on('value')
       firebase.database().ref('Colonies').once('value')
@@ -172,7 +164,7 @@ export const store = new Vuex.Store({
               let days = []
               for (let selectedDay in obj[key].days) {
                 days.push({
-                  day: selectedDay,
+                  day: obj[key].days[selectedDay].day,
                   morning: obj[key].days[selectedDay].morning,
                   afternoon: obj[key].days[selectedDay].afternoon
                 })

@@ -5,7 +5,9 @@ import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
 import Login from '@/components/login/login'
+import Cart from '@/components/client/Cart'
 import * as firebase from 'firebase'
+
 
 Vue.use(Router)
 
@@ -39,6 +41,11 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
   ]
 })

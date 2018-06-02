@@ -64,6 +64,9 @@ export const store = new Vuex.Store({
     addPlanToCart (state, payload) {
       state.cart.push(payload)
     },
+    removePlanFromCart (state, payload) {
+      state.cart.splice(payload, 1)
+    },
     setBuyersCount (state, payload) {
       state.buyersCount = payload
     },
@@ -206,6 +209,9 @@ export const store = new Vuex.Store({
     },
     addPlanToCart ({commit}, payload) {
       commit('addPlanToCart', payload)
+    },
+    removePlanFromCart ({commit}, payload) {
+      commit('removePlanFromCart', payload)
     },
     LoadBuyersCount ({commit}) {
       firebase.database().ref('colony_buyers').once('value')

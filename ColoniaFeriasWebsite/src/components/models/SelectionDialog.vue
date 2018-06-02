@@ -67,11 +67,11 @@
               @click="registerDialog = false"
               >Cancelar</v-btn>
               <v-spacer></v-spacer>
-             <!-- <v-btn
+              <v-btn
               class="green--text darken-1"
               flat
-              @click="onAgree">Adicionar!</v-btn> -->
-              <inscricao-dialog @click="onAgree"></inscricao-dialog>
+              @click="onAgree">Adicionar!</v-btn> 
+             <!-- <inscricao-dialog @click="onAgree"></inscricao-dialog> -->
             </v-card-actions>
           </v-flex>
         </v-layout>

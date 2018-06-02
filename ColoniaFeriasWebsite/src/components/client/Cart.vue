@@ -18,7 +18,7 @@
         <tr v-for="p in cart">
             <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
             <td>${{ parseInt(p.plan.price) }}</td>
-            <td>Criança</td>
+            <td><v-select overflow :options="['foo','bar']" ></v-select></td>
             <td><v-btn color="red" @click="removePlan">Excluir</v-btn></td>
           </tr>
           <tr>
@@ -34,6 +34,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  data: {  
+  kids: ["new kid", "old kid"]  
+  },
   computed: {
     cart () {
         return this.$store.getters.cart

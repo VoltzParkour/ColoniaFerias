@@ -1,61 +1,308 @@
 <template>
-  <div class="cart">
-    <h1 class="title">Seu Carrinho</h1>
-    <p v-show="!cart.length">
-      <i>Seu carrinho está vazio!</i>
-      <router-link to="/">Ver planos</router-link>
-    </p>
-    <table class="table is-striped" v-show="cart.length">
-      <thead>
-        <tr>
-          <td>Plano</td>
-          <td>Preço</td>
-          <td>Criança</td>          
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="p in cart">
-            <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
-            <td>${{ parseInt(p.plan.price) }}</td>
-            <td><v-select overflow :options="['foo','bar']" ></v-select></td>
-            <td><v-btn color="red" @click="removePlan">Excluir</v-btn></td>
-          </tr>
-          <tr>
-            <td><b>Total:</b></td>
+  <v-slide-y-transition>
+    <v-container>
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm6 offset-sm1 mt-3>
+          <h1 class="primary--text">Nova Inscrição</h1>
+        </v-flex>
+      </v-layout>
+      <form @submit.prevent="onCreateUser">
+      <!-- <form> -->
+        <v-layout row>
+          <v-flex xs12>
 
-            <td><b>R${{ cartTotal }}</b></td>
-          </tr>
-      </tbody>
-</table>
-    <p><v-btn v-show="cart.length" round @click='checkout'>Pagar</v-btn></p>
-  </div>
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="name"
+                  label="Nome do Aluno"
+                  :rules="nameRules"
+                  id="name"
+                  v-model="name"
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="age"
+                  label="Idade"
+                  id="age"
+                  mask="##"
+                  :rules="ageRules"
+                v-model="age"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="name_resp"
+                  label="Nome do Responsável"
+                  :rules="nameRules"
+                  id="name_resp"
+                  v-model="name_resp"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="cpf"
+                  label="CPF do Responsável"
+                  mask="###.###.###-##"
+                  :rules="cpfRules"
+                  id="cpf"
+                  v-model="cpf"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="tel"
+                  label="DDD + Telefone"
+                  mask="(##)####-####"
+                  id="tel"
+                  v-model="tel"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="celphone"
+                  label="DDD + Celular"
+                  mask="(##)#####-####"
+                  id="celphone"
+                  :rules="celRules"
+                  v-model="celphone"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
+                  name="email"
+                  label="E-Mail"
+                  :rules="emailRules"
+                  id="email"
+                  v-model="email"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <!-- <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-select
+              :items="teste"
+              v-model="selection"
+              label="Colonias"
+              single-line
+              ></v-select>
+            </v-flex>
+          </v-layout> -->
+
+          </v-flex>
+        </v-layout>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat
+                 color="primary"
+                 :disabled="!formIsValid"
+                 type="submit">Submeter
+          </v-btn>
+        </v-card-actions>
+      </form>
+      <!-- <v-alert v-model="showAlert"
+               type="error"
+               dismissible
+                transition="slide-y-reverse-transition">
+        {{errorMessage}}
+      </v-alert> -->
+    </v-container>
+  </v-slide-y-transition>
+
 </template>
+
 <script>
-import { mapGetters } from 'vuex'
-export default {
-  data: {  
-  kids: ["new kid", "old kid"]  
-  },
-  computed: {
-    cart () {
-        return this.$store.getters.cart
-    },
-    cartTotal () {
-      let total = 0
-      for (let i in this.cart) {
-        total = total + parseInt(this.cart[i].plan.price)
+
+  export default {
+    data() {
+      return {
+        // teste: [
+        //   this.$store.getters.colonies[0].plans[0].price,
+        //   this.$store.getters.cart[0].dates[0].turno,
+        //   this.$store.getters.colonies[2].title,
+        //   this.$store.getters.colonies[3].title,
+        // ],
+        selection: '',
+        name: '',
+        nameRules: [v => !!v || 'Nome é obrigatório'],
+        age: '',
+        ageRules: [
+        v => !!v || 'Idade é obrigatória'
+      ],
+        name_resp: '',
+        cpf: '',
+        cpfRules: [
+        v => !!v || 'CPF é obrigatório',
+        v => v.length == 11 || 'CPF precisa ter 11 dígitos'
+      ],
+        tel: '',
+        celphone: '',
+        celRules: [
+        v => !!v || 'Celular é obrigatório',
+        v => v.length == 11 || 'Celular precisa ter 11 dígitos'
+      ],
+        email: '',
+        emailRules: [
+        v => !!v || 'E-mail é obrigatório',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail precisa ser válido'
+      ]
       }
-      return (total/100).toString().replace('.',',')
     },
-  },
-  methods: {
-    checkout(){
-      alert('Pagar')
-    },
-    removePlan(){
-        this.$store.dispatch('removePlanFromCart', this.cart.plan)
-    }
+    computed: {
+      formIsValid () {
+        return this.name !== '' &&
+          this.age !== '' &&
+          this.name_resp !== '' &&
+          this.cel !== '' &&
+          this.email !== '' &&
+          this.cpf !== ''
+        },
+
+        colonies() {
+          return this.$store.getters.colonies
+        }
+      },
+    methods: {
+
+      onCreateUser() {
+        if (!this.formIsValid) {
+          return
+        }
+
+        let responsable = {
+          name_resp: this.name_resp,
+          cpf: this.cpf,
+          tel: this.tel,
+          celphone: this.celphone,
+          email: this.email
+        }
+
+        let days = []
+
+        let colonyId = []
+
+        for(let j = 0; j < this.$store.getters.cart.length; j++){
+
+        for(let i = 0; i < this.$store.getters.cart[j].dates.length; i++){
+
+          let morning = false
+          let afternoon = false
+
+          if(this.$store.getters.cart[j].dates[i].turno === 'Manhã'){
+            morning = true
+          }
+
+          if(this.$store.getters.cart[j].dates[i].turno === 'Tarde'){
+            afternoon = true
+          }
+
+          days.push({day: this.$store.getters.cart[j].dates[i].date.getFullYear() + '-'
+               + (this.$store.getters.cart[j].dates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].dates[i].date.getUTCDate(),
+              morning: morning,afternoon: afternoon})
+
+        }
+
+        let userData = {
+          name: this.name,
+          age: this.age,
+          responsable,
+          days,
+          colonyId: this.$store.getters.cart[j].colonyId
+        }
+
+        this.$store.dispatch('createColonyParticipant', userData)
+
+        days.splice(0,this.$store.getters.cart[j].dates.length)
+
+      }
+
+        // for(let i = 0; i < days.length; i++){
+        //   for(let j = i+1; j < days.length; j++){
+        //     if(days[i].day === days[j].day){
+        //       days.day
+        //     }
+        //   }
+        // }
+
+
+  //      let colonyName = this.selection
+  //   let colonyId = '-LDUmFGwINBwthrWVTPY'
+  //     let colonyId = []
+       //this.$store.getters.cart[0].colonyId
+
+  //      let colonyId = ''
+        //this.$store.getters.colonies[1].id
+
+       // for (let i = 0; i < this.$store.getters.colonies.length; i++){
+       //   if(this.$store.getters.colonies[i].title == colonyName){
+       //     colonyId = this.$store.getters.colonies[i].id
+       //   }
+       // }
+      // for(let j = 0; j < this.$store.getters.cart.length; j++){
+      //
+      //   let userData = {
+      //     name: this.name,
+      //     age: this.age,
+      //     responsable,
+      //     days,
+      //     colonyId[i]
+      //   }
+      //
+      //   this.$store.dispatch('createColonyParticipant', userData)
+      //
+      // }
+        this.$router.push('/')
+      }
+
+    // },
+    // components: {
+    //   DatePicker,
+    //   WeekDaysPicker,
+    //   PlanAdder
+    // },
+    // beforeMount () {
+    //   let selectedColony = this.$store.getters.selectedColony
+    //   if (selectedColony != null) {
+    //     this.startDate = selectedColony.start_date
+    //     this.endDate = selectedColony.end_date
+    //     this.weekDaysSelected = selectedColony.week_days
+    //   }
+    // }
   }
+
 }
+
 </script>
+
+
+
+<style scoped>
+  .fade {
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+
+  .fade.fade-enter, .fade.fade-leave {
+    opacity: 0
+  }
+
+  /* delay here */
+  .fade.delay {
+    transition-delay: 0.3s;
+  }
+</style>

@@ -70,7 +70,12 @@
               <v-btn
               class="green--text darken-1"
               flat
+<<<<<<< HEAD
+              @click="onAgree">Adicionar!</v-btn> 
+             <!-- <inscricao-dialog @click="onAgree"></inscricao-dialog> -->
+=======
               @click="onAgree">Adicionar!</v-btn>
+>>>>>>> e60dab54cff819710bb242bfd4a77dddc0bdd870
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -82,6 +87,7 @@
 <script>
   import WeekDaysPicker from '../models/WeekDaysPicker'
   import Vue from 'vue'
+
   export default {
     props: ['colony', 'plan'],
     data () {
@@ -94,6 +100,7 @@
         alert: false,
         alertMessage: '',
         datesFlat: []
+
       }
     },
     computed: {

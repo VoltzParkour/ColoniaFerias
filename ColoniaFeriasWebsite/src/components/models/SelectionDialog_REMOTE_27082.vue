@@ -82,6 +82,7 @@
 <script>
   import WeekDaysPicker from '../models/WeekDaysPicker'
   import Vue from 'vue'
+
   export default {
     props: ['colony', 'plan'],
     data () {
@@ -94,6 +95,7 @@
         alert: false,
         alertMessage: '',
         datesFlat: []
+
       }
     },
     computed: {

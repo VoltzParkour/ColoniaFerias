@@ -10,6 +10,7 @@
         <tr>
           <td>Plano</td>
           <td>Preço</td>
+          <td>Criança</td>          
           <td></td>
         </tr>
       </thead>
@@ -17,6 +18,7 @@
         <tr v-for="p in cart">
             <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
             <td>${{ parseInt(p.plan.price) }}</td>
+            <td>Criança</td>
             <td><v-btn color="red" @click="removePlan">Excluir</v-btn></td>
           </tr>
           <tr>
@@ -26,7 +28,7 @@
           </tr>
       </tbody>
 </table>
-    <p><button v-show="cart.length" class='button is-primary' @click='checkout'>Checkout</button></p>
+    <p><v-btn v-show="cart.length" round @click='checkout'>Pagar</v-btn></p>
   </div>
 </template>
 <script>
@@ -46,7 +48,7 @@ export default {
   },
   methods: {
     checkout(){
-      alert('Pay us $' + this.total)
+      alert('Pagar')
     },
     removePlan(){
         this.$store.dispatch('removePlanFromCart', this.cart.plan)

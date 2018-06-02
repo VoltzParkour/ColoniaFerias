@@ -28,7 +28,7 @@
 	            <span class="icon">
 	              <i class="fa fa-shopping-cart"></i>
 	            </span>
-	            <span>Checkout ({{itemsInCart}})</span>
+	            <span>Pagar ({{itemsInCart}})</span>
 	          </router-link>
 	        </p>
 	      </div>

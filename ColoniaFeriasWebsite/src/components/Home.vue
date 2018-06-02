@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-container v-bind="{ [`grid-list-xl`]: true }" fluid>
-        <v-layout row wrap class="white">
+        <v-layout row wrap class="transparent">
           <v-flex xs12
                   v-for="colony in colonies"
                   :key="colony.id"
@@ -14,8 +14,13 @@
                   <span class="display-2 right fontsp">{{ colony.title }} -</span>
                 </v-flex>
                 <v-flex style="margin-top: 10px">
-                  <span class="headline fontsp">{{ colony.start_date | dayFilter }} de {{ colony.start_date | monthNameFullDateFilter }} até 
+                  <span class="headline fontsp">{{ colony.start_date | dayFilter }} de {{ colony.start_date | monthNameFullDateFilter }} até
                         {{ colony.end_date | dayFilter }} de {{ colony.end_date | monthNameFullDateFilter }}</span>
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap align-center>
+                <v-flex class="text-xs-center">
+                  <h2 class="display grey--text fontsp">{{ colony.description }}</h2>
                 </v-flex>
               </v-layout>
             </v-container>

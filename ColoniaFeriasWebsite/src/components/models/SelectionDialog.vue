@@ -28,9 +28,9 @@
             <v-container grid-list-md text-xs-center class="">
               <v-layout row wrap>
                 <v-flex >
-                  <v-layout row wrap>                           
+                  <v-layout row wrap>
                     <v-flex >
-                      <span class="left body-1 grey--text">Dias restantes: {{remainingDays}}</span>
+                      <span class="left body-1 grey--text">Turnos restantes: {{remainingDays}}</span>
                     </v-flex>
                     <v-spacer></v-spacer>
                   </v-layout>
@@ -41,7 +41,7 @@
                             <span class="body-2">{{day.date | dayFilter }} de {{ day.date | monthNameFullDateFilter }} </span>
                             <div>({{day.date | weekdayFilter }})</div>
                             <v-flex v-for="(turno,j) in day.turnos" :key="j">
-                              <v-card 
+                              <v-card
                                 flat
                                 :class=" datesStatus[turno.pos]  ? ' body-1 primary white--text' : 'body-1 green lighten-5'"
                                 @click.native="selectDate(turno.pos)"

@@ -15,7 +15,7 @@
               </v-layout>
               <v-layout row>
                 <v-flex style="margin-top:-25px;" :style="margemToc">
-                  <span class="title grey--text fontsp" >DIAS</span>
+                  <span class="title grey--text fontsp" >{{ plan.num_days === 1 ? 'Turno' : 'Turnos'}}</span>
                 </v-flex>
               </v-layout>
             </v-card-text>

@@ -67,10 +67,11 @@
               @click="registerDialog = false"
               >Cancelar</v-btn>
               <v-spacer></v-spacer>
-              <v-btn
+             <!-- <v-btn
               class="green--text darken-1"
               flat
-              @click="onAgree">Adicionar!</v-btn>
+              @click="onAgree">Adicionar!</v-btn> -->
+              <inscricao-dialog @click="onAgree"></inscricao-dialog>
             </v-card-actions>
           </v-flex>
         </v-layout>
@@ -82,6 +83,7 @@
 <script>
   import WeekDaysPicker from '../models/WeekDaysPicker'
   import Vue from 'vue'
+  import {bus} from '../../main'
 
   export default {
     props: ['colony', 'plan'],
@@ -132,6 +134,8 @@
             this.$emit('addCart', emitObj)
             this.registerDialog = false
             this.resetSelection()
+            console.log('active?')
+            bus.$emit('dialog', true)
         }
       },
       resetSelection () {

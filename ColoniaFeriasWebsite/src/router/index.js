@@ -4,7 +4,6 @@ import Home from '@/components/Home'
 import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
-import Cart from '@/components/client/Cart'
 import Login from '@/components/login/login'
 import * as firebase from 'firebase'
 
@@ -40,11 +39,6 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/cart',
-      name: 'Cart',
-      component: Cart
     }
   ]
 })

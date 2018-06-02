@@ -1,136 +1,153 @@
 <template>
-  <v-slide-y-transition>
-    <v-container>
-      <v-layout row>
-        <v-flex xs10 offset-xs1 sm6 offset-sm1 mt-3>
-          <h1 class="primary--text">Nova Inscrição</h1>
-        </v-flex>
-      </v-layout>
-      <form @submit.prevent="onCreateUser">
-      <!-- <form> -->
-        <v-layout row>
-          <v-flex xs12>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="name"
-                  label="Nome do Aluno"
-                  :rules="nameRules"
-                  id="name"
-                  v-model="name"
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="age"
-                  label="Idade"
-                  id="age"
-                  mask="##"
-                  :rules="ageRules"
-                v-model="age"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="name_resp"
-                  label="Nome do Responsável"
-                  :rules="nameRules"
-                  id="name_resp"
-                  v-model="name_resp"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="cpf"
-                  label="CPF do Responsável"
-                  mask="###.###.###-##"
-                  :rules="cpfRules"
-                  id="cpf"
-                  v-model="cpf"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="tel"
-                  label="DDD + Telefone"
-                  mask="(##)####-####"
-                  id="tel"
-                  v-model="tel"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="celphone"
-                  label="DDD + Celular"
-                  mask="(##)#####-####"
-                  id="celphone"
-                  :rules="celRules"
-                  v-model="celphone"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-text-field
-                  name="email"
-                  label="E-Mail"
-                  :rules="emailRules"
-                  id="email"
-                  v-model="email"></v-text-field>
-              </v-flex>
-            </v-layout>
-
-            <!-- <v-layout row>
-              <v-flex xs10 offset-xs1 sm10 offset-sm1>
-                <v-select
-              :items="teste"
-              v-model="selection"
-              label="Colonias"
-              single-line
-              ></v-select>
+  <v-dialog v-model="dialog" max-width="400">
+    <v-btn
+      right
+      slot="activator"
+      flat
+      class="green--text darken-1"      
+    >Adicionar!</v-btn>
+      <v-card>
+        <v-container>
+          <v-layout row>
+            <v-flex xs10 offset-xs1 sm6 offset-sm1 mt-3>
+              <h1 class="primary--text">Nova Inscrição</h1>
             </v-flex>
-          </v-layout> -->
+          </v-layout>
+          <form @submit.prevent="onCreateUser">
+          <!-- <form> -->
+            <v-layout row>
+              <v-flex xs12>
 
-          </v-flex>
-        </v-layout>
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="name"
+                      label="Nome do Aluno"
+                      :rules="nameRules"
+                      id="name"
+                      v-model="name"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat
-                 color="primary"
-                 :disabled="!formIsValid"
-                 type="submit">Submeter
-          </v-btn>
-        </v-card-actions>
-      </form>
-      <!-- <v-alert v-model="showAlert"
-               type="error"
-               dismissible
-                transition="slide-y-reverse-transition">
-        {{errorMessage}}
-      </v-alert> -->
-    </v-container>
-  </v-slide-y-transition>
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="age"
+                      label="Idade"
+                      id="age"
+                      mask="##"
+                      :rules="ageRules"
+                    v-model="age"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="name_resp"
+                      label="Nome do Responsável"
+                      :rules="nameRules"
+                      id="name_resp"
+                      v-model="name_resp"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="cpf"
+                      label="CPF do Responsável"
+                      mask="###.###.###-##"
+                      :rules="cpfRules"
+                      id="cpf"
+                      v-model="cpf"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="tel"
+                      label="DDD + Telefone"
+                      mask="(##)####-####"
+                      id="tel"
+                      v-model="tel"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="celphone"
+                      label="DDD + Celular"
+                      mask="(##)#####-####"
+                      id="celphone"
+                      :rules="celRules"
+                      v-model="celphone"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="email"
+                      label="E-Mail"
+                      :rules="emailRules"
+                      id="email"
+                      v-model="email"></v-text-field>
+                  </v-flex>
+                </v-layout>
+
+                <!-- <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-select
+                  :items="teste"
+                  v-model="selection"
+                  label="Colonias"
+                  single-line
+                  ></v-select>
+                </v-flex>
+              </v-layout> -->
+
+              </v-flex>
+            </v-layout>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat
+                    color="primary"
+                    :disabled="!formIsValid"
+                    type="submit">Submeter
+              </v-btn>
+            </v-card-actions>
+          </form>
+          <!-- <v-alert v-model="showAlert"
+                  type="error"
+                  dismissible
+                    transition="slide-y-reverse-transition">
+            {{errorMessage}}
+          </v-alert> -->
+        </v-container>
+      </v-card>  
+  </v-dialog>
 
 </template>
 
 <script>
 
+  import {bus} from '../../main'
+
   export default {
+    created () {
+      var vm = this
+      bus.$on('dialog', function (value) {
+        vm.dialog = value
+      })
+    },
     data() {
       return {
+        dialog: false,
         // teste: [
         //   this.$store.getters.colonies[0].plans[0].price,
         //   this.$store.getters.cart[0].dates[0].turno,

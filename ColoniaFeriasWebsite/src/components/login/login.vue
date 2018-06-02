@@ -56,5 +56,6 @@ button {
     border-radius: 22px;
     color: white;
     background: #BED609;
+    outline-style: none;
 }
 </style>

@@ -77,6 +77,9 @@ export const store = new Vuex.Store({
       }
       state.cart.push(payload)
     },
+    removePlanFromCart (state, payload) {
+      state.cart.splice(payload, 1)
+    },
     setBuyersCount (state, payload) {
       state.buyersCount = payload
     },
@@ -124,6 +127,11 @@ export const store = new Vuex.Store({
             ...user,
             id: key
           })
+          let string_l = 'Colonies/' + selectedColonyId + '/' + 'Days/'
+          user.days.forEach(turno => {
+            firebase.database().ref(string_l + '/' + turno.date + '/' + turno.turno.replace('ã','a').toLowerCase()).push(data.key)
+          })
+
         })
         .catch((error) => {
           console.log(error)
@@ -148,6 +156,8 @@ export const store = new Vuex.Store({
                 end_date : obj[key].end_date,
                 plans: obj[key].plans,
                 week_days: obj[key].week_days,
+                days: obj[key].Days,
+                capacity: obj[key].capacity,
                 active: true
               })
             }
@@ -219,6 +229,9 @@ export const store = new Vuex.Store({
     },
     addPlanToCart ({commit}, payload) {
       commit('addPlanToCart', payload)
+    },
+    removePlanFromCart ({commit}, payload) {
+      commit('removePlanFromCart', payload)
     },
     LoadBuyersCount ({commit}) {
       firebase.database().ref('colony_buyers').once('value')

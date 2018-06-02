@@ -23,6 +23,17 @@
             <v-layout row>
               <v-flex xs10 offset-xs1 sm10 offset-sm1>
                 <v-text-field
+                  name="lotacao"
+                  label="Lotação"
+                  id="lotacao"
+                  mask="###"
+                  v-model="capacity"></v-text-field>
+              </v-flex>
+            </v-layout>
+
+            <v-layout row>
+              <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                <v-text-field
                   name="descricao"
                   label="Descrição"
                   id="descricao"
@@ -117,7 +128,8 @@
         description: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.description,
         imageUrl: '',
         errorMessage: '',
-        showAlert: false
+        showAlert: false,
+        lotacao: ''
       }
     },
     watch: { weekDaysSelected: function(value) {
@@ -153,13 +165,21 @@
           this.showAlert = true
           return false
         }
+
+        if (this.lotacao <= 0) {
+          this.errorMessage = 'Lotação não informada.'
+          this.showAlert = true
+          return false
+        }
+
         let colony = {
           plans: this.$store.getters.selectedPlans,
           week_days: this.weekDaysSelected,
           start_date: this.startDate,
           end_date: this.endDate,
           description: this.description,
-          title: this.title
+          title: this.title,
+          capacity: this.capacity
         }
         this.$store.dispatch('CreateColony', colony)
         this.goAdmin()

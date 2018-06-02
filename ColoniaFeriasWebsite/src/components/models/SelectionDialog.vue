@@ -150,12 +150,24 @@
         while (currentDate <= stopDate) {
           let arrPos = 0
           let turnos = []
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true) {
+          let day = currentDate.getUTCDate() > 9 ? currentDate.getUTCDate():'0' + currentDate.getUTCDate()
+          let month = (currentDate.getUTCMonth() + 1) > 9 ? (currentDate.getUTCMonth() + 1):'0' + (currentDate.getUTCMonth() + 1)
+          let DateStr = currentDate.getUTCFullYear() + '-' + month + '-' + day
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
+                    (this.colony.days == undefined || 
+                    this.colony.days[DateStr] == undefined || 
+                    this.colony.days[DateStr]['manha'] == undefined || 
+                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity)) 
+            {
               turnos.push({name:'Manhã',pos:this.datesStatus.length})
               this.datesFlat.push({date: new Date (currentDate), turno: 'Manhã'})
               this.datesStatus.push(false)
             }
-            if (this.colony.week_days[currentDate.getUTCDay()*2 + 1] === true) {
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
+                    (this.colony.days == undefined || 
+                    this.colony.days[DateStr] == undefined || 
+                    this.colony.days[DateStr]['tarde'] == undefined || 
+                    Object.keys(this.colony.days[DateStr]['tarde']).length < this.colony.capacity)) {
               turnos.push({name:'Tarde',pos:this.datesStatus.length})
               this.datesFlat.push({date: new Date (currentDate), turno: 'Tarde'})
               this.datesStatus.push(false)

@@ -15,6 +15,7 @@ import WeekdayFilter from './filters/weekdayFilter'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import InscForm from './components/models/InscForm'
 import SelectionDialog from './components/models/SelectionDialog'
 
 let app;
@@ -67,4 +68,7 @@ Vue.filter('yearFilter', YearFilter)
 Vue.filter('weekdayFilter', WeekdayFilter)
 
 Vue.component('selection-dialog-home', SelectionDialog)
+Vue.component('inscricao-dialog', InscForm)
+
+export const bus = new Vue()
 

@@ -49,11 +49,12 @@ export const store = new Vuex.Store({
 
 
     //payment
-    session_id: null,
+    session_id: '',
     hash: null,
     payment_methods: null,
     payment_options_dialog: false,
-    transaction: null
+    transaction: null,
+    test: null,
   },
   mutations: {
     addColony (state, payload) {
@@ -108,6 +109,12 @@ export const store = new Vuex.Store({
     },
     setTransactionInfo (state, payload) {
       state.transaction = payload
+    },
+    setTest (state, payload) {
+      state.test = payload
+    },
+    setSessionId (state, payload) {
+      state.session_id = payload
     }
   },
   actions: {
@@ -293,9 +300,27 @@ export const store = new Vuex.Store({
           )
       })
     },
-    requestPayPalTransaction ({commit}, payload) {
+    requestPayPalBoletoTransaction ({commit}, payload) {
       // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
       let url = 'http://api.colonia.ferias/api/payment/boleto'
+      return new Promise((resolve, reject) => {
+        axios.post(url, payload)
+          .then(
+            function (response) {
+              console.log(response)
+              resolve(response.data)
+            }
+          )
+          .catch(
+            function (error) {
+              console.log(error)
+            }
+          )
+      })
+    },
+    requestPayPalCardTransaction ({commit}, payload) {
+      // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
+      let url = 'http://api.colonia.ferias/api/payment/card'
       return new Promise((resolve, reject) => {
         axios.post(url, payload)
           .then(
@@ -325,6 +350,12 @@ export const store = new Vuex.Store({
     },
     setTransactionInfo ({commit}, payload) {
       commit('setTransactionInfo', payload)
+    },
+    setTest ({commit}, payload) {
+      commit('setTest', payload)
+    },
+    setSessionId ({commit}, payload) {
+      commit('setSessionId', payload)
     }
   },
   getters: {
@@ -368,6 +399,9 @@ export const store = new Vuex.Store({
     },
     transaction (state) {
       return state.transaction
+    },
+    sessionId (state) {
+      return state.session_id
     }
 
   }

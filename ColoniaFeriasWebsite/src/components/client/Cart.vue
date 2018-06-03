@@ -165,6 +165,7 @@
     <p>
       <v-btn v-show="cart.length" round @click='checkout'>Pagar</v-btn>
     </p>
+    <PaymentDialogs></PaymentDialogs>
   </div>
 </template>
 <script>
@@ -253,24 +254,24 @@
         return (price / 100).toString().replace('.', ',')
       },
       checkout() {
-        alert('Pagar')
-      },
-      removePlan() {
-        this.$store.dispatch('removePlanFromCart', this.cart.plan)
-      },
-
-      onSubmitForm() {
         console.log('çomecou')
         let payload = {
           // child_name: this.name,
           // child_age: this.age,
-          resp_name: this.name_resp,
-          celphone: this.celphone,
-          email: this.email,
-          cpf: this.cpf
+          // resp_name: this.name_resp,
+          // celphone: this.celphone,
+          // email: this.email,
+          // cpf: this.cpf
+          resp_name: 'Joao da Silva',
+          celphone: '21775748837',
+          email: 'djhsad@dsd.com',
+          cpf: '01212944208'
         }
         this.$store.dispatch('setTransactionInfo', payload)
         this.$store.dispatch('setPaymentOptionsDialog', true)
+      },
+      removePlan() {
+        this.$store.dispatch('removePlanFromCart', this.cart.plan)
       },
 
       onCreateUser() {

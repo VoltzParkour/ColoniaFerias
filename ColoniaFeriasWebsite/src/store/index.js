@@ -46,6 +46,14 @@ export const store = new Vuex.Store({
     selectedPlans: '',
     buyersCount: {},
     cartAmount: null,
+
+
+    //payment
+    session_id: null,
+    hash: null,
+    payment_methods: null,
+    payment_options_dialog: false,
+    transaction: null
   },
   mutations: {
     addColony (state, payload) {
@@ -85,6 +93,21 @@ export const store = new Vuex.Store({
     },
     createColonyParticipant (state, payload) {
       state.colonyParticipants.push(payload)
+    },
+    setSessionId (state, payload) {
+      state.session_id = payload
+    },
+    setHash (state, payload) {
+      state.hash = payload
+    },
+    setPaymentMethods (state, payload) {
+      state.payment_methods = payload
+    },
+    setPaymentOptionsDialog (state, payload) {
+      state.payment_options_dialog = payload
+    },
+    setTransactionInfo (state, payload) {
+      state.transaction = payload
     }
   },
   actions: {
@@ -251,9 +274,9 @@ export const store = new Vuex.Store({
         }
       )
     },
-    requestPayPalSessionId ({commit}, payload) {
+    requestPayPalSessionId ({commit}) {
       return new Promise((resolve, reject) => {
-        let url = 'http://api.colonia.ferias/api/payment'
+        let url = 'http://api.colonia.ferias/api/session'
         axios.get(url)
           .then(
             function (response) {
@@ -270,21 +293,38 @@ export const store = new Vuex.Store({
           )
       })
     },
-
-    requestPayPalCheckout ({commit}, payload) {
-      let url = 'checkout?email='+ email + '&'+ 'token=' + token
-
-      axios.post(url, payload)
-        .then(
-          function (response) {
-            console.log(response)
-          }
-        )
-        .catch(
-          function (error) {
-            console.log(error)
-          }
-        )
+    requestPayPalTransaction ({commit}, payload) {
+      // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
+      let url = 'http://api.colonia.ferias/api/payment/boleto'
+      return new Promise((resolve, reject) => {
+        axios.post(url, payload)
+          .then(
+            function (response) {
+              console.log(response)
+              resolve(response.data)
+            }
+          )
+          .catch(
+            function (error) {
+              console.log(error)
+            }
+          )
+      })
+    },
+    setSessionId ({commit}, payload) {
+      commit('setSessionId', payload)
+    },
+    setHash ({commit}, payload) {
+      commit('setHash', payload)
+    },
+    setPaymentMethods ({commit}, payload) {
+      commit('setPaymentMethods', payload)
+    },
+    setPaymentOptionsDialog ({commit}, payload) {
+      commit('setPaymentOptionsDialog', payload)
+    },
+    setTransactionInfo ({commit}, payload) {
+      commit('setTransactionInfo', payload)
     }
   },
   getters: {
@@ -313,6 +353,22 @@ export const store = new Vuex.Store({
     },
     buyersCount (state) {
       return state.buyersCount
+    },
+    sessionId (state) {
+      return state.session_id
+    },
+    hash (state) {
+      return state.hash
+    },
+    peymentMethods (state) {
+      return state.peyment_methods
+    },
+    paymentOptionsDialog (state) {
+      return state.payment_options_dialog
+    },
+    transaction (state) {
+      return state.transaction
     }
+
   }
 })

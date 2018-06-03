@@ -122,6 +122,9 @@
                 transition="slide-y-reverse-transition">
         {{errorMessage}}
       </v-alert> -->
+      <v-slide-x-transition>
+        <payment-dialogs></payment-dialogs>
+      </v-slide-x-transition>
     </v-container>
   </v-slide-y-transition>
 
@@ -129,7 +132,10 @@
 
 <script>
 
-export default {
+  import PaymentDialogs from '../models/PaymentDialogs'
+
+  export default {
+
     data() {
       return {
         // teste: [
@@ -145,8 +151,8 @@ export default {
         ageRules: [
         v => !!v || 'Idade é obrigatória'
       ],
-        name_resp: 'cascsa',
-        cpf: '34554366659',
+        name_resp: 'cascsa fsdfds',
+        cpf: '01212944208',
         cpfRules: [
         v => !!v || 'CPF é obrigatório',
         v => v.length == 11 || 'CPF precisa ter 11 dígitos'
@@ -178,75 +184,27 @@ export default {
           return this.$store.getters.colonies
         }
       },
-  created() {
-    let recaptchaScript = document.createElement('script')
-    // recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js')
-    //sandbox
-    recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
-    document.head.appendChild(recaptchaScript)
-  },
+  // created() {
+  //   let recaptchaScript = document.createElement('script')
+  //   // recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js')
+  //   //sandbox
+  //   recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
+  //   document.head.appendChild(recaptchaScript)
+  // },
     methods: {
 
       onSubmitForm () {
         console.log('çomecou')
         let payload = {
-          checkout: {
-            sender: {
-              name: this.name_resp,
-              email: this.email,
-              phone: {
-                areaCode: this.celphone.substring(0, 2),
-                number: this.celphone.substring(2, this.celphone.length)
-              },
-              documents: {
-                document: {
-                  type: 'CPF',
-                  value: this.cpf
-                }
-              },
-            },
-            currency: 'BRL',
-            items: {
-              item: {
-                id: 0,
-                description: 'descricao',
-                amount: '99.99',
-                quantity: 1,
-              }
-            },
-            redirectURL: 'localhost:8080'
-          }
+          // child_name: this.name,
+          // child_age: this.age,
+          resp_name: this.name_resp,
+          celphone: this.celphone,
+          email: this.email,
+          cpf: this.cpf
         }
-        console.log('mandando dispatch')
-        this.$store.dispatch('requestPayPalSessionId', payload)
-          .then( response => {
-            console.log('idazao: ' + response.id)
-            PagSeguroDirectPayment.setSessionId(response.id)
-            PagSeguroDirectPayment.onSenderHashReady(function(response){
-              if(response.status == 'error') {
-                console.log(response.message);
-                return false;
-              }
-
-              var hash = response.senderHash;//Hash estará disponível nesta variável.
-              console.log('hash: ' + hash)
-              PagSeguroDirectPayment.getPaymentMethods({
-                amount: this.$store.getters.cartAmount,
-                success: function(response) {
-                  console.log('methods: ' + response)
-                },
-                error: function(response) {
-                  //tratamento do erro
-                },
-                complete: function(response) {
-                  //tratamento comum para todas chamadas
-                }
-              });
-            });
-          })
-          .catch( error => {
-''
-          })
+        this.$store.dispatch('setTransactionInfo', payload)
+        this.$store.dispatch('setPaymentOptionsDialog', true)
       },
 
       onCreateUser() {
@@ -321,7 +279,10 @@ export default {
     //     this.weekDaysSelected = selectedColony.week_days
     //   }
     // }
-  }
+  },
+    components: {
+      PaymentDialogs,
+    }
 
 }
 

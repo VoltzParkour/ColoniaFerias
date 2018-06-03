@@ -18,7 +18,7 @@
         <tr v-for="p in cart">
             <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
             <td> R${{p.plan.price/100}}</td>
-            <td><v-select :items="kids" ></v-select></td>
+            <td><v-select :items="kids"></v-select> <inscricao-dialog></inscricao-dialog></td>
             <td><v-btn color="red" @click="removePlan">Excluir</v-btn></td>
           </tr>
           <tr>
@@ -36,7 +36,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {  
     return {
-      kids: ['new kid', 'old kid']  
+      kids: ['new kid', 'old kid'] //Funciona e está associado ao select 
   }},
   computed: {
     cart () {

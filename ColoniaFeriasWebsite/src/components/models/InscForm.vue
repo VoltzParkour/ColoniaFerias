@@ -5,7 +5,7 @@
       slot="activator"
       flat
       class="green--text darken-1"      
-    >Adicionar!</v-btn>
+    ><v-icon>add_circle</v-icon></v-btn>
       <v-card>
         <v-container>
           <v-layout row>

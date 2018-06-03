@@ -17,7 +17,7 @@
       <tbody>
         <tr v-for="p in cart">
             <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
-            <td>${{ parseInt(p.plan.price) }}</td>
+            <td> R${{p.plan.price/100}}</td>
             <td><v-select :items="kids" ></v-select></td>
             <td><v-btn color="red" @click="removePlan">Excluir</v-btn></td>
           </tr>
@@ -49,6 +49,10 @@ export default {
       }
       return (total/100).toString().replace('.',',')
     },
+    priceAsInt (n) {
+        price = parseInt(n)
+      return (price/100).toString().replace('.',',')
+    },    
   },
   methods: {
     checkout(){

@@ -6,7 +6,6 @@ import ColonyForm from '@/components/admin/ColonyForm'
 import Colony from '@/components/admin/Colony'
 import Cart from '@/components/client/Cart'
 import Login from '@/components/login/login'
-import Cart from '@/components/client/Cart'
 import * as firebase from 'firebase'
 
 

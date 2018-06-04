@@ -283,7 +283,7 @@ export const store = new Vuex.Store({
     },
     requestPayPalSessionId ({commit}) {
       return new Promise((resolve, reject) => {
-        let url = 'http://api.colonia.ferias/api/session'
+        let url = process.env.ROOT_API + 'api/session'
         axios.get(url)
           .then(
             function (response) {
@@ -302,7 +302,7 @@ export const store = new Vuex.Store({
     },
     requestPayPalBoletoTransaction ({commit}, payload) {
       // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
-      let url = 'http://api.colonia.ferias/api/payment/boleto'
+      let url = process.env.ROOT_API + 'api/payment/boleto'
       return new Promise((resolve, reject) => {
         axios.post(url, payload)
           .then(
@@ -320,7 +320,7 @@ export const store = new Vuex.Store({
     },
     requestPayPalCardTransaction ({commit}, payload) {
       // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
-      let url = 'http://api.colonia.ferias/api/payment/card'
+      let url = process.env.ROOT_API + 'api/payment/card'
       return new Promise((resolve, reject) => {
         axios.post(url, payload)
           .then(

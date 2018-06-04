@@ -1,108 +1,104 @@
 <template>
-  <div class="cart">
-    <h1 class="title">Seu Carrinho</h1>
-    <p v-show="!cart.length">
-      <i>Seu carrinho está vazio!</i>
-      <router-link to="/">Ver planos</router-link>
-    </p>
-    <table class="table is-striped" v-show="cart.length">
-      <thead>
-      <tr>
-        <td>Plano</td>
-        <td>Preço</td>
-        <td>Usuário</td>
-        <td></td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(p,j) in cart" :key="j">
-        <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
-        <td> R${{p.plan.price/100}}</td>
-        <td>
-          <v-select :items="kids"
-          v-model="p.selectedUser"
-          item-text="name"
-          label="Selecione o usuário!"
-          ></v-select>
-        </td>
-        <td>
-          <inscricao-dialog @addUser="addUser"></inscricao-dialog>
-          <v-btn flat class="red--text" @click="removePlan">Remover plano</v-btn>
-        </td>
+  <v-slide-y-transition>
+    <v-container>
+      <h1 class="title">Seu Carrinho</h1>
+      <p v-show="!cart.length">
+        <i>Seu carrinho está vazio!</i>
+        <router-link to="/">Ver planos</router-link>
+      </p>
+      <v-data-table 
+      :items="getPlans()"
+      :headers="headers"
+      class="elevation-1"
+      hide-actions=""
+      no-data-text="Nenhum plano selecionado!"
+      >
+        <template slot="items" slot-scope="props">
+            <td> Plano de {{ props.item.plan.num_days }} turno{{props.item.plan.num_days > 1 ? 's':''}}</td>
+            <td>R$ {{ props.item.plan.price/100 }}</td>
+            <td>
+              <v-select :items="kids"
+              v-model="props.item.selectedUser"
+              item-text="name"
+              label="Selecione o usuário!"
+              ></v-select>
+            </td>
+            <td>
+              <inscricao-dialog @addUser="addUser"></inscricao-dialog>
+              <v-btn flat class="red--text" @click="removePlan">Remover plano</v-btn>
+            </td>
+        </template>
+        <template slot="footer">
+          <td><strong>Total: </strong>  R$ {{ cartTotal }}</td>
 
-      </tr>
-      <tr>
-        <td><b>Total:</b></td>
+        </template>
+      </v-data-table>
+      
+      <span v-show="cart.length">
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="name_resp"
+            label="Nome do Responsável"
+            :rules="nameRules"
+            id="name_resp"
+            v-model="responsable.name"></v-text-field>
+        </v-flex>
+      </v-layout>
 
-        <td><b>R${{ cartTotal }}</b></td>
-      </tr>
-      </tbody>
-    </table>
-    
-    <span v-show="cart.length">
-    <v-layout row>
-      <v-flex xs10 offset-xs1 sm10 offset-sm1>
-        <v-text-field
-          name="name_resp"
-          label="Nome do Responsável"
-          :rules="nameRules"
-          id="name_resp"
-          v-model="responsable.name"></v-text-field>
-      </v-flex>
-    </v-layout>
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="cpf"
+            label="CPF do Responsável"
+            mask="###.###.###-##"
+            :rules="cpfRules"
+            id="cpf"
+            v-model="responsable.cpf"></v-text-field>
+        </v-flex>
+      </v-layout>
 
-    <v-layout row>
-      <v-flex xs10 offset-xs1 sm10 offset-sm1>
-        <v-text-field
-          name="cpf"
-          label="CPF do Responsável"
-          mask="###.###.###-##"
-          :rules="cpfRules"
-          id="cpf"
-          v-model="responsable.cpf"></v-text-field>
-      </v-flex>
-    </v-layout>
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="tel"
+            label="DDD + Telefone"
+            mask="(##)####-####"
+            id="tel"
+            v-model="responsable.tel"></v-text-field>
+        </v-flex>
+      </v-layout>
 
-    <v-layout row>
-      <v-flex xs10 offset-xs1 sm10 offset-sm1>
-        <v-text-field
-          name="tel"
-          label="DDD + Telefone"
-          mask="(##)####-####"
-          id="tel"
-          v-model="responsable.tel"></v-text-field>
-      </v-flex>
-    </v-layout>
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="celphone"
+            label="DDD + Celular"
+            mask="(##)#####-####"
+            id="celphone"
+            :rules="celRules"
+            v-model="responsable.cel"></v-text-field>
+        </v-flex>
+      </v-layout>
 
-    <v-layout row>
-      <v-flex xs10 offset-xs1 sm10 offset-sm1>
-        <v-text-field
-          name="celphone"
-          label="DDD + Celular"
-          mask="(##)#####-####"
-          id="celphone"
-          :rules="celRules"
-          v-model="responsable.cel"></v-text-field>
-      </v-flex>
-    </v-layout>
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="email"
+            label="E-Mail"
+            :rules="emailRules"
+            id="email"
+            v-model="responsable.email"></v-text-field>
+        </v-flex>
+      </v-layout>
+      </span>
 
-    <v-layout row>
-      <v-flex xs10 offset-xs1 sm10 offset-sm1>
-        <v-text-field
-          name="email"
-          label="E-Mail"
-          :rules="emailRules"
-          id="email"
-          v-model="responsable.email"></v-text-field>
-      </v-flex>
-    </v-layout>
-    </span>
-
-    <p>
-      <v-btn v-show="cart.length" round @click='checkout'>Finalizar compra</v-btn>
-    </p>
-    <PaymentDialogs></PaymentDialogs>
-  </div>
+      <p>
+        <v-btn v-show="cart.length" round @click='checkout'>Finalizar compra</v-btn>
+      </p>
+      <PaymentDialogs></PaymentDialogs>
+    </v-container>
+  </v-slide-y-transition>
 </template>
 <script>
   import PaymentDialogs from '../models/PaymentDialogs'
@@ -148,6 +144,16 @@
     data() {
       return {
         kids: [],
+        headers: [
+          {
+            text: 'Plano',
+            align: 'left',
+            value: 'plan'
+          },
+          {text: 'Preço', value: 'price'},
+          {text: 'Usuário', value: 'user' },
+          {text: '' }
+        ],
         responsable: 
         {
           name: '',
@@ -213,6 +219,9 @@
       removePlan() {
         this.$store.dispatch('removePlanFromCart', this.cart.plan)
       },
+      getPlans() {
+        return this.$store.getters.cart
+      },      
 
       onCreateUser() {
         if (!this.formIsValid) {
@@ -294,3 +303,4 @@
     },
   }
 </script>
+

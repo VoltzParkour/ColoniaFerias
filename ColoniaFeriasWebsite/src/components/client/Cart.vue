@@ -1,133 +1,4 @@
 <template>
-  <!--<v-slide-y-transition>-->
-  <!--<v-container>-->
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm6 offset-sm1 mt-3>-->
-  <!--<h1 class="primary&#45;&#45;text">Nova Inscrição</h1>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-  <!--<form-->
-  <!--@submit.prevent="onSubmitForm">-->
-  <!--&lt;!&ndash; <form> &ndash;&gt;-->
-  <!--<v-layout row>-->
-  <!--<v-flex xs12>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="name"-->
-  <!--label="Nome do Aluno"-->
-  <!--:rules="nameRules"-->
-  <!--id="name"-->
-  <!--v-model="name"-->
-  <!--&gt;</v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="age"-->
-  <!--label="Idade"-->
-  <!--id="age"-->
-  <!--mask="##"-->
-  <!--:rules="ageRules"-->
-  <!--v-model="age"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="name_resp"-->
-  <!--label="Nome do Responsável"-->
-  <!--:rules="nameRules"-->
-  <!--id="name_resp"-->
-  <!--v-model="name_resp"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="cpf"-->
-  <!--label="CPF do Responsável"-->
-  <!--mask="###.###.###-##"-->
-  <!--:rules="cpfRules"-->
-  <!--id="cpf"-->
-  <!--v-model="cpf"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="tel"-->
-  <!--label="DDD + Telefone"-->
-  <!--mask="(##)####-####"-->
-  <!--id="tel"-->
-  <!--v-model="tel"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="celphone"-->
-  <!--label="DDD + Celular"-->
-  <!--mask="(##)#####-####"-->
-  <!--id="celphone"-->
-  <!--:rules="celRules"-->
-  <!--v-model="celphone"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-text-field-->
-  <!--name="email"-->
-  <!--label="E-Mail"-->
-  <!--:rules="emailRules"-->
-  <!--id="email"-->
-  <!--v-model="email"></v-text-field>-->
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--&lt;!&ndash; <v-layout row>-->
-  <!--<v-flex xs10 offset-xs1 sm10 offset-sm1>-->
-  <!--<v-select-->
-  <!--:items="teste"-->
-  <!--v-model="selection"-->
-  <!--label="Colonias"-->
-  <!--single-line-->
-  <!--&gt;</v-select>-->
-  <!--</v-flex>-->
-  <!--</v-layout> &ndash;&gt;-->
-
-  <!--</v-flex>-->
-  <!--</v-layout>-->
-
-  <!--<v-card-actions>-->
-  <!--<v-spacer></v-spacer>-->
-  <!--<v-btn flat-->
-  <!--color="primary"-->
-  <!--:disabled="!formIsValid"-->
-  <!--type="submit">Submeter-->
-  <!--</v-btn>-->
-  <!--</v-card-actions>-->
-  <!--</form>-->
-  <!--&lt;!&ndash; <v-alert v-model="showAlert"-->
-  <!--type="error"-->
-  <!--dismissible-->
-  <!--transition="slide-y-reverse-transition">-->
-  <!--{{errorMessage}}-->
-  <!--</v-alert> &ndash;&gt;-->
-  <!--<v-slide-x-transition>-->
-  <!--<payment-dialogs></payment-dialogs>-->
-  <!--</v-slide-x-transition>-->
-  <!--</v-container>-->
-  <!--</v-slide-y-transition>-->
-
   <div class="cart">
     <h1 class="title">Seu Carrinho</h1>
     <p v-show="!cart.length">
@@ -139,21 +10,26 @@
       <tr>
         <td>Plano</td>
         <td>Preço</td>
-        <td>Criança</td>
+        <td>Usuário</td>
         <td></td>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="p in cart">
+      <tr v-for="(p,j) in cart" :key="j">
         <td>Plano de {{ p.plan.num_days }} turno{{p.plan.num_days > 1 ? 's':''}}</td>
         <td> R${{p.plan.price/100}}</td>
         <td>
-          <v-select :items="kids"></v-select>
-          <inscricao-dialog></inscricao-dialog>
+          <v-select :items="kids"
+          v-model="p.selectedUser"
+          item-text="name"
+          label="Selecione o usuário!"
+          ></v-select>
         </td>
         <td>
-          <v-btn color="red" @click="removePlan">Excluir</v-btn>
+          <inscricao-dialog @addUser="addUser"></inscricao-dialog>
+          <v-btn flat class="red--text" @click="removePlan">Remover plano</v-btn>
         </td>
+
       </tr>
       <tr>
         <td><b>Total:</b></td>
@@ -162,8 +38,68 @@
       </tr>
       </tbody>
     </table>
+    
+    <span v-show="cart.length">
+    <v-layout row>
+      <v-flex xs10 offset-xs1 sm10 offset-sm1>
+        <v-text-field
+          name="name_resp"
+          label="Nome do Responsável"
+          :rules="nameRules"
+          id="name_resp"
+          v-model="responsable.name"></v-text-field>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row>
+      <v-flex xs10 offset-xs1 sm10 offset-sm1>
+        <v-text-field
+          name="cpf"
+          label="CPF do Responsável"
+          mask="###.###.###-##"
+          :rules="cpfRules"
+          id="cpf"
+          v-model="responsable.cpf"></v-text-field>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row>
+      <v-flex xs10 offset-xs1 sm10 offset-sm1>
+        <v-text-field
+          name="tel"
+          label="DDD + Telefone"
+          mask="(##)####-####"
+          id="tel"
+          v-model="responsable.tel"></v-text-field>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row>
+      <v-flex xs10 offset-xs1 sm10 offset-sm1>
+        <v-text-field
+          name="celphone"
+          label="DDD + Celular"
+          mask="(##)#####-####"
+          id="celphone"
+          :rules="celRules"
+          v-model="responsable.cel"></v-text-field>
+      </v-flex>
+    </v-layout>
+
+    <v-layout row>
+      <v-flex xs10 offset-xs1 sm10 offset-sm1>
+        <v-text-field
+          name="email"
+          label="E-Mail"
+          :rules="emailRules"
+          id="email"
+          v-model="responsable.email"></v-text-field>
+      </v-flex>
+    </v-layout>
+    </span>
+
     <p>
-      <v-btn v-show="cart.length" round @click='checkout'>Pagar</v-btn>
+      <v-btn v-show="cart.length" round @click='checkout'>Finalizar compra</v-btn>
     </p>
     <PaymentDialogs></PaymentDialogs>
   </div>
@@ -211,7 +147,35 @@
   export default {
     data() {
       return {
-        kids: ['new kid', 'old kid'] //Funciona e está associado ao select
+        kids: [],
+        responsable: 
+        {
+          name: '',
+          email: '',
+          cpf: '',
+          tel: '',
+          cel: ''
+        },
+        nameRules: [v => !!v || 'Nome é obrigatório'],
+        ageRules: 
+        [
+          v => !!v || 'Idade é obrigatória'
+        ],
+        cpfRules:
+        [
+          v => !!v || 'CPF é obrigatório',
+          v => v.length == 11 || 'CPF precisa ter 11 dígitos'
+        ],
+        celRules: 
+        [
+          v => !!v || 'Celular é obrigatório',
+          v => v.length == 11 || 'Celular precisa ter 11 dígitos'
+        ],
+        emailRules: 
+        [
+          v => !!v || 'E-mail é obrigatório',
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail precisa ser válido'
+        ] 
       }
     },
     computed: {
@@ -226,28 +190,10 @@
         return (total / 100).toString().replace('.', ',')
       },
     },
-    // computed: {
-    //   formIsValid () {
-    //     return this.name !== '' &&
-    //       this.age !== '' &&
-    //       this.name_resp !== '' &&
-    //       this.celphone !== '' &&
-    //       this.email !== '' &&
-    //       this.cpf !== ''
-    //     },
-    //
-    //     colonies() {
-    //       return this.$store.getters.colonies
-    //     }
-    //   },
-    // created() {
-    //   let recaptchaScript = document.createElement('script')
-    //   // recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js')
-    //   //sandbox
-    //   recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
-    //   document.head.appendChild(recaptchaScript)
-    // },
     methods: {
+      addUser(data) {
+        this.kids.push(data)
+      },
 
       priceAsInt(n) {
         price = parseInt(n)
@@ -256,12 +202,6 @@
       checkout() {
         console.log('çomecou')
         let payload = {
-          // child_name: this.name,
-          // child_age: this.age,
-          // resp_name: this.name_resp,
-          // celphone: this.celphone,
-          // email: this.email,
-          // cpf: this.cpf
           resp_name: 'Joao da Silva',
           celphone: '21775748837',
           email: 'djhsad@dsd.com',

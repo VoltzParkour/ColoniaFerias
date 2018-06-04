@@ -1,11 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" max-width="400">
+  <v-dialog v-model="dialog" max-width="520">
     <v-btn
       right
       slot="activator"
       flat
       class="green--text darken-1"      
-    ><v-icon>add_circle</v-icon></v-btn>
+    ><v-icon>add_circle</v-icon> </v-btn>
       <v-card>
         <v-container>
           <v-layout row>
@@ -42,7 +42,7 @@
                   </v-flex>
                 </v-layout>
 
-                <v-layout row>
+                <!-- <v-layout row>
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
                     <v-text-field
                       name="name_resp"
@@ -97,7 +97,7 @@
                       id="email"
                       v-model="email"></v-text-field>
                   </v-flex>
-                </v-layout>
+                </v-layout> -->
 
                 <!-- <v-layout row>
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
@@ -116,9 +116,9 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn flat
-                    color="primary"
+                    class="green--text"
                     :disabled="!formIsValid"
-                    type="submit">Submeter
+                    type="submit">Adicionar usuário
               </v-btn>
             </v-card-actions>
           </form>
@@ -181,54 +181,66 @@
     computed: {
       formIsValid () {
         return this.name !== '' &&
-          this.age !== '' &&
-          this.name_resp !== '' &&
-          this.cel !== '' &&
-          this.email !== '' &&
-          this.cpf !== ''
+          this.age !== '' 
+          // this.name_resp !== '' &&
+          // this.cel !== '' &&
+          // this.email !== '' &&
+          // this.cpf !== ''
         },
         colonies() {
           return this.$store.getters.colonies
         }
       },
     methods: {
-      onCreateUser() {
-        if (!this.formIsValid) {
-          return
-        }
-        let responsable = {
-          name_resp: this.name_resp,
-          cpf: this.cpf,
-          tel: this.tel,
-          celphone: this.celphone,
-          email: this.email
-        }
-        let days = []
-        let colonyId = []
-        for(let j = 0; j < this.$store.getters.cart.length; j++){
-        for(let i = 0; i < this.$store.getters.cart[j].dates.length; i++){
-          let morning = false
-          let afternoon = false
-          if(this.$store.getters.cart[j].dates[i].turno === 'Manhã'){
-            morning = true
-          }
-          if(this.$store.getters.cart[j].dates[i].turno === 'Tarde'){
-            afternoon = true
-          }
-          days.push({day: this.$store.getters.cart[j].dates[i].date.getFullYear() + '-'
-               + (this.$store.getters.cart[j].dates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].dates[i].date.getUTCDate(),
-              morning: morning,afternoon: afternoon})
-        }
-        let userData = {
-          name: this.name,
-          age: this.age,
-          responsable,
-          days,
-          colonyId: this.$store.getters.cart[j].colonyId
-        }
-        this.$store.dispatch('createColonyParticipant', userData)
-        days.splice(0,this.$store.getters.cart[j].dates.length)
+      onCreateUser () {
+        if (!this.formIsValid) {return}
+        let emitObj = {
+              name: this.name,
+              age: this.age
+            }
+            this.$emit('addUser', emitObj)
+            this.dialog = false
+            this.name = ''
+            this.age = ''
       }
+    }
+      // onCreateUser() {
+      //   if (!this.formIsValid) {
+      //     return
+      //   }
+      //   let responsable = {
+      //     name_resp: this.name_resp,
+      //     cpf: this.cpf,
+      //     tel: this.tel,
+      //     celphone: this.celphone,
+      //     email: this.email
+      //   }
+      //   let days = []
+      //   let colonyId = []
+      //   for(let j = 0; j < this.$store.getters.cart.length; j++){
+      //   for(let i = 0; i < this.$store.getters.cart[j].dates.length; i++){
+      //     let morning = false
+      //     let afternoon = false
+      //     if(this.$store.getters.cart[j].dates[i].turno === 'Manhã'){
+      //       morning = true
+      //     }
+      //     if(this.$store.getters.cart[j].dates[i].turno === 'Tarde'){
+      //       afternoon = true
+      //     }
+      //     days.push({day: this.$store.getters.cart[j].dates[i].date.getFullYear() + '-'
+      //          + (this.$store.getters.cart[j].dates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].dates[i].date.getUTCDate(),
+      //         morning: morning,afternoon: afternoon})
+      //   }
+      //   let userData = {
+      //     name: this.name,
+      //     age: this.age,
+      //     responsable,
+      //     days,
+      //     colonyId: this.$store.getters.cart[j].colonyId
+      //   }
+      //   this.$store.dispatch('createColonyParticipant', userData)
+      //   days.splice(0,this.$store.getters.cart[j].dates.length)
+      // }
         // for(let i = 0; i < days.length; i++){
         //   for(let j = i+1; j < days.length; j++){
         //     if(days[i].day === days[j].day){
@@ -260,8 +272,8 @@
       //   this.$store.dispatch('createColonyParticipant', userData)
       //
       // }
-        this.$router.push('/')
-      }
+        //this.$router.push('/')
+      
     // },
     // components: {
     //   DatePicker,
@@ -277,7 +289,7 @@
     //   }
     // }
   }
-}
+
 </script>
 
 

@@ -36,14 +36,20 @@
                 <template slot="items" slot-scope="props">
                  <tr @click="props.expanded = !props.expanded">
                   <td>{{ props.item.participant.name }}</td>
-                  <td>{{ props.item.participant.cpf }}</td>
+                  <td>{{ props.item.participant.responsable.name_resp }}</td>
                   <td>{{ props.item.participant.age }}</td>
                   <td>{{ props.item.period }}</td>
                   </tr>
                 </template>
                 <template slot="expand" slot-scope="props">
                   <v-card flat>
-                    <v-card-text>Responsável: {{ props.item.participant.responsable }}</v-card-text>
+                    <v-card-text>
+                      <span>Responsável: {{props.item.participant.responsable.name_resp }}</span><br>
+                      <span>CPF: {{props.item.participant.responsable.cpf }}</span><br>
+                      <span>E-mail: {{props.item.participant.responsable.email }}</span><br>
+                      <span>Celular: {{props.item.participant.responsable.celphone }}</span><br>
+                      <span>Telefone: {{props.item.participant.responsable.tel}}</span>
+                      </v-card-text>
                   </v-card>
                 </template>
               </v-data-table>
@@ -72,7 +78,7 @@ import firebase from 'firebase'
             align: 'left',
             value: 'name'
           },
-          {text: 'CPF', value: 'cpf'},
+          {text: 'Responsável', value: 'responsable'},
           {text: 'Idade', value: 'age' },
           {text: 'Período', value: 'period'},
         ],

@@ -1,6 +1,7 @@
 <template>
   <v-dialog width="450px" v-model="registerDialog">
     <v-btn
+      @click.native="setDays()"
       absolute
       fab
       top
@@ -138,9 +139,11 @@
           arr.push(false);
         }
         this.datesStatus = arr;
-      }
-    },
-    created () {
+      },
+      setDays () {
+        console.log('!@@@@@@')
+        this.datesStatus = []
+        this.datesFlat = []
         let startDate = new Date (this.colony.start_date)
         let stopDate = new Date (this.colony.end_date)
         var dateArray = new Array()
@@ -151,6 +154,7 @@
           let day = currentDate.getUTCDate() > 9 ? currentDate.getUTCDate():'0' + currentDate.getUTCDate()
           let month = (currentDate.getUTCMonth() + 1) > 9 ? (currentDate.getUTCMonth() + 1):'0' + (currentDate.getUTCMonth() + 1)
           let DateStr = currentDate.getUTCFullYear() + '-' + month + '-' + day
+          console.log(DateStr)
             if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
                     (this.colony.days == undefined || 
                     this.colony.days[DateStr] == undefined || 
@@ -176,6 +180,10 @@
             currentDate.setDate(currentDate.getDate() + 1)
         }
         this.dates = dateArray
+      }
+    },
+    created () {
+        
     }
   }
 </script>

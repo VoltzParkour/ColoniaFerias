@@ -15,6 +15,7 @@
                 <v-btn flat @click.native="onCardSelected">
                   <img src="../../assets/credit-card.png">
                 </v-btn>
+                <v-btn @click.native="dummyEmit">Teste</v-btn>
               </v-card-actions>
             </v-layout>
           </v-container>
@@ -272,10 +273,17 @@
         this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
           response => {
             this.loading = false
-            this.boletoLink = response
-          }
-        )
+            this.boletoLink = response.paymentLink
+            this.paymentCode = response.code
+          })
+        
+        this.$emit('paymentRequested', {code: this.paymentCode})
       },
+      dummyEmit () {
+        let date = new Date()
+        this.$emit('paymentRequested', {code: 'kljsaduh89sajmns' + date.getUTCMonth().toString() + date.getUTCDate().toString() + date.getUTCMinutes().toString() + date.getUTCSeconds().toString()})
+      }
+      ,
       onCardInfoInputed() {
         this.cardDialog = false
         this.cardHolderDialog = true

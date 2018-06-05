@@ -140,7 +140,40 @@ export const store = new Vuex.Store({
       }
     },
 
+    createColonyParticipantTemporary ({commit, getters}, payload) {
+      const user = {
+        name: payload.userData.name,
+        age: payload.userData.age,
+        responsable: payload.userData.responsable,
+        days: payload.userData.days,
+        paymentCode: payload.paymentCode
+      }
+      let selectedColonyId = payload.userData.colonyId
+      let string = 'colony_buyers_by_payment/'+ payload.paymentCode + '/' + selectedColonyId
+      firebase.database().ref(string).push(user)
+        .then((data) => {
+          const key = data.key
+          commit('createColonyParticipant', {
+            ...user,
+            id: key,
+            temporary: true
+          })
+          
 
+          let string_m = 'colony_buyers/' + selectedColonyId
+          firebase.database().ref(string_m).push(user)
+          
+          let string_l = 'Colonies/' + selectedColonyId + '/Days/'
+          user.days.forEach(turno => {//diminuir número de chamadas!!!
+            firebase.database().ref(string_l + turno.day + '/' + turno.turno.replace('ã','a').toLowerCase()).push({userId: key, paymentCode: payload.paymentCode})
+          })
+
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+      // Reach out to firebase and store it
+    },
     createColonyParticipant ({commit, getters}, payload) {
       const user = {
         name: payload.name,
@@ -157,7 +190,7 @@ export const store = new Vuex.Store({
             ...user,
             id: key
           })
-          let string_l = 'Colonies/' + selectedColonyId + '/' + 'Days/'
+          let string_l = 'Colonies/' + selectedColonyId + '/Days/'
           user.days.forEach(turno => {
             firebase.database().ref(string_l + '/' + turno.date + '/' + turno.turno.replace('ã','a').toLowerCase()).push(data.key)
           })

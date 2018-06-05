@@ -96,7 +96,7 @@
       <p>
         <v-btn v-show="cart.length" round @click='checkout'>Finalizar compra</v-btn>
       </p>
-      <PaymentDialogs></PaymentDialogs>
+      <PaymentDialogs @paymentRequested="processRequest"></PaymentDialogs>
     </v-container>
   </v-slide-y-transition>
 </template>
@@ -223,7 +223,8 @@
         return this.$store.getters.cart
       },      
 
-      onCreateUser() {
+      //Método não está sendo usado!
+      onCreateUser(){
         if (!this.formIsValid) {
           return
         }
@@ -281,6 +282,62 @@
         }
         this.$router.push('/')
       },
+
+      processRequest (data) {
+        let responsable = {
+          name_resp: this.responsable.name,
+          cpf: this.responsable.cpf,
+          tel: this.responsable.tel,
+          celphone: this.responsable.cel,
+          email: this.responsable.email
+        }
+
+        let days = []
+        let colonyId = []
+
+        for (let j = 0; j < this.$store.getters.cart.length; j++) {//Fazer esses loops mais eficientes! Vai muitas vezes no getters!!
+
+          for (let i = 0; i < this.$store.getters.cart[j].dates.length; i++) {
+            let turno = ''
+            let afternoon = false
+            let morning = false
+
+            if (this.$store.getters.cart[j].dates[i].turno === 'Manhã') {
+              turno = 'manha'
+              morning = true
+            } else 
+
+            if (this.$store.getters.cart[j].dates[i].turno === 'Tarde') {
+              turno = 'tarde'
+              afternoon = true
+            }
+            
+            let day = this.$store.getters.cart[j].dates[i].date.getUTCDate() > 9 ? this.$store.getters.cart[j].dates[i].date.getUTCDate():'0' + this.$store.getters.cart[j].dates[i].date.getUTCDate()
+            let month = (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1) > 9 ? (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1):'0' + (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1)
+            let DateStr = this.$store.getters.cart[j].dates[i].date.getUTCFullYear() + '-' + month + '-' + day
+
+            days.push({
+              day: DateStr,
+              turno: turno,
+              afternoon: afternoon,
+              morning: morning
+            })
+          }
+
+          let userData = {
+            name:  this.$store.getters.cart[j].selectedUser.name,
+            age: this.$store.getters.cart[j].selectedUser.age,
+            responsable: responsable,
+            days: days,
+            colonyId: this.$store.getters.cart[j].colonyId
+          }
+          console.log('@@@@@')
+          this.$store.dispatch('createColonyParticipantTemporary', {userData: userData, paymentCode: data.code})
+
+          //days.splice(0, this.$store.getters.cart[j].dates.length)
+
+        }
+      }
 
 
       // },

@@ -48,6 +48,9 @@
                   mask="####.####.####.####"
                   required
                 ></v-text-field>
+                <v-alert v-model="failure" type="error" dismissible>
+                  Número de cartão inválido!
+                </v-alert>
                 <v-text-field
                   v-model="card.expiration"
                   :rules="expirationRules"
@@ -190,6 +193,7 @@
     data() {
       return {
         dialogWidth: '500px',
+        failure: false,
         boletoDialog: false,
         cardDialog: false,
         cardHolderDialog: false,
@@ -200,15 +204,15 @@
         cardHolder: null,
         cardNumberRules: [
           v => !!v || 'O número é necessário',
-          // v => v.length === 16 || 'Número de caracteres inválido'
+          v => v.length === 16 || 'Número de caracteres inválido'
         ],
         expirationRules: [
           v => !!v || 'A data de validade é necessária',
-          // v => v.length === 4 || 'Número de caracteres inválido'
+          v => v.length === 6 || 'Número de caracteres inválido'
         ],
         cvcRules: [
           v => !!v || 'A Cvv é necessário',
-          // v => v.length === 3 || 'Número de caracteres inválido'
+          //v => v.length === 3 || 'Número de caracteres inválido'
         ],
         boletoLink: null,
         loading: false,
@@ -285,15 +289,19 @@
       }
       ,
       onCardInfoInputed() {
-        this.cardDialog = false
-        this.cardHolderDialog = true
+        var self = this
         PagSeguroDirectPayment.getBrand({
           cardBin: this.card.number,
           success: function(response) {
             this.brand = response
+            console.log('passou')
+            self.cardDialog = false
+            self.cardHolderDialog = true            
           },
           error: function(response) {
-            //tratamento do erro
+            self.failure = true
+            self.cardDialog = true
+            self.cardHolderDialog = false
           },
           complete: function(response) {
             //tratamento comum para todas chamadas

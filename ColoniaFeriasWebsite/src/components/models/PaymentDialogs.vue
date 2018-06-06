@@ -9,13 +9,13 @@
           <v-container class="text-xs-center">
             <v-layout justify-center>
               <v-card-actions>
-                <v-btn flat @click.native="onBoletoSelected">
+                <v-btn color="transparent" flat @click.native="onBoletoSelected">
                   <img src="../../assets/barcode.png">
                 </v-btn>
-                <v-btn flat @click.native="onCardSelected">
+                <v-btn color="transparent" flat @click.native="onCardSelected">
                   <img src="../../assets/credit-card.png">
                 </v-btn>
-                <v-btn @click.native="dummyEmit">Teste</v-btn>
+                <v-btn input-value="false" @click.native="dummyEmit">Teste</v-btn>
               </v-card-actions>
             </v-layout>
           </v-container>

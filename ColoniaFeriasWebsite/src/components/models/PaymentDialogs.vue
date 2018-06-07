@@ -26,7 +26,7 @@
           <v-container class="text-xs-center">
             <v-layout justify-center>
               <v-card-actions>
-                <v-btn flat @click.native="onBoletoSelected">
+                <v-btn color="transparent" flat @click.native="onBoletoSelected">
                   <img src="../../assets/barcode.png">
                 </v-btn>
                 <a :href="boletoLink">Clique para gerar seu boleto</a>

@@ -283,6 +283,8 @@
           fetcherPhone: this.fetcherPhone
         }
 
+        let LunchDays = []
+
         let days = []
 
         let colonyId = []
@@ -307,7 +309,12 @@
               + (this.$store.getters.cart[j].dates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].dates[i].date.getUTCDate(),
               morning: morning, afternoon: afternoon
             })
-
+          }
+          for (let i = 0; i < this.$store.getters.cart[j].lunchDates.length; i++) {
+            lunchDays.push({
+              lunchDay: this.$store.getters.cart[j].lunchDates[i].date.getFullYear() + '-'
+              + (this.$store.getters.cart[j].lunchDates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].lunchDates[i].date.getUTCDate()
+            })
           }
 
           let userData = {
@@ -316,12 +323,14 @@
             healthInsurance: this.healthInsurance,
             responsable,
             days,
+            lunchDays,
             colonyId: this.$store.getters.cart[j].colonyId
           }
 
           this.$store.dispatch('createColonyParticipant', userData)
 
           days.splice(0, this.$store.getters.cart[j].dates.length)
+          days.splice(0, this.$store.getters.cart[j].lunchDates.length)          
 
         }
         this.$router.push('/')

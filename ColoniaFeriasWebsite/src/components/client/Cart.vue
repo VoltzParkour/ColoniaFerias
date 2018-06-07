@@ -310,6 +310,7 @@
           let userData = {
             name: this.name,
             age: this.age,
+            healthInsurance: this.healthInsurance,
             responsable,
             days,
             colonyId: this.$store.getters.cart[j].colonyId

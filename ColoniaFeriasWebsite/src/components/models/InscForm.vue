@@ -42,6 +42,16 @@
                   </v-flex>
                 </v-layout>
 
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="healthInsurance"
+                      label="Plano de Saúde (colocar empresa ou 'nenhum')"
+                      id="healthInsurance"
+                      v-model="healthInsurance"></v-text-field>
+                  </v-flex>
+                </v-layout>                
+
                 <!-- <v-layout row>
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
                     <v-text-field
@@ -153,6 +163,7 @@
         //   this.$store.getters.colonies[3].title,
         // ],
         selection: '',
+        healthInsurance: '',
         name: '',
         nameRules: [
           v => !!v || 'Nome é obrigatório',
@@ -199,12 +210,14 @@
         if (!this.formIsValid) {return}
         let emitObj = {
               name: this.name,
-              age: this.age
+              age: this.age,
+              healthInsurance: this.healthInsurance
             }
             this.$emit('addUser', emitObj)
             this.dialog = false
             this.name = ''
             this.age = ''
+            this.healthInsurance = ''
       }
     }
       // onCreateUser() {

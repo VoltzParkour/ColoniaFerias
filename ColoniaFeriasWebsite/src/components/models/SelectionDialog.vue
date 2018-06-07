@@ -106,7 +106,8 @@
         datesFlat: [],
         lunchEnabled: [],
         datesHasLunch: [],
-        datesFlatDays: []
+        datesFlatDays: [],
+        lunchDays: []
       }
     },
     computed: {
@@ -139,17 +140,17 @@
               }
             }
             let price = parseInt(this.plan.price)          
-            let lunchDates = []
+            let lunchDays = []
             for (let i in this.datesHasLunch){
               if (this.datesHasLunch[i]){
                 price += 2000
-                this.plan.price = (price).toString().replace('.',',')
-                lunchDates.push(this.datesFlatDays[i])
+                this.plan.priceWithLunch = (price).toString().replace('.',',')
+                lunchDays.push(this.datesFlatDays[i])
               }
             }
             let emitObj = {
               dates: selectedDates,
-              lunchDays: lunchDates,
+              lunchDates: lunchDays,
               selection: this.selection
             }
             this.$emit('addCart', emitObj)
@@ -159,10 +160,15 @@
       },
       resetSelection () {
         var arr = [];
+        var lunchArr =[];
         for (var i = 0; i < this.datesStatus.length; i++) {
           arr.push(false);
         }
+        for (var i = 0; i < this.datesHasLunch.length; i++) {
+          lunchArr.push(false);
+        }
         this.datesStatus = arr;
+        this.datesStatus = lunchArr;
       },
       setDays () {
         console.log('!@@@@@@')

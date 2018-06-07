@@ -63,6 +63,7 @@
             plan: this.plan,
             period: data.selection.replace('ã', 'a').toLowerCase(),
             dates: data.dates,
+            lunchDates: data.lunchDates,
             colonyId: this.colony.id
             }
           this.success = true

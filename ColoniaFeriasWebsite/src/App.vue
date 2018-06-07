@@ -99,7 +99,7 @@
       cartTotal () {
         let total = 0
         for (let i in this.cart) {
-          total = total + parseInt(this.cart[i].plan.price)
+          total = total + parseInt(this.cart[i].plan.priceWithLunch)
         }
         return (total/100).toString().replace('.',',')
       }

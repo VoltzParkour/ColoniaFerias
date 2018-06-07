@@ -15,7 +15,6 @@
                 <v-btn color="transparent" flat @click.native="onCardSelected">
                   <img src="../../assets/credit-card.png">
                 </v-btn>
-                <v-btn input-value="false" @click.native="dummyEmit">Teste</v-btn>
               </v-card-actions>
             </v-layout>
           </v-container>

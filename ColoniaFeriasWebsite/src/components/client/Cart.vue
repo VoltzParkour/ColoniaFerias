@@ -6,7 +6,7 @@
         <i>Seu carrinho está vazio!</i>
         <router-link to="/">Ver planos</router-link>
       </p>
-      <v-data-table 
+      <v-data-table
       :items="getPlans()"
       :headers="headers"
       class="elevation-1"
@@ -33,7 +33,7 @@
 
         </template>
       </v-data-table>
-      
+
       <span v-show="cart.length">
       <v-layout row>
         <v-flex xs10 offset-xs1 sm10 offset-sm1>
@@ -154,7 +154,7 @@
           {text: 'Usuário', value: 'user' },
           {text: '' }
         ],
-        responsable: 
+        responsable:
         {
           name: '',
           email: '',
@@ -163,7 +163,7 @@
           cel: ''
         },
         nameRules: [v => !!v || 'Nome é obrigatório'],
-        ageRules: 
+        ageRules:
         [
           v => !!v || 'Idade é obrigatória'
         ],
@@ -172,16 +172,16 @@
           v => !!v || 'CPF é obrigatório',
           v => v.length == 11 || 'CPF precisa ter 11 dígitos'
         ],
-        celRules: 
+        celRules:
         [
           v => !!v || 'Celular é obrigatório',
           v => v.length == 11 || 'Celular precisa ter 11 dígitos'
         ],
-        emailRules: 
+        emailRules:
         [
           v => !!v || 'E-mail é obrigatório',
           v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail precisa ser válido'
-        ] 
+        ]
       }
     },
     computed: {
@@ -221,7 +221,7 @@
       },
       getPlans() {
         return this.$store.getters.cart
-      },      
+      },
 
       //Método não está sendo usado!
       onCreateUser(){
@@ -284,6 +284,7 @@
       },
 
       processRequest (data) {
+        console.log('çheck')
         let responsable = {
           name_resp: this.responsable.name,
           cpf: this.responsable.cpf,
@@ -291,7 +292,7 @@
           celphone: this.responsable.cel,
           email: this.responsable.email
         }
-
+        console.log('çheck 2')
         let days = []
         let colonyId = []
 
@@ -305,13 +306,13 @@
             if (this.$store.getters.cart[j].dates[i].turno === 'Manhã') {
               turno = 'manha'
               morning = true
-            } else 
+            } else
 
             if (this.$store.getters.cart[j].dates[i].turno === 'Tarde') {
               turno = 'tarde'
               afternoon = true
             }
-            
+
             let day = this.$store.getters.cart[j].dates[i].date.getUTCDate() > 9 ? this.$store.getters.cart[j].dates[i].date.getUTCDate():'0' + this.$store.getters.cart[j].dates[i].date.getUTCDate()
             let month = (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1) > 9 ? (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1):'0' + (this.$store.getters.cart[j].dates[i].date.getUTCMonth() + 1)
             let DateStr = this.$store.getters.cart[j].dates[i].date.getUTCFullYear() + '-' + month + '-' + day
@@ -323,7 +324,7 @@
               morning: morning
             })
           }
-
+          console.log('çheck 3')
           let userData = {
             name:  this.$store.getters.cart[j].selectedUser.name,
             age: this.$store.getters.cart[j].selectedUser.age,

@@ -271,17 +271,17 @@
           phone_code: info.celphone.substring(0, 2),
           phone: info.celphone.substring(2, info.celphone.length),
           cpf: info.cpf,
-          amount: cartAmountString[this.$store.getters.cartAmount.length - 2] === '.' ? cartAmountString : cartAmountString + '.00',
+          amount: cartAmountString
         }
 
         this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
           response => {
             this.loading = false
             this.boletoLink = response.paymentLink
-            this.paymentCode = response.code
+            this.paymentCode = response.transactionCode
+            this.$emit('paymentRequested', {code: this.paymentCode})
           })
-        
-        this.$emit('paymentRequested', {code: this.paymentCode})
+
       },
       dummyEmit () {
         let date = new Date()
@@ -296,7 +296,7 @@
             this.brand = response
             console.log('passou')
             self.cardDialog = false
-            self.cardHolderDialog = true            
+            self.cardHolderDialog = true
           },
           error: function(response) {
             self.failure = true
@@ -358,7 +358,7 @@
           phone_code: info.celphone.substring(0, 2),
           phone: info.celphone.substring(2, info.celphone.length),
           cpf: info.cpf,
-          amount: cartAmountString[this.$store.getters.cartAmount.length - 2] === '.' ? cartAmountString : cartAmountString + '.00',
+          amount: cartAmountString,
           card_holder_name: this.card.name,
           card_holder_birth_date: this.card.birth_date,
           card_holder_cpf: this.card.cpf,
@@ -373,6 +373,7 @@
         this.$store.dispatch('requestPayPalCardTransaction', payload).then(
           response => {
             this.loading = false
+            this.$emit('paymentRequested', {code: response.paymentCode})
             // this.boletoLink = response
           }
         )

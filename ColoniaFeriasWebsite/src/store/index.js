@@ -150,6 +150,7 @@ export const store = new Vuex.Store({
       }
       let selectedColonyId = payload.userData.colonyId
       let string = 'colony_buyers_by_payment/'+ payload.paymentCode + '/' + selectedColonyId
+      console.log('endereco: ' + string)
       firebase.database().ref(string).push(user)
         .then((data) => {
           const key = data.key
@@ -158,11 +159,11 @@ export const store = new Vuex.Store({
             id: key,
             temporary: true
           })
-          
+
 
           let string_m = 'colony_buyers/' + selectedColonyId
           firebase.database().ref(string_m).push(user)
-          
+
           let string_l = 'Colonies/' + selectedColonyId + '/Days/'
           user.days.forEach(turno => {//diminuir número de chamadas!!!
             firebase.database().ref(string_l + turno.day + '/' + turno.turno.replace('ã','a').toLowerCase()).push({userId: key, paymentCode: payload.paymentCode})

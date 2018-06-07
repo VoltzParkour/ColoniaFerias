@@ -138,10 +138,12 @@
                 selectedDates.push(this.datesFlat[j])
               }
             }
+            let price = parseInt(this.plan.price)          
             let lunchDates = []
             for (let i in this.datesHasLunch){
               if (this.datesHasLunch[i]){
-                this.plan.price += 20
+                price += 2000
+                this.plan.price = (price).toString().replace('.',',')
                 lunchDates.push(this.datesFlatDays[i])
               }
             }

@@ -171,7 +171,8 @@
         ],
         age: '',
         ageRules: [
-        v => !!v || 'Idade é obrigatória'
+        v => !!v || 'Idade é obrigatória',
+        v => v >= 5 || 'Idade mínima é 5 anos' //Idade Dummy
       ],
         name_resp: '',
         cpf: '',

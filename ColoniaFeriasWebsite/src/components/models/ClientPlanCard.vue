@@ -7,7 +7,7 @@
         </v-card-media>
             <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
               <v-layout row wrap>
-                <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days === (5) ? '1 Semana - ' : '' }}{{ plan.num_days === (10) ? '1 Semana - ' : '' }}{{plan.num_days}}</span>
+                <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ (plan.num_days === 5 || plan.num_days === 10) ? '1 Semana ' : plan.num_days }}</span>
                 <v-flex>
 
                 </v-flex>
@@ -15,7 +15,7 @@
               </v-layout>
               <v-layout row>
                 <v-flex style="margin-top:-25px;" :style="margemToc">
-                  <span class="title grey--text fontsp" >{{ plan.num_days === 1 ? 'Turno' : 'Turnos'}}</span>
+                  <span class="title grey--text fontsp" >{{ (plan.num_days === 5 || plan.num_days === 10) ? plan.num_days : '' }}{{ plan.num_days === 1 ? ' Turno' : ' Turnos'}}</span>
                 </v-flex>
               </v-layout>
             </v-card-text>

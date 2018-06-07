@@ -1,5 +1,5 @@
 <template>
-  <v-dialog width="450px" v-model="registerDialog">
+  <v-dialog width="460px" v-model="registerDialog">
     <v-btn
       @click.native="setDays()"
       absolute
@@ -50,6 +50,15 @@
                                 <v-card-text class="pt-1 pb-1">{{turno.name}}</v-card-text>
                               </v-card>
                             </v-flex>
+                            <v-flex>
+                              <v-checkbox
+                              class="transparent"
+                              v-model="day.hasLunch"
+                              label="Almoço"
+                              @change="onCheckboxChange"
+                              >
+                              </v-checkbox>
+                            </v-flex>
                           </v-flex>
                       </v-layout>
                     </v-container>
@@ -94,7 +103,8 @@
         selection: '',
         alert: false,
         alertMessage: '',
-        datesFlat: []
+        datesFlat: [],
+        lunchValue: false
       }
     },
     computed: {
@@ -187,3 +197,6 @@
     }
   }
 </script>
+
+
+

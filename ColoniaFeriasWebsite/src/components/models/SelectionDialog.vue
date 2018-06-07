@@ -20,7 +20,7 @@
       </v-alert>
         <v-layout row wrap>
           <v-flex xs12>
-            <v-card-title class="headline black--text">Selecione os turnos das atividades!</v-card-title>
+            <v-card-title class="headline black--text">Escolha os dias e turnos!</v-card-title>
           </v-flex>
         </v-layout>
         <v-divider class="primary"></v-divider>

@@ -6,6 +6,7 @@
         <v-flex>
           <v-card-actions>
             <v-btn @click.stop="goColonyForm" class="primary">Adicionar Colônia</v-btn>
+            <v-btn @click.stop="goAdminAddForm" class="primary">Adicionar Usuário</v-btn>
             <v-btn @click.stop="logout" class="primary">Sair</v-btn>
           </v-card-actions>
         </v-flex>
@@ -131,6 +132,9 @@ import firebase from 'firebase'
     methods: {
       goColonyForm() {
         this.$router.push({name: "ColonyForm"})
+      },
+      goAdminAddForm() {
+        this.$router.push({name: "AdminAddForm"})
       },
       goColony(colony) {
         this.$store.dispatch('selectColony', colony)

@@ -196,7 +196,10 @@
           fetcher: '',
           fetcherPhone: ''
         },
-        nameRules: [v => !!v || 'Nome é obrigatório', v => /^\w \w+$/.test(v) || 'Favor inserir nome completo'],
+        nameRules: [
+          v => !!v || 'Nome é obrigatório', 
+          v => /^[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â]+\s+[[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â \s]+$/.test(v) || 'Favor inserir nome completo'
+          ],
         ageRules:
         [
           v => !!v || 'Idade é obrigatória'

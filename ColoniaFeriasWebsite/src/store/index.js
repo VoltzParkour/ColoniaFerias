@@ -144,6 +144,7 @@ export const store = new Vuex.Store({
       const user = {
         name: payload.userData.name,
         age: payload.userData.age,
+        healthInsurance: payload.userData.healthInsurance,
         responsable: payload.userData.responsable,
         days: payload.userData.days,
         paymentCode: payload.paymentCode
@@ -179,6 +180,7 @@ export const store = new Vuex.Store({
       const user = {
         name: payload.name,
         age: payload.age,
+        healthInsurance: payload.healthInsurance,        
         responsable: payload.responsable,
         days: payload.days
       }

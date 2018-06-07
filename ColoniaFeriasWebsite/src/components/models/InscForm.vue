@@ -22,7 +22,7 @@
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
                     <v-text-field
                       name="name"
-                      label="Nome do Aluno"
+                      label="Nome Completo do Aluno"
                       :rules="nameRules"
                       id="name"
                       v-model="name"
@@ -41,6 +41,16 @@
                     v-model="age"></v-text-field>
                   </v-flex>
                 </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="healthInsurance"
+                      label="Plano de Saúde (colocar empresa ou 'nenhum')"
+                      id="healthInsurance"
+                      v-model="healthInsurance"></v-text-field>
+                  </v-flex>
+                </v-layout>                
 
                 <!-- <v-layout row>
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
@@ -153,11 +163,16 @@
         //   this.$store.getters.colonies[3].title,
         // ],
         selection: '',
+        healthInsurance: '',
         name: '',
-        nameRules: [v => !!v || 'Nome é obrigatório'],
+        nameRules: [
+          v => !!v || 'Nome é obrigatório',
+          v => /^\w \w+$/.test(v) || 'Favor inserir nome completo'
+        ],
         age: '',
         ageRules: [
-        v => !!v || 'Idade é obrigatória'
+        v => !!v || 'Idade é obrigatória',
+        v => v >= 5 || 'Idade mínima é 5 anos' //Idade Dummy
       ],
         name_resp: '',
         cpf: '',
@@ -196,12 +211,14 @@
         if (!this.formIsValid) {return}
         let emitObj = {
               name: this.name,
-              age: this.age
+              age: this.age,
+              healthInsurance: this.healthInsurance
             }
             this.$emit('addUser', emitObj)
             this.dialog = false
             this.name = ''
             this.age = ''
+            this.healthInsurance = ''
       }
     }
       // onCreateUser() {

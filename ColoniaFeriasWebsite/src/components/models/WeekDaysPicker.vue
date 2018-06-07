@@ -18,7 +18,7 @@
                           @click.native="selectWeekDay(2 * i - 1)">
                     <v-card-text class="px-0">Tarde</v-card-text>
                   </v-card>
-                </v-flex>
+                </v-flex>               
               </v-layout>
             </v-flex>
           </v-flex>

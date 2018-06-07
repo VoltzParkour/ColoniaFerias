@@ -91,6 +91,36 @@
             v-model="responsable.email"></v-text-field>
         </v-flex>
       </v-layout>
+
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-checkbox v-model="isRespFetcher" hide-details label="O responsável irá buscar a criança?" class="shrink mr-2"></v-checkbox>
+        </v-flex>
+      </v-layout>
+
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="fetcher"
+            :disabled="isRespFetcher"
+            label="Pessoa que irá buscar a criança"
+            :rules="nameRules"
+            id="fetcher"
+            v-model="responsable.fetcher"></v-text-field>
+        </v-flex>
+      </v-layout>
+
+      <v-layout row>
+        <v-flex xs10 offset-xs1 sm10 offset-sm1>
+          <v-text-field
+            name="fetcherPhone"
+            :disabled="isRespFetcher"
+            label="Telefone de quem buscará a criança (com DDD)"
+            :rules="celRules"
+            id="fetcherPhone"
+            v-model="responsable.fetcherPhone"></v-text-field>
+        </v-flex>
+      </v-layout>
       </span>
 
       <p>
@@ -143,6 +173,7 @@
   export default {
     data() {
       return {
+        isRespFetcher: true,
         kids: [],
         headers: [
           {
@@ -160,9 +191,12 @@
           email: '',
           cpf: '',
           tel: '',
-          cel: ''
+          cel: '',
+          isRespFetcher: '',
+          fetcher: '',
+          fetcherPhone: ''
         },
-        nameRules: [v => !!v || 'Nome é obrigatório'],
+        nameRules: [v => !!v || 'Nome é obrigatório', v => /^\w \w+$/.test(v) || 'Favor inserir nome completo'],
         ageRules:
         [
           v => !!v || 'Idade é obrigatória'
@@ -199,6 +233,9 @@
     methods: {
       addUser(data) {
         this.kids.push(data)
+        for (let i in this.cart) {
+          this.cart[i].selectedUser = this.kids[0]
+        }
       },
 
       priceAsInt(n) {
@@ -237,7 +274,10 @@
           cpf: this.cpf,
           tel: this.tel,
           celphone: this.celphone,
-          email: this.email
+          email: this.email,
+          isRespFetcher: this.isRespFetcher,
+          fetcher: this.fetcher,
+          fetcherPhone: this.fetcherPhone
         }
 
         let days = []
@@ -270,6 +310,7 @@
           let userData = {
             name: this.name,
             age: this.age,
+            healthInsurance: this.healthInsurance,
             responsable,
             days,
             colonyId: this.$store.getters.cart[j].colonyId

@@ -199,6 +199,9 @@
     methods: {
       addUser(data) {
         this.kids.push(data)
+        for (let i in this.cart) {
+          this.cart[i].selectedUser = this.kids[0]
+        }        
       },
 
       priceAsInt(n) {

@@ -45,7 +45,7 @@
                               <v-card
                                 flat
                                 :class=" datesStatus[turno.pos]  ? ' body-1 primary white--text' : 'body-1 green lighten-5'"
-                                @click.native="selectDate(turno.pos)"
+                                @click.native="selectDate(turno.pos, i)"
                                 style="cursor: pointer;">
                                 <v-card-text class="pt-1 pb-1">{{turno.name}}</v-card-text>
                               </v-card>
@@ -53,9 +53,9 @@
                             <v-flex>
                               <v-checkbox
                               class="transparent"
-                              v-model="day.hasLunch"
+                              :disabled="!lunchEnabled[i]"
+                              v-model="datesHasLunch[i]"
                               label="Almoço"
-                              @change="onCheckboxChange"
                               >
                               </v-checkbox>
                             </v-flex>
@@ -104,7 +104,9 @@
         alert: false,
         alertMessage: '',
         datesFlat: [],
-        lunchValue: false
+        lunchEnabled: [],
+        datesHasLunch: [],
+        datesFlatDays: []
       }
     },
     computed: {
@@ -113,10 +115,12 @@
       }
     },
     methods: {
-      selectDate(i) {
+      selectDate(i, j) {
+        console.log(i)
         if (this.remainingDays > 0 || this.datesStatus[i]) {
           Vue.set(this.datesStatus, i, !this.datesStatus[i])
           this.alert = false
+          this.lunchEnabled[j] = true
           return
         }
         this.alert = true
@@ -134,8 +138,16 @@
                 selectedDates.push(this.datesFlat[j])
               }
             }
+            let lunchDates = []
+            for (let i in this.datesHasLunch){
+              if (this.datesHasLunch[i]){
+                this.plan.price += 20
+                lunchDates.push(this.datesFlatDays[i])
+              }
+            }
             let emitObj = {
               dates: selectedDates,
+              lunchDays: lunchDates,
               selection: this.selection
             }
             this.$emit('addCart', emitObj)
@@ -154,6 +166,7 @@
         console.log('!@@@@@@')
         this.datesStatus = []
         this.datesFlat = []
+        this.datesFlatDays = []
         let startDate = new Date (this.colony.start_date)
         let stopDate = new Date (this.colony.end_date)
         var dateArray = new Array()
@@ -183,6 +196,18 @@
               turnos.push({name:'Tarde',pos:this.datesStatus.length})
               this.datesFlat.push({date: new Date (currentDate), turno: 'Tarde'})
               this.datesStatus.push(false)
+            }
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
+                    (this.colony.days == undefined || 
+                    this.colony.days[DateStr] == undefined || 
+                    this.colony.days[DateStr]['manha'] == undefined || 
+                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity || 
+                    this.colony.days[DateStr]['tarde'] == undefined || 
+                    Object.keys(this.colony.days[DateStr]['tarde']).length < this.colony.capacity)     
+                ) {
+
+              this.datesFlatDays.push({date: new Date (currentDate)})
+              console.log(this.datesFlatDays.length)
             }
             if (turnos.length > 0){
             dateArray.push({date: new Date (currentDate), turnos: turnos})

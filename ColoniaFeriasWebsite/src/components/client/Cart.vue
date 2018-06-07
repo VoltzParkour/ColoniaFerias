@@ -196,7 +196,7 @@
           fetcher: '',
           fetcherPhone: ''
         },
-        nameRules: [v => !!v || 'Nome é obrigatório'],
+        nameRules: [v => !!v || 'Nome é obrigatório', v => /^\w \w+$/.test(v) || 'Favor inserir nome completo'],
         ageRules: 
         [
           v => !!v || 'Idade é obrigatória'

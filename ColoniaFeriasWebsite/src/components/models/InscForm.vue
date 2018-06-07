@@ -22,7 +22,7 @@
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
                     <v-text-field
                       name="name"
-                      label="Nome do Aluno"
+                      label="Nome Completo do Aluno"
                       :rules="nameRules"
                       id="name"
                       v-model="name"
@@ -154,7 +154,10 @@
         // ],
         selection: '',
         name: '',
-        nameRules: [v => !!v || 'Nome é obrigatório'],
+        nameRules: [
+          v => !!v || 'Nome é obrigatório',
+          v => /^\w \w+$/.test(v) || 'Favor inserir nome completo'
+        ],
         age: '',
         ageRules: [
         v => !!v || 'Idade é obrigatória'

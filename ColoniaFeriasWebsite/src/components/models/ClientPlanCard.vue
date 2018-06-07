@@ -7,7 +7,7 @@
         </v-card-media>
             <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
               <v-layout row wrap>
-                <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days }}</span>
+                <span class="display-3 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.num_days === (5) ? '1 Semana - ' : '' }}{{ plan.num_days === (10) ? '1 Semana - ' : '' }}{{plan.num_days}}</span>
                 <v-flex>
 
                 </v-flex>

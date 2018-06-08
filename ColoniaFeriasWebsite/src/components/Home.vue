@@ -54,7 +54,10 @@
     },
     computed: {
       colonies() {
-        return this.$store.getters.colonies
+        let today = new Date()
+        return this.$store.getters.colonies.filter( function (ea){
+              return new Date(ea.sellStart) <= today && new Date(ea.sellEnd) >= today
+            })
       }
     },
     beforeMount() {

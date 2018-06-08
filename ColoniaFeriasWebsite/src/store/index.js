@@ -237,10 +237,13 @@ export const store = new Vuex.Store({
                 week_days: obj[key].week_days,
                 days: obj[key].Days,
                 capacity: obj[key].capacity,
-                active: true
+                active: true,
+                sellStart: obj[key].sellStart,
+                sellEnd: obj[key].sellEnd
               })
             }
             commit('setColonies', colonies)
+            // .filter(new Date(sellStart) >= today && new Date(sellEnd) >= today )
           }
         )
         .catch(

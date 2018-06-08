@@ -51,13 +51,23 @@
                               </v-card>
                             </v-flex>
                             <v-flex>
-                              <v-checkbox
+                              <v-card
+                                flat
+                                :class=" datesHasLunch[i]  ? ' body-1 orange white--text' : 'body-1 orange lighten-5'"
+                                @click.native="selectLunch(i)"
+                                v-if="lunchEnabled[i]"
+                                style="cursor: pointer;">
+                                <v-card-text class="pt-1 pb-1">Almoço</v-card-text>
+
+
+                                                            <!-- <v-checkbox
                               class="transparent"
-                              :disabled="!lunchEnabled[i]"
+                              v-if="!lunchEnabled[i]"
                               v-model="datesHasLunch[i]"
-                              label="Almoço"
                               >
-                              </v-checkbox>
+                              Almoço
+                              </v-checkbox> -->
+                              </v-card>
                             </v-flex>
                           </v-flex>
                       </v-layout>
@@ -126,6 +136,14 @@
         }
         this.alert = true
         this.alertMessage = 'Máximo de dias já selecionado!'
+      },
+      selectLunch (dia) {
+        if (this.datesHasLunch[dia] === null || this.datesHasLunch[dia] === undefined){
+          Vue.set(this.datesHasLunch, dia, true)
+        } else {
+          Vue.set(this.datesHasLunch, dia, !this.datesHasLunch[dia])
+        }
+        
       },
       onAgree () {
         if (this.remainingDays !== 0) {
@@ -231,5 +249,9 @@
   }
 </script>
 
-
-
+<style scoped>
+label {
+  margin-left: -7px
+  !important
+}
+</style>

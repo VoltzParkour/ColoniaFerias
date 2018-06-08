@@ -197,7 +197,7 @@
           fetcherPhone: ''
         },
         nameRules: [
-          v => !!v || 'Nome é obrigatório', 
+          v => !!v || 'Nome é obrigatório',
           v => /^[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â]+\s+[[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â \s]+$/.test(v) || 'Favor inserir nome completo'
           ],
         ageRules:
@@ -372,6 +372,7 @@
           let userData = {
             name:  this.$store.getters.cart[j].selectedUser.name,
             age: this.$store.getters.cart[j].selectedUser.age,
+            healthInsurance: this.$store.getters.cart[j].selectedUser.healthInsurance,
             responsable: responsable,
             days: days,
             colonyId: this.$store.getters.cart[j].colonyId

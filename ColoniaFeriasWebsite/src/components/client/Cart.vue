@@ -15,7 +15,7 @@
       >
         <template slot="items" slot-scope="props">
             <td> Plano de {{ props.item.plan.num_days }} turno{{props.item.plan.num_days > 1 ? 's':''}}</td>
-            <td>R$ {{ props.item.plan.price/100 }}</td>
+            <td>R$ {{ props.item.plan.priceWithLunch/100 }}</td>
             <td>
               <v-select :items="kids"
               v-model="props.item.selectedUser"
@@ -228,7 +228,7 @@
       cartTotal() {
         let total = 0
         for (let i in this.cart) {
-          total = total + parseInt(this.cart[i].plan.price)
+          total = total + parseInt(this.cart[i].plan.priceWithLunch)
         }
         return (total / 100).toString().replace('.', ',')
       },
@@ -283,6 +283,8 @@
           fetcherPhone: this.fetcherPhone
         }
 
+        let LunchDays = []
+
         let days = []
 
         let colonyId = []
@@ -307,7 +309,12 @@
               + (this.$store.getters.cart[j].dates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].dates[i].date.getUTCDate(),
               morning: morning, afternoon: afternoon
             })
-
+          }
+          for (let i = 0; i < this.$store.getters.cart[j].lunchDates.length; i++) {
+            lunchDays.push({
+              lunchDay: this.$store.getters.cart[j].lunchDates[i].date.getFullYear() + '-'
+              + (this.$store.getters.cart[j].lunchDates[i].date.getMonth() + 1) + '-' + this.$store.getters.cart[j].lunchDates[i].date.getUTCDate()
+            })
           }
 
           let userData = {
@@ -316,12 +323,14 @@
             healthInsurance: this.healthInsurance,
             responsable,
             days,
+            lunchDays,
             colonyId: this.$store.getters.cart[j].colonyId
           }
 
           this.$store.dispatch('createColonyParticipant', userData)
 
           days.splice(0, this.$store.getters.cart[j].dates.length)
+          days.splice(0, this.$store.getters.cart[j].lunchDates.length)          
 
         }
         this.$router.push('/')

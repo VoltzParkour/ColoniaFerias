@@ -25,7 +25,7 @@
         <v-card-title>Adicionar Plano</v-card-title>
         <v-card-text>
           <v-text-field label="Número de turnos" v-model.number="numDays" mask="##"></v-text-field>
-          <v-text-field label="Preço" v-model.number="price" mask="R$ ###,##"></v-text-field>
+          <v-text-field label="Preço" v-model.number="price" mask="R$ ####,##"></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

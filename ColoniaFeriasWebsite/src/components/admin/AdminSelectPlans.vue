@@ -23,6 +23,11 @@
                   <h2 class="display grey--text fontsp">{{ colony.description }}</h2>
                 </v-flex>
               </v-layout>
+                <v-flex>
+                    <v-card-actions>
+                    <v-btn @click.stop="goAdminAddForm" class="primary">Informações do Usuário</v-btn>
+                    </v-card-actions>
+                </v-flex>
             </v-container>
             <v-container grid-list-md>
               <v-layout row wrap>
@@ -40,7 +45,7 @@
 </template>
 
 <script>
-  import PlanCard from './models/ClientPlanCard'
+  import PlanCard from '../models/AdminPlanCard'
 
   export default {
     data () {
@@ -52,12 +57,14 @@
         },
       }
     },
+    methods: {
+      goAdminAddForm() {
+        this.$router.push({name: "AdminAddForm"});
+      }
+    },
     computed: {
       colonies() {
-        let today = new Date()
-        return this.$store.getters.colonies.filter( function (ea){
-              return new Date(ea.sellStart) <= today && new Date(ea.sellEnd) >= today
-            })
+        return this.$store.getters.colonies
       }
     },
     beforeMount() {

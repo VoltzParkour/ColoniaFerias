@@ -38,12 +38,15 @@
 
   export default {
         name: "DateRangePicker",
+        props: ['startDateP', 'endDateP'],
       data () {
           return {
             startDateSelected: this.$store.getters.selectedColony === null ? false : true,
-            startDate: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.start_date,
-            endDate: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.end_date,
-            today: new Date().toISOString(),
+            // startDate: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.start_date,
+            // endDate: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.end_date,
+            today: ( d => new Date(d.setDate(d.getDate()-1)).toISOString() )(new Date),
+            startDate: this.startDateP,
+            endDate: this.endDateP
           }
       },
       watch: {

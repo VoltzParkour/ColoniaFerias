@@ -50,7 +50,20 @@
 
 
             <DatePicker v-on:startDateChanged="startDate = $event"
-                        v-on:endDateChanged="endDate = $event"></DatePicker>
+                        v-on:endDateChanged="endDate = $event"
+                        :startDateP="startDate"
+                        :endDateP="endDate"></DatePicker>
+
+
+            <v-layout>
+              <v-flex xs10 offset-xs1 offset-sm1>
+                <h3 class="headline mb-3 grey--text">Período de Venda</h3>
+              </v-flex>
+            </v-layout>
+            <DatePicker v-on:startDateChanged="sellStart = $event"
+                        v-on:endDateChanged="sellEnd = $event"
+                        :startDateP="sellStart"
+                        :endDateP="sellEnd"></DatePicker>
 
 
             <v-layout>
@@ -129,7 +142,9 @@
         imageUrl: '',
         errorMessage: '',
         showAlert: false,
-        lotacao: ''
+        capacity: this.$store.getters.selectedColony === null ? '' : this.$store.getters.selectedColony.capacity,
+        sellStart: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.sellStart,
+        sellEnd: this.$store.getters.selectedColony === null ?  (new Date()).toISOString().substr(0, 10) : this.$store.getters.selectedColony.sellEnd
       }
     },
     watch: { weekDaysSelected: function(value) {
@@ -150,10 +165,19 @@
         let start = new Date(this.startDate)
         let end = new Date(this.endDate)
         if (start > end) {
-          this.errorMessage = 'Data final é anterior à data inicial'
+          this.errorMessage = 'Erro no Período da Colônia: data final é anterior à data inicial'
           this.showAlert = true
           return false
         }
+
+        let startS = new Date(this.sellStart)
+        let endS = new Date(this.sellEnd)
+        if (start > end || startS > endS) {
+          this.errorMessage = 'Erro no Período da Venda: data final é anterior à data inicial'
+          this.showAlert = true
+          return false
+        }
+
         let weekDaysEmpty = true
         for (let weekDays in this.weekDaysSelected) {
           if (this.weekDaysSelected[weekDays]) {
@@ -179,7 +203,9 @@
           end_date: this.endDate,
           description: this.description,
           title: this.title,
-          capacity: this.capacity
+          capacity: this.capacity,
+          sellStart: this.sellStart,
+          sellEnd: this.sellEnd
         }
         this.$store.dispatch('CreateColony', colony)
         this.goAdmin()
@@ -192,7 +218,9 @@
       formIsValid() {
         let start = new Date(this.startDate)
         let end = new Date(this.endDate)
-        if (start > end) {
+        let startS = new Date(this.sellStart)
+        let endS = new Date(this.sellEnd)
+        if (start > end || startS > endS) {
           return false
         }
         let weekDaysEmpty = true
@@ -217,6 +245,8 @@
         this.startDate = selectedColony.start_date
         this.endDate = selectedColony.end_date
         this.weekDaysSelected = selectedColony.week_days
+        this.sellStart = selectedColony.sellStart
+        this.sellEnd = selectedColony.sellEnd
       }
     }
   }

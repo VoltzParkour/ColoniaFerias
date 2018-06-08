@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import AdminHome from '@/components/admin/Home'
 import ColonyForm from '@/components/admin/ColonyForm'
+import AdminAddForm from '@/components/admin/AdminAddForm'
+import AdminSelectPlans from '@/components/admin/AdminSelectPlans'
 import Colony from '@/components/admin/Colony'
 import Login from '@/components/login/login'
 import Cart from '@/components/client/Cart'
@@ -30,7 +32,26 @@ let router = new Router({
     {
       path: '/colony_form',
       name: 'ColonyForm',
-      component: ColonyForm
+      component: ColonyForm,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin_add_form',
+      name: 'AdminAddForm',
+      component: AdminAddForm,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/admin_select_plans',
+      name: 'AdminSelectPlans',
+      component: AdminSelectPlans,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/colony',

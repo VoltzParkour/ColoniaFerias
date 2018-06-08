@@ -41,6 +41,8 @@ export const store = new Vuex.Store({
     colonies: [],
     plans: [],
     cart: [],
+    userDirect: [],
+    userDirectAmount: null,
     selectedColony: null,
     colonyParticipants: [],
     selectedPlans: '',
@@ -88,6 +90,17 @@ export const store = new Vuex.Store({
     },
     removePlanFromCart (state, payload) {
       state.cart.splice(payload, 1)
+    },
+    addPlanToUserDirect (state, payload) {
+      if (state.userDirectAmount === null) {
+        state.userDirectAmount = parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
+      } else {
+        state.userDirectAmount = state.userDirectAmount + parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
+      }
+      state.userDirect.push(payload)
+    },
+    removePlanFromUserDirect (state, payload) {
+      state.userDirect.splice(payload, 1)
     },
     setBuyersCount (state, payload) {
       state.buyersCount = payload
@@ -224,10 +237,13 @@ export const store = new Vuex.Store({
                 week_days: obj[key].week_days,
                 days: obj[key].Days,
                 capacity: obj[key].capacity,
-                active: true
+                active: true,
+                sellStart: obj[key].sellStart,
+                sellEnd: obj[key].sellEnd
               })
             }
             commit('setColonies', colonies)
+            // .filter(new Date(sellStart) >= today && new Date(sellEnd) >= today )
           }
         )
         .catch(
@@ -298,6 +314,12 @@ export const store = new Vuex.Store({
     },
     removePlanFromCart ({commit}, payload) {
       commit('removePlanFromCart', payload)
+    },
+    addPlanToUserDirect ({commit}, payload) {
+      commit('addPlanToUserDirect', payload)
+    },
+    removePlanFromUserDirect ({commit}, payload) {
+      commit('removePlanFromUserDirect', payload)
     },
     LoadBuyersCount ({commit}) {
       firebase.database().ref('colony_buyers').once('value')
@@ -417,6 +439,12 @@ export const store = new Vuex.Store({
     },
     cartAmount(state) {
       return state.cartAmount
+    },
+    userDirect (state) {
+      return state.userDirect
+    },
+    userDirectAmount(state) {
+      return state.userDirectAmount
     },
     buyersCount (state) {
       return state.buyersCount

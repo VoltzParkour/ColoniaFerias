@@ -4,7 +4,7 @@
       right
       slot="activator"
       flat
-      class="green--text darken-1"      
+      class="green--text darken-1"
     ><v-icon>add_circle</v-icon> </v-btn>
       <v-card>
         <v-container>
@@ -46,11 +46,22 @@
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
                     <v-text-field
                       name="healthInsurance"
-                      label="Plano de Saúde (colocar empresa ou 'nenhum')"
+                      label="Plano de Saúde (Colocar empresa)"
                       id="healthInsurance"
                       v-model="healthInsurance"></v-text-field>
                   </v-flex>
-                </v-layout>                
+                </v-layout>
+
+                <v-layout row>
+                  <v-flex xs10 offset-xs1 sm10 offset-sm1>
+                    <v-text-field
+                      name="observations"
+                      label="Observações"
+                      id="obs"
+                      multi-line
+                      v-model="obs"></v-text-field>
+                  </v-flex>
+                </v-layout>
 
                 <!-- <v-layout row>
                   <v-flex xs10 offset-xs1 sm10 offset-sm1>
@@ -139,7 +150,7 @@
             {{errorMessage}}
           </v-alert> -->
         </v-container>
-      </v-card>  
+      </v-card>
   </v-dialog>
 
 </template>
@@ -165,6 +176,7 @@
         selection: '',
         healthInsurance: '',
         name: '',
+        obs: '',
         nameRules: [
           v => !!v || 'Nome é obrigatório',
           v => /^[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â]+\s+[[a-zA-z \ç \ã \õ \á \é \í \ó \ú \ê \â \s]+$/.test(v) || 'Favor inserir nome completo'
@@ -196,7 +208,7 @@
     computed: {
       formIsValid () {
         return this.name !== '' &&
-          this.age !== '' 
+          this.age !== ''
           // this.name_resp !== '' &&
           // this.cel !== '' &&
           // this.email !== '' &&
@@ -212,13 +224,15 @@
         let emitObj = {
               name: this.name,
               age: this.age,
-              healthInsurance: this.healthInsurance
+              healthInsurance: this.healthInsurance,
+              obs: this.obs
             }
             this.$emit('addUser', emitObj)
             this.dialog = false
             this.name = ''
             this.age = ''
             this.healthInsurance = ''
+            this.obs = ''
       }
     }
       // onCreateUser() {
@@ -290,7 +304,7 @@
       //
       // }
         //this.$router.push('/')
-      
+
     // },
     // components: {
     //   DatePicker,

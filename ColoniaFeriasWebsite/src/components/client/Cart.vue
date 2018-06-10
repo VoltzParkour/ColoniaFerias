@@ -40,6 +40,7 @@
           <v-text-field
             name="name_resp"
             label="Nome do Responsável"
+            validate-on-blur
             :rules="nameRules"
             id="name_resp"
             v-model="responsable.name"></v-text-field>
@@ -51,6 +52,7 @@
           <v-text-field
             name="cpf"
             label="CPF do Responsável"
+            validate-on-blur
             mask="###.###.###-##"
             :rules="cpfRules"
             id="cpf"
@@ -63,6 +65,7 @@
           <v-text-field
             name="tel"
             label="DDD + Telefone"
+            validate-on-blur
             mask="(##)####-####"
             id="tel"
             v-model="responsable.tel"></v-text-field>
@@ -74,6 +77,7 @@
           <v-text-field
             name="celphone"
             label="DDD + Celular"
+            validate-on-blur
             mask="(##)#####-####"
             id="celphone"
             :rules="celRules"
@@ -86,6 +90,7 @@
           <v-text-field
             name="email"
             label="E-Mail"
+            validate-on-blur
             :rules="emailRules"
             id="email"
             v-model="responsable.email"></v-text-field>
@@ -104,6 +109,7 @@
             name="fetcher"
             :disabled="isRespFetcher"
             label="Pessoa que irá buscar a criança"
+            validate-on-blur
             :rules="nameRules"
             id="fetcher"
             v-model="responsable.fetcher"></v-text-field>
@@ -116,6 +122,7 @@
             name="fetcherPhone"
             :disabled="isRespFetcher"
             label="Telefone de quem buscará a criança (com DDD)"
+            validate-on-blur
             :rules="celRules"
             id="fetcherPhone"
             v-model="responsable.fetcherPhone"></v-text-field>
@@ -123,9 +130,10 @@
       </v-layout>
       </span>
 
-      <p>
+      <v-layout>
+        <v-spacer></v-spacer>
         <v-btn v-show="cart.length" round @click='checkout'>Finalizar compra</v-btn>
-      </p>
+      </v-layout>
       <PaymentDialogs @paymentRequested="processRequest"></PaymentDialogs>
     </v-container>
   </v-slide-y-transition>

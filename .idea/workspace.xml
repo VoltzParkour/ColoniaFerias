@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/Cart.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/Cart.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,7 +23,7 @@
       <file leaf-file-name="ClientPlanCard.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="-323">
               <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#v-flex#0;n#v-layout#1;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
@@ -34,8 +35,17 @@
       <file leaf-file-name="Cart.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/Cart.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="117" selection-start-line="17" selection-start-column="117" selection-end-line="17" selection-end-column="117" />
+            <state relative-caret-position="270">
+              <caret line="133" column="18" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InscForm.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="742">
+              <caret line="234" column="25" selection-start-line="234" selection-start-column="25" selection-end-line="234" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -73,8 +83,8 @@
       <file leaf-file-name="PaymentDialogs.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
+            <state relative-caret-position="204">
+              <caret line="129" column="30" selection-start-line="129" selection-end-line="130" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#transition#0;n#v-layout#1;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#transition#0;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
@@ -103,7 +113,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>payment</find>
       <find>boletoLink</find>
       <find>requestPayPalBoletoTransaction</find>
       <find>requestPayPalCardTransaction</find>
@@ -131,8 +140,9 @@
       <find>cartTotal</find>
       <find>watch</find>
       <find>wa</find>
-      <find>sameAsResponsable</find>
       <find>wat</find>
+      <find>nenhum</find>
+      <find>sameAsResponsable</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -163,6 +173,7 @@
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/App.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/Cart.vue" />
       </list>
     </option>
@@ -244,6 +255,14 @@
               <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
               <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ColoniaFerias" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
+              <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="router" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -317,7 +336,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113005000" />
+    <option name="totallyTimeSpent" value="113608000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -605,13 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4243">
-          <caret line="262" column="47" selection-start-line="262" selection-start-column="47" selection-end-line="262" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/NavBar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-153" />
@@ -623,16 +635,6 @@
           <caret line="125" column="18" selection-start-line="125" selection-start-column="18" selection-end-line="125" selection-end-column="18" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
-          <folding>
-            <element signature="n#style#0;n#v-flex#0;n#v-layout#1;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -668,17 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#transition#0;n#v-layout#1;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#transition#0;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/ColonyForm.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -686,10 +677,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/InscForm.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="234" column="25" selection-start-line="234" selection-start-column="25" selection-end-line="234" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-323">
+          <caret line="23" column="44" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+          <folding>
+            <element signature="n#style#0;n#v-flex#0;n#v-layout#1;n#v-card-text#0;n#v-card#0;n#v-flex#0;n#v-layout#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="129" column="30" selection-start-line="129" selection-end-line="130" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#transition#0;n#v-layout#1;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#transition#0;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/client/Cart.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="117" selection-start-line="17" selection-start-column="117" selection-end-line="17" selection-end-column="117" />
+        <state relative-caret-position="270">
+          <caret line="133" column="18" selection-start-line="133" selection-start-column="18" selection-end-line="133" selection-end-column="18" />
         </state>
       </provider>
     </entry>

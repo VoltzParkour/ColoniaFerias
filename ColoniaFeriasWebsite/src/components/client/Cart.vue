@@ -246,7 +246,6 @@
         return (price / 100).toString().replace('.', ',')
       },
       checkout() {
-        console.log('çomecou')
         let payload = {
           resp_name: 'Joao da Silva',
           celphone: '21775748837',
@@ -330,7 +329,7 @@
           this.$store.dispatch('createColonyParticipant', userData)
 
           days.splice(0, this.$store.getters.cart[j].dates.length)
-          days.splice(0, this.$store.getters.cart[j].lunchDates.length)          
+          days.splice(0, this.$store.getters.cart[j].lunchDates.length)
 
         }
         this.$router.push('/')

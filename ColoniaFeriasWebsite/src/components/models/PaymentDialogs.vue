@@ -4,7 +4,7 @@
       <v-dialog v-if="loading">
         <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </v-dialog>
-      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth" persistent="">
+      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth" persistent>
         <v-card>
           <v-container class="text-xs-center">
             <v-layout justify-center>
@@ -36,45 +36,71 @@
       </v-dialog>
       <v-dialog v-model="cardDialog" :max-width="dialogWidth">
         <v-card>
-          <v-container class="text-xs-center">
+          <v-container>
+            <v-layout row wrap>
+              <h2 class="mt-4">Dados do Cartão</h2>
+              <v-spacer></v-spacer>
+              <img src="../../assets/pagseguro_logo.png" alt="Banner PagSeguro"
+                   title="Compre com PagSeguro e fique sossegado">
+            </v-layout>
+            <v-divider class="primary"></v-divider>
             <v-layout justify-center>
-              <v-form>
-                <v-text-field
-                  v-model="card.number"
-                  :rules="cardNumberRules"
-                  :counter="16"
-                  label="Número"
-                  mask="####.####.####.####"
-                  required
-                ></v-text-field>
-                <v-alert v-model="failure" type="error" dismissible>
-                  Número de cartão inválido!
-                </v-alert>
-                <v-text-field
-                  v-model="card.expiration"
-                  :rules="expirationRules"
-                  :counter="4"
-                  label="Data de validade"
-                  mask="##/####"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.cvc"
-                  :rules="cvcRules"
-                  :counter="3"
-                  label="Cvv"
-                  mask="###"
-                  required
-                ></v-text-field>
-                <v-card-actions>
-                  <v-btn
-                    flat
-                    class="primary--text"
-                    @click.native="onCardInfoInputed">
-                    Continuar
-                  </v-btn>
-                </v-card-actions>
-              </v-form>
+              <v-flex>
+                <v-form
+                  lazy-validation>
+                  <v-text-field
+                    v-model="card.number"
+                    :rules="cardNumberRules"
+                    :counter="16"
+                    validate-on-blur
+                    label="Número do Cartão"
+                    mask="####.####.####.####"
+                    required
+                  ></v-text-field>
+                  <v-alert v-model="failure" type="error" dismissible>
+                    Número de cartão inválido!
+                  </v-alert>
+                  <v-text-field
+                    v-model="card.name"
+                    label="Nome do Titular"
+                    required
+                  ></v-text-field>
+                  <v-layout row wrap>
+                    <v-flex sm5 mr-1>
+                      <v-text-field
+                        v-model="card.expiration"
+                        :rules="expirationRules"
+                        :counter="6"
+                        validate-on-blur
+                        label="Data de validade"
+                        mask="##/####"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-spacer></v-spacer>
+                    <v-flex sm5 ml-1>
+                      <v-text-field
+                        v-model="card.cvc"
+                        :rules="cvcRules"
+                        :counter="3"
+                        validate-on-blur
+                        label="Cvv"
+                        mask="###"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      flat
+                      class="primary--text"
+                      @click.native="onCardInfoInputed">
+                      Continuar
+                    </v-btn>
+                  </v-card-actions>
+                </v-form>
+              </v-flex>
             </v-layout>
           </v-container>
         </v-card>
@@ -82,104 +108,235 @@
       <v-dialog v-model="cardHolderDialog" :max-width="dialogWidth">
         <v-card>
           <v-container class="text-xs-center">
+            <v-layout row wrap>
+              <h2 class="mt-4">Dados do Titular</h2>
+              <v-spacer></v-spacer>
+              <img src="../../assets/pagseguro_logo.png" alt="Banner PagSeguro"
+                   title="Compre com PagSeguro e fique sossegado">
+            </v-layout>
+            <v-divider class="primary"></v-divider>
             <v-layout justify-center>
-              <v-form>
-                <v-text-field
-                  v-model="card.name"
-                  label="Nome"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.birth_date"
-                  label="Data de Nascimento"
-                  mask="##/##/####"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.cpf"
-                  label="CPF"
-                  mask="###.###.###-##"
-                  required
-                ></v-text-field>
-                <v-card-actions>
-                  <v-btn
-                    flat
-                    class="primary--text"
-                    @click.native="onCardHolderInputed">
-                    Continuar
-                  </v-btn>
-                </v-card-actions>
-              </v-form>
+              <v-flex>
+                <v-checkbox
+                  label="Mesmo do responsável"
+                  v-model="sameAsResponsable"></v-checkbox>
+                <v-form>
+                  <v-layout row wrap>
+                    <v-flex sm5>
+                      <v-text-field
+                        v-model="card.cep"
+                        label="CEP"
+                        mask="##.###-###"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.street"
+                        label="Rua"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.street_number"
+                        label="Número"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.complement"
+                        label="Complemento"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.city"
+                        label="Cidade"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.estate"
+                        label="Estado"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-spacer></v-spacer>
+                    <v-flex sm5>
+                      <v-text-field
+                        v-model="card.cpf"
+                        label="CPF"
+                        mask="###.###.###-##"
+                        required
+                      ></v-text-field>
+                      <v-text-field
+                        v-model="card.birth_date"
+                        label="Data de Nascimento"
+                        mask="##/##/####"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      flat
+                      class="primary--text"
+                      @click.native="onCardHolderInputed">
+                      Continuar
+                    </v-btn>
+                  </v-card-actions>
+                </v-form>
+              </v-flex>
             </v-layout>
           </v-container>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="cardHolderAddressDialog" :max-width="dialogWidth">
+      <v-dialog v-model="cardConfirmationDialog">
         <v-card>
-          <v-container class="text-xs-center">
-            <v-layout justify-center>
-              <v-form>
-                <v-text-field
-                  v-model="card.street"
-                  label="Rua"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.street_number"
-                  label="Número"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.complement"
-                  label="Complemento"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.cep"
-                  label="CEP"
-                  mask="##.###-###"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.city"
-                  label="Cidade"
-                  required
-                ></v-text-field>
-                <v-text-field
-                  v-model="card.estate"
-                  label="Estado"
-                  required
-                ></v-text-field>
-                <v-card-actions>
-                  <v-btn
-                    flat
-                    class="primary--text"
-                    @click.native="onCardRequestPayment">
-                    Finalizar Pagamento
-                  </v-btn>
-                </v-card-actions>
-              </v-form>
+          <v-container>
+            <v-layout row wrap>
+              <h2 class="mt-4">Confimação dos dados</h2>
+              <v-spacer></v-spacer>
+              <img src="../../assets/pagseguro_logo.png" alt="Banner PagSeguro"
+                   title="Compre com PagSeguro e fique sossegado">
             </v-layout>
+            <v-divider class="primary mb-3"></v-divider>
+            <v-layout row wrap>
+              <v-flex>
+                <v-layout>
+                  <v-flex sm5>
+                    <h3 class="mb-2">Dados do Cartão</h3>
+                    <v-card
+                      raised
+                      height="160px">
+                      <v-flex sm12>
+                        <v-card-text>
+                          Número do cartão: ####.####.####.{{ card.number.substring(card.number.length - 4,
+                          card.number.length) }}
+                        </v-card-text>
+                        <v-card-text>
+                          Nome do Titular: {{ card.name }}
+                        </v-card-text>
+                        <v-layout row wrap>
+                          <v-flex sm5>
+                            <v-card-text>
+                              Validade: {{ card.expiration }}
+                            </v-card-text>
+                          </v-flex>
+                          <v-flex sm5>
+                            <v-card-text>
+                              CVV: {{ card.cvc }}
+                            </v-card-text>
+                          </v-flex>
+                        </v-layout>
+                      </v-flex>
+                    </v-card>
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex sm5>
+                    <h3 class="mb-2">Dados do Titular</h3>
+                    <v-card
+                      height="160px"
+                      raised>
+                      <v-flex sm12>
+                        <v-card-text>
+                          Nome: {{ card.name}}
+                        </v-card-text>
+                        <v-card-text>
+                          CPF: {{ card.cpf }}
+                        </v-card-text>
+                      </v-flex>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+
+
+                <v-layout>
+                  <v-flex sm12 class="mt-3">
+                    <h3 class="mb-2">Endereço de cobrança</h3>
+                    <v-card
+                      raised>
+                      <v-flex sm12>
+                        <v-card-text>
+                          Rua: {{ card.street}}, {{ card.street_number }}
+                        </v-card-text>
+                        <v-card-text>
+                          Cep: {{ card.cep }}
+                        </v-card-text>
+                        <v-card-text>
+                          Complemento: {{ card.complement }}
+                        </v-card-text>
+                        <v-layout row wrap>
+                          <v-flex sm5>
+                            <v-card-text>
+                              Cidade: {{ card.city }}
+                            </v-card-text>
+                          </v-flex>
+                          <v-flex sm5>
+                            <v-card-text>
+                              Estado: {{ card.estate }}
+                            </v-card-text>
+                          </v-flex>
+                        </v-layout>
+                      </v-flex>
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+            <v-card-actions>
+              <v-btn
+                flat
+                class="primary--text mt-3"
+                @click.native="onBackDialog">
+                Voltar
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn
+                flat
+                class="primary--text mt-3"
+                @click.native="onCardRequestPayment">
+                Finalizar Pagamento
+              </v-btn>
+            </v-card-actions>
           </v-container>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="cardFinalizedDialog" :max-width="dialogWidth">
-        <v-card>
+      <v-dialog v-model="cardFinalizedDialog" :max-width="dialogWidth" persistent>
+        <v-card height="270px">
           <v-container class="text-xs-center">
-            <v-layout justify-center>
-              <v-card-text>
-                Compra realizada com susexo
+            <v-layout row wrap justify-center class="mt-3">
+              <transition name="fade" mode="out-in">
+                <v-progress-circular v-if="loading" :size="50" indeterminate color="primary"></v-progress-circular>
+                <v-icon size="60" v-else-if="paymentResult" class="primary--text">check_circle_outline</v-icon>
+                <v-icon size="60" v-else="paymentResult" class="error--text">error_outline</v-icon>
+              </transition>
+            </v-layout>
+            <v-layout row wrap justify-center>
+              <transition name="fade" mode="out-in">
+                <v-card-text v-bind:key="resultText">
+                  {{ resultText }}
+                </v-card-text>
+              </transition>
+            </v-layout>
+            <v-slide-x-transition>
+              <v-card-text v-if="paymentResult">
+                <a href="http://www.google.com.br">Clique aqui para imprimir seu contrato</a>
               </v-card-text>
-              <v-card-actions>
-                <v-btn
-                  flat
-                  class="primary--text"
-                  @click.native="onCompleteTransaction">
-                  Voltar
-                </v-btn>
-              </v-card-actions>
-            </v-layout>
+            </v-slide-x-transition>
           </v-container>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              v-if="!loading && paymentResult"
+              flat
+              class="primary--text"
+              @click.native="onCompleteTransaction">
+              Voltar
+            </v-btn>
+            <v-btn
+              v-else-if="!loading && !paymentResult"
+              flat
+              class="primary--text"
+              @click.native="onTransactionFailed">
+              Voltar
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-dialog>
     </v-container>
@@ -197,13 +354,19 @@
         cardDialog: false,
         cardHolderDialog: false,
         cardFinalizedDialog: false,
-        cardHolderAddressDialog: false,
+        cardConfirmationDialog: false,
+        paymentResult: false,
+        resultText: 'Processando Pagamento',
         card: {
+          number: '546022',
+          cvc: '322',
+          expiration: '05/2222',
+          name: 'dsa d f dsadas'
         },
         cardHolder: null,
         cardNumberRules: [
           v => !!v || 'O número é necessário',
-          v => v.length === 16 || 'Número de caracteres inválido'
+          v => v.length === 16 || 'Número Incorreto'
         ],
         expirationRules: [
           v => !!v || 'A data de validade é necessária',
@@ -216,12 +379,13 @@
         boletoLink: null,
         loading: false,
         brand: null,
+        sameAsResponsable: false
       }
     },
     computed: {
       paymentOptionsDialog() {
         return this.$store.getters.paymentOptionsDialog
-      }
+      },
     },
     created() {
       let recaptchaScript = document.createElement('script')
@@ -255,6 +419,13 @@
           ''
         })
     },
+    watch: {
+      sameAsResponsable: function (value) {
+        if (value) {
+          this.card.cpf = this.$store.getters.transaction.cpf
+        }
+      }
+    },
     methods: {
       onBoletoSelected() {
         this.$store.dispatch('setPaymentOptionsDialog', false)
@@ -282,34 +453,29 @@
           })
 
       },
-      dummyEmit () {
-        let date = new Date()
-        this.$emit('paymentRequested', {code: 'kljsaduh89sajmns' + date.getUTCMonth().toString() + date.getUTCDate().toString() + date.getUTCMinutes().toString() + date.getUTCSeconds().toString()})
-      }
-      ,
       onCardInfoInputed() {
         var self = this
         PagSeguroDirectPayment.getBrand({
           cardBin: this.card.number,
-          success: function(response) {
+          success: function (response) {
             this.brand = response
             console.log('passou')
             self.cardDialog = false
             self.cardHolderDialog = true
           },
-          error: function(response) {
+          error: function (response) {
             self.failure = true
             self.cardDialog = true
             self.cardHolderDialog = false
           },
-          complete: function(response) {
+          complete: function (response) {
             //tratamento comum para todas chamadas
           }
         });
       },
       onCardHolderInputed() {
         this.cardHolderDialog = false
-        this.cardHolderAddressDialog = true
+        this.cardConfirmationDialog = true
       },
       onCardSelected() {
         this.$store.dispatch('setPaymentOptionsDialog', false)
@@ -318,10 +484,26 @@
       onCompleteTransaction() {
         this.$router.push('/')
       },
+      onCardRequestPaymentt() {
+        this.loading = true
+        this.cardConfirmationDialog = false
+        this.cardFinalizedDialog = true
+        let self = this
+        setTimeout(function () {
+          self.loading = false
+          self.paymentResult = true
+          self.resultText = 'Pagamento realizado com sucesso'
+        }, 3000)
+      },
+      onTransactionFailed() {
+        this.cardFinalizedDialog = false
+      },
       onCardRequestPayment() {
+        this.loading = true
+        this.cardConfirmationDialog = false
+        this.cardFinalizedDialog = true
         let self = this
         self.$store.dispatch('setTest', 'teste')
-        this.loading = true
         PagSeguroDirectPayment.createCardToken({
           cardNumber: this.card.number,
           brand: this.brand,
@@ -330,7 +512,7 @@
           expirationYear: (this.card.expiration + '').substring(2, (this.card.expiration + '').length),
           // expirationMonth: 8,
           // expirationYear: 2020,
-          success: function(response) {
+          success: function (response) {
             self.token = response['card']['token']
             self.$store.dispatch('setTest', response)
             self.finalizeCardPayment()
@@ -371,16 +553,33 @@
 
         this.$store.dispatch('requestPayPalCardTransaction', payload).then(
           response => {
-            this.loading = false
             this.$emit('paymentRequested', {code: response.paymentCode})
+            self.loading = false
+            self.paymentResult = true
+            self.resultText = 'Pagamento realizado com sucesso'
             // this.boletoLink = response
           }
-        )
+        ).catch(error => {
+          self.loading = false
+          self.paymentResult = false
+          self.resultText = 'Houve um erro ao processar o seu pagamento, tentar novamente mais tarde'
+        })
+      },
+      onBackDialog() {
+        this.cardConfirmationDialog = false
+        this.cardDialog = true
       }
     }
   }
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
 
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+  {
+    opacity: 0;
+  }
 </style>

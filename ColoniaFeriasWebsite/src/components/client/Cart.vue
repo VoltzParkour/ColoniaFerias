@@ -228,9 +228,13 @@
       cartTotal() {
         let total = 0
         for (let i in this.cart) {
-          total = total + parseInt(this.cart[i].plan.priceWithLunch)
+          if (this.cart[i].plan.priceWithLunch !== undefined && this.cart[i].lunchDates.length > 0) {
+            total = total + parseInt(this.cart[i].plan.priceWithLunch)
+          } else {
+            total = total + parseInt(this.cart[i].plan.price)
+          }
         }
-        return (total / 100).toString().replace('.', ',')
+        return (total/100).toString().replace('.',',')
       },
     },
     methods: {

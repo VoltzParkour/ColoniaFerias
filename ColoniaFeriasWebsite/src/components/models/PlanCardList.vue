@@ -13,7 +13,7 @@
                 </v-card-actions>
                 <v-card-text>
                   <h1 class="grey--text element">{{plan.num_days}}</h1>
-                  <h3>Dias</h3>
+                  <h3>Turnos</h3>
                 </v-card-text>
               </v-card>
               <!--<v-divider></v-divider>-->

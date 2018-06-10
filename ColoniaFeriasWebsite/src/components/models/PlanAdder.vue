@@ -92,7 +92,7 @@
     },
     watch: {
       plans: function (plan) {
-      }
+      },
     },
     methods: {
       addPlan() {

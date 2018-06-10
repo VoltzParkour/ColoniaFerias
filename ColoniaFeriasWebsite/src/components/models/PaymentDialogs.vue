@@ -4,18 +4,33 @@
       <v-dialog v-if="loading">
         <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </v-dialog>
-      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth" persistent>
-        <v-card>
+      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth">
+        <v-card height="300px">
           <v-container class="text-xs-center">
-            <v-layout justify-center>
-              <v-card-actions>
-                <v-btn color="transparent" flat @click.native="onBoletoSelected">
-                  <img src="../../assets/barcode.png">
-                </v-btn>
+            <v-layout row wrap>
+              <h2 class="mt-4">Pagamento por Boleto</h2>
+              <v-spacer></v-spacer>
+              <img src="../../assets/pagseguro_logo.png" alt="Banner PagSeguro"
+                   title="Compre com PagSeguro e fique sossegado">
+            </v-layout>
+            <v-divider class="primary mb-3"></v-divider>
+            <v-layout row wrap justify-center class="mt-5 pt-3">
+              <v-layout row wrap justify-center>
+                <v-flex xs12>
+                  <v-btn color="transparent" flat @click.native="onBoletoSelected">
+                    <img src="../../assets/boleto_icon.png">
+                  </v-btn>
+                </v-flex>
+                <span class="mt-5">Boleto</span>
+              </v-layout>
+              <v-layout row wrap justify-center>
+                <v-flex xs12>
                 <v-btn color="transparent" flat @click.native="onCardSelected">
-                  <img src="../../assets/credit-card.png">
+                  <img src="../../assets/credit_card_icon.png">
                 </v-btn>
-              </v-card-actions>
+                </v-flex>
+                <span class="mt-5">Cartão de Crédito</span>
+              </v-layout>
             </v-layout>
           </v-container>
         </v-card>
@@ -23,13 +38,42 @@
       <v-dialog v-model="boletoDialog" :max-width="dialogWidth">
         <v-card>
           <v-container class="text-xs-center">
-            <v-layout justify-center>
-              <v-card-actions>
-                <v-btn color="transparent" flat @click.native="onBoletoSelected">
-                  <img src="../../assets/barcode.png">
-                </v-btn>
-                <a :href="boletoLink">Clique para gerar seu boleto</a>
-              </v-card-actions>
+            <v-layout row wrap>
+              <h2 class="mt-4">Pagamento por Boleto</h2>
+              <v-spacer></v-spacer>
+              <img src="../../assets/pagseguro_logo.png" alt="Banner PagSeguro"
+                   title="Compre com PagSeguro e fique sossegado">
+            </v-layout>
+            <v-divider class="primary mb-3"></v-divider>
+            <v-layout row wrap justify-center>
+              <v-flex xs6>
+                <v-layout row wrap justify-center class="mb-3">
+                  <img src="../../assets/boleto_icon.png">
+                </v-layout>
+                <v-layout row wrap justify-center>
+                  <transition name="fade" mode="out-in">
+                    <v-progress-circular :size="50" indeterminate color="primary" v-if="loading"></v-progress-circular>
+                    <button style="background: none;border: none;" @click="openBoleto" class="link primary--text"
+                            v-else>
+                      Clique para gerar seu boleto
+                    </button>
+                  </transition>
+                </v-layout>
+              </v-flex>
+              <v-flex xs6>
+                <v-layout row wrap justify-center class="mb-3">
+                  <img src="../../assets/contract_icon.png">
+                </v-layout>
+                <v-layout row wrap justify-center>
+                  <transition name="fade" mode="out-in">
+                    <v-progress-circular :size="50" indeterminate color="primary" v-if="loading"></v-progress-circular>
+                    <button style="background: none;border: none;" @click="openContract" class="link primary--text"
+                            v-else>
+                      Clique para imprimir o contrato
+                    </button>
+                  </transition>
+                </v-layout>
+              </v-flex>
             </v-layout>
           </v-container>
         </v-card>
@@ -348,7 +392,7 @@
     name: "PaymentDialogs",
     data() {
       return {
-        dialogWidth: '500px',
+        dialogWidth: '600px',
         failure: false,
         boletoDialog: false,
         cardDialog: false,
@@ -444,13 +488,19 @@
           amount: cartAmountString
         }
 
-        this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
-          response => {
-            this.loading = false
-            this.boletoLink = response.paymentLink
-            this.paymentCode = response.transactionCode
-            this.$emit('paymentRequested', {code: this.paymentCode})
-          })
+        let self = this
+        setTimeout(function () {
+          self.loading = false
+          self.paymentResult = true
+          self.resultText = 'Pagamento realizado com sucesso'
+        }, 3000)
+        // this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
+        //   response => {
+        //     this.loading = false
+        //     this.boletoLink = response.paymentLink
+        //     this.paymentCode = response.transactionCode
+        //     this.$emit('paymentRequested', {code: this.paymentCode})
+        //   })
 
       },
       onCardInfoInputed() {
@@ -568,6 +618,12 @@
       onBackDialog() {
         this.cardConfirmationDialog = false
         this.cardDialog = true
+      },
+      openBoleto() {
+        window.open(this.boletoLink)
+      },
+      openContract() {
+        console.log('open Contract')
       }
     }
   }

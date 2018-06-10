@@ -15,7 +15,7 @@
       >
         <template slot="items" slot-scope="props">
             <td> Plano de {{ props.item.plan.num_days }} turno{{props.item.plan.num_days > 1 ? 's':''}}</td>
-            <td>R$ {{ props.item.plan.priceWithLunch/100 }}</td>
+            <td>R$ {{ props.item.plan.priceWithLunch ? props.item.plan.priceWithLunch/100 : props.item.plan.price/100 }}</td>
             <td>
               <v-select :items="kids"
               v-model="props.item.selectedUser"

@@ -8,7 +8,7 @@
         </v-card-media>
             <v-card-text class="lighten-5 header_text_box" style="height: 120px;">
               <v-layout row wrap>
-                <span class="display-1 fontsp ml-1 mt-0 mb-0 black--text">{{ plan.title }}</span>
+                <span class="headline fontsp ml-1 mt-0 mb-0 black--text">{{ plan.title }}</span>
                 <v-flex>
 
                 </v-flex>

@@ -4,7 +4,7 @@
       <v-dialog v-if="loading">
         <v-progress-circular indeterminate color="primary"></v-progress-circular>
       </v-dialog>
-      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth">
+      <v-dialog v-model="paymentOptionsDialog" :max-width="dialogWidth" persistent>
         <v-card height="300px">
           <v-container class="text-xs-center">
             <v-layout row wrap>
@@ -67,10 +67,16 @@
                 <v-layout row wrap justify-center>
                   <transition name="fade" mode="out-in">
                     <v-progress-circular :size="50" indeterminate color="primary" v-if="loading"></v-progress-circular>
+                    <v-flex v-else>
                     <button style="background: none;border: none;" @click="openContract" class="link primary--text"
-                            v-else>
+                            >
                       Clique para imprimir o contrato
                     </button>
+                    <button style="background: none;border: none;" @click="openContract2" class="link primary--text"
+                            >
+                      Clique para imprimir o Termo de Adesão
+                    </button>
+                    </v-flex>
                   </transition>
                 </v-layout>
               </v-flex>
@@ -342,7 +348,7 @@
         </v-card>
       </v-dialog>
       <v-dialog v-model="cardFinalizedDialog" :max-width="dialogWidth" persistent>
-        <v-card height="270px">
+        <v-card height="350px">
           <v-container class="text-xs-center">
             <v-layout row wrap justify-center class="mt-3">
               <transition name="fade" mode="out-in">
@@ -360,7 +366,8 @@
             </v-layout>
             <v-slide-x-transition>
               <v-card-text v-if="paymentResult">
-                <a href="http://www.google.com.br">Clique aqui para imprimir seu contrato</a>
+                <a href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique aqui para imprimir seu contrato</a>
+                <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para imprimir seu Termo de Adesão</a>
               </v-card-text>
             </v-slide-x-transition>
           </v-container>
@@ -402,10 +409,10 @@
         paymentResult: false,
         resultText: 'Processando Pagamento',
         card: {
-          number: '546022',
-          cvc: '322',
-          expiration: '05/2222',
-          name: 'dsa d f dsadas'
+          number: '',
+          cvc: '',
+          expiration: '',
+          name: ''
         },
         cardHolder: null,
         cardNumberRules: [
@@ -623,7 +630,11 @@
         window.open(this.boletoLink)
       },
       openContract() {
-        console.log('open Contract')
+        window.open('http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf')
+      },
+      openContract2() {
+        window.open('https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c')
+
       }
     }
   }

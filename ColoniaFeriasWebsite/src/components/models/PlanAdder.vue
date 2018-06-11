@@ -24,6 +24,8 @@
 
         <v-card-title>Adicionar Plano</v-card-title>
         <v-card-text>
+          <v-text-field label="Título" v-model.number="title"></v-text-field>
+          <v-text-field label="Subtítulo" v-model.number="subtitle"></v-text-field>
           <v-text-field label="Número de turnos" v-model.number="numDays" mask="##"></v-text-field>
           <v-text-field label="Preço" v-model.number="price" mask="R$ ####,##"></v-text-field>
         </v-card-text>
@@ -87,7 +89,9 @@
         dialog: false,
         plans: this.$store.getters.selectedColony === null ? [] : this.$store.getters.selectedColony.plans,
         numDays: null,
-        price: null
+        price: null,
+        subtitle: '',
+        title: ''
       }
     },
     watch: {
@@ -99,7 +103,9 @@
         let plan = {
           id: this.plans.length,
           price: this.price.substring(1, this.price.length),
-          num_days: this.numDays
+          num_days: this.numDays,
+          title: this.title,
+          subtitle: this.subtitle
         }
         this.plans.push(plan)
         this.$emit('addPlan', this.plans)

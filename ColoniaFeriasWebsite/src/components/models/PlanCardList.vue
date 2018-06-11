@@ -5,7 +5,7 @@
         <v-layout row wrap align-center>
           <v-card class="primary">
             <v-flex>
-              <v-card flat height="180px" width="125px">
+              <v-card flat width="125px">
                 <v-card-actions class=" remove text-xs-center">
                   <v-btn flat icon color="primary" @click.stop="removePlan(plan)">
                     <v-icon>highlight_off</v-icon>
@@ -14,6 +14,8 @@
                 <v-card-text>
                   <h1 class="grey--text element">{{plan.num_days}}</h1>
                   <h3>Turnos</h3>
+                  <h3>{{plan.title}}</h3>
+                  <span>{{plan.subtitle}}</span>
                 </v-card-text>
               </v-card>
               <!--<v-divider></v-divider>-->

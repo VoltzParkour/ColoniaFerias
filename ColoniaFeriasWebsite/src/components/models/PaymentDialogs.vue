@@ -409,10 +409,10 @@
         paymentResult: false,
         resultText: 'Processando Pagamento',
         card: {
-          number: '',
-          cvc: '',
-          expiration: '',
-          name: ''
+          number: '4111111111111111',
+          cvc: '123',
+          expiration: '122030',
+          name: 'LUIZ F M NICOLAU'
         },
         cardHolder: null,
         cardNumberRules: [
@@ -440,15 +440,17 @@
     },
     created() {
       let recaptchaScript = document.createElement('script')
-      // recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
+      recaptchaScript.setAttribute('src', 'https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
       //sandbox
-      recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
+      // recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
       document.head.appendChild(recaptchaScript)
+      
     },
     beforeMount() {
       this.$store.dispatch('requestPayPalSessionId')
         .then(response => {
           if (this.$store.getters.sessionId === '') {
+          console.log('Veio setar session id: ' + response.id)
             PagSeguroDirectPayment.setSessionId(response.id)
             this.$store.dispatch('setSessionId', response.id)
           } else {
@@ -513,14 +515,16 @@
       onCardInfoInputed() {
         var self = this
         PagSeguroDirectPayment.getBrand({
-          cardBin: this.card.number,
+          cardBin: self.card.number,
           success: function (response) {
-            this.brand = response
+            self.brand = response
             console.log('passou')
+            console.log(self.brand)
             self.cardDialog = false
             self.cardHolderDialog = true
           },
           error: function (response) {
+            console.log('falhoiu brand')
             self.failure = true
             self.cardDialog = true
             self.cardHolderDialog = false
@@ -561,25 +565,64 @@
         this.cardFinalizedDialog = true
         let self = this
         self.$store.dispatch('setTest', 'teste')
+
+        console.log(self.brand)
+        console.log(self.card.number)
+        //dfsds
+        console.log(self.card.cvc)
+        console.log((self.card.expiration + '').substring(0, 2))
+        console.log((self.card.expiration + '').substring(2, (this.card.expiration + '').length))
+
+        let brand = {
+          bin: {
+            length: null,
+            country: {
+              name: "Brazil",
+              id: 76,
+              isoCode: "BR",
+              isoCodeThreeDigits: "BRA"
+            },
+            bin: 411111,
+            brand: {
+              name: "visa"
+            },
+            cardLevel: null,
+            cvvSize: 3,
+            expirable: "n",
+            validationAlgorithm: "LUHN",
+            bank: null,
+            reasonMessage: null,
+            statusMessage: "Success"
+          }
+        }
+        //sdsad
         PagSeguroDirectPayment.createCardToken({
-          cardNumber: this.card.number,
-          brand: this.brand,
-          cvv: this.card.cvc,
-          expirationMonth: (this.card.expiration + '').substring(0, 2),
-          expirationYear: (this.card.expiration + '').substring(2, (this.card.expiration + '').length),
-          // expirationMonth: 8,
-          // expirationYear: 2020,
+          // cardNumber: self.card.number,
+          // cvv: self.card.cvc,
+          cardNumber: 4111111111111111,
+          cvv: 123,
+          // expirationMonth: parseInt((self.card.expiration + '').substring(0, 2)),
+          // expirationYear: parseInt((self.card.expiration + '').substring(2, (self.card.expiration + '').length)),
+          // brand: brand.bin.brand.name,
+          brand: "visa",
+          expirationMonth: 8,
+          expirationYear: 2020,
           success: function (response) {
             self.token = response['card']['token']
             self.$store.dispatch('setTest', response)
+            console.log('sucess: ' + response)
             self.finalizeCardPayment()
           },
           error: function (response) {
             self.$store.dispatch('setTest', response)
+            console.log('failure: ')
+            console.log(response)
 
           },
           complete: function (response) {
             self.$store.dispatch('setTest', response)
+            console.log('complete: ')
+            console.log(response)
             // self.finalizeCardPayment()
           }
         });
@@ -598,7 +641,7 @@
           cpf: info.cpf,
           amount: cartAmountString,
           card_holder_name: this.card.name,
-          card_holder_birth_date: this.card.birth_date,
+          card_holder_birth_date: (this.card.birth_date + '').substring(0, 2) + '/' + (this.card.birth_date + '').substring(2, 4) + '/' + (this.card.birth_date + '').substring(4, 8),
           card_holder_cpf: this.card.cpf,
           street: this.card.street,
           number: this.card.street_number,

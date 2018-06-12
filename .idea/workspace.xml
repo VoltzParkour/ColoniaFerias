@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="368">
-              <caret line="414" column="17" selection-start-line="414" selection-start-column="17" selection-end-line="414" selection-end-column="17" />
+              <caret line="655" column="23" selection-start-line="655" selection-start-column="23" selection-end-line="655" selection-end-column="23" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#transition#0;n#v-layout#1;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -288,7 +290,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133794000" />
+    <option name="totallyTimeSpent" value="133029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="803" extended-state="6" />
@@ -644,7 +646,7 @@
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="414" column="17" selection-start-line="414" selection-start-column="17" selection-end-line="414" selection-end-column="17" />
+          <caret line="655" column="23" selection-start-line="655" selection-start-column="23" selection-end-line="655" selection-end-column="23" />
           <folding>
             <element signature="n#style#0;n#button#0;n#transition#0;n#v-layout#1;n#v-flex#0;n#v-layout#1;n#v-container#0;n#v-card#0;n#v-dialog#2;n#v-container#0;n#v-container#0;n#template#0;n#!!top" expanded="true" />
           </folding>

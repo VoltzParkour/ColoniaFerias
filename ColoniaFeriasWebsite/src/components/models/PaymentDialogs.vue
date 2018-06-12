@@ -495,19 +495,19 @@
           amount: cartAmountString
         }
 
-        let self = this
-        setTimeout(function () {
-          self.loading = false
-          self.paymentResult = true
-          self.resultText = 'Pagamento realizado com sucesso'
-        }, 3000)
-        // this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
-        //   response => {
-        //     this.loading = false
-        //     this.boletoLink = response.paymentLink
-        //     this.paymentCode = response.transactionCode
-        //     this.$emit('paymentRequested', {code: this.paymentCode})
-        //   })
+        // let self = this
+        // setTimeout(function () {
+        //   self.loading = false
+        //   self.paymentResult = true
+        //   self.resultText = 'Pagamento realizado com sucesso'
+        // }, 3000)
+        this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
+          response => {
+            this.loading = false
+            this.boletoLink = response.paymentLink
+            this.paymentCode = response.transactionCode
+            this.$emit('paymentRequested', {code: this.paymentCode})
+          })
 
       },
       onCardInfoInputed() {

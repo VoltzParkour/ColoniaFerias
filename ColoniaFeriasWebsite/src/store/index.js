@@ -167,21 +167,21 @@ export const store = new Vuex.Store({
       console.log('endereco: ' + string)
       firebase.database().ref(string).push(user)
         .then((data) => {
-          const key = data.key
-          commit('createColonyParticipant', {
-            ...user,
-            id: key,
-            temporary: true
-          })
+          // const key = data.key
+          // commit('createColonyParticipant', {
+          //   ...user,
+          //   id: key,
+          //   temporary: true
+          // })
 
 
-          let string_m = 'colony_buyers/' + selectedColonyId
-          firebase.database().ref(string_m).push(user)
+          // let string_m = 'colony_buyers/' + selectedColonyId
+          // firebase.database().ref(string_m).push(user)
 
-          let string_l = 'Colonies/' + selectedColonyId + '/Days/'
-          user.days.forEach(turno => {//diminuir número de chamadas!!!
-            firebase.database().ref(string_l + turno.day + '/' + turno.turno.replace('ã','a').toLowerCase()).push({userId: key, paymentCode: payload.paymentCode})
-          })
+          // let string_l = 'Colonies/' + selectedColonyId + '/Days/'
+          // user.days.forEach(turno => {//diminuir número de chamadas!!!
+          //   firebase.database().ref(string_l + turno.day + '/' + turno.turno.replace('ã','a').toLowerCase()).push({userId: key, paymentCode: payload.paymentCode})
+          // })
 
         })
         .catch((error) => {
@@ -193,7 +193,7 @@ export const store = new Vuex.Store({
       const user = {
         name: payload.name,
         age: payload.age,
-        healthInsurance: payload.healthInsurance,        
+        healthInsurance: payload.healthInsurance,
         responsable: payload.responsable,
         days: payload.days
       }

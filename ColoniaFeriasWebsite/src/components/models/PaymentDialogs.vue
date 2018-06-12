@@ -576,14 +576,9 @@
         PagSeguroDirectPayment.createCardToken({
           cardNumber: self.card.number,
           cvv: self.card.cvc,
-          // cardNumber: 4111111111111111,
-          // cvv: 123,
           expirationMonth: parseInt((self.card.expiration + '').substring(0, 2)),
           expirationYear: parseInt((self.card.expiration + '').substring(2, (self.card.expiration + '').length)),
           brand: self.brand,
-          // brand: "visa",
-          // expirationMonth: 8,
-          // expirationYear: 2020,
           success: function (response) {
             self.token = response['card']['token']
             self.$store.dispatch('setTest', response)

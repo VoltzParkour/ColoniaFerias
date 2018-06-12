@@ -258,12 +258,13 @@
         return (price / 100).toString().replace('.', ',')
       },
       checkout() {
-        let payload = {
-          resp_name: 'Joao da Silva',
-          celphone: '21775748837',
-          email: 'djhsad@dsd.com',
-          cpf: '01212944208'
-        }
+        // let payload = {
+        //   resp_name: 'Joao da Silva',
+        //   celphone: '21775748837',
+        //   email: 'djhsad@dsd.com',
+        //   cpf: '01212944208'
+        // }
+        let payload = this.responsable
         this.$store.dispatch('setTransactionInfo', payload)
         this.$store.dispatch('setPaymentOptionsDialog', true)
       },

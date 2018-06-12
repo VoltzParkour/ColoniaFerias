@@ -409,10 +409,10 @@
         paymentResult: false,
         resultText: 'Processando Pagamento',
         card: {
-          number: '4111111111111111',
-          cvc: '123',
-          expiration: '122030',
-          name: 'LUIZ F M NICOLAU'
+          number: '',
+          cvc: '',
+          expiration: '',
+          name: ''
         },
         cardHolder: null,
         cardNumberRules: [
@@ -517,7 +517,7 @@
         PagSeguroDirectPayment.getBrand({
           cardBin: self.card.number,
           success: function (response) {
-            self.brand = response
+            self.brand = response.brand.name
             console.log('passou')
             console.log(self.brand)
             self.cardDialog = false
@@ -568,45 +568,21 @@
 
         console.log(self.brand)
         console.log(self.card.number)
-        //dfsds
         console.log(self.card.cvc)
         console.log((self.card.expiration + '').substring(0, 2))
         console.log((self.card.expiration + '').substring(2, (this.card.expiration + '').length))
 
-        let brand = {
-          bin: {
-            length: null,
-            country: {
-              name: "Brazil",
-              id: 76,
-              isoCode: "BR",
-              isoCodeThreeDigits: "BRA"
-            },
-            bin: 411111,
-            brand: {
-              name: "visa"
-            },
-            cardLevel: null,
-            cvvSize: 3,
-            expirable: "n",
-            validationAlgorithm: "LUHN",
-            bank: null,
-            reasonMessage: null,
-            statusMessage: "Success"
-          }
-        }
-        //sdsad
         PagSeguroDirectPayment.createCardToken({
-          // cardNumber: self.card.number,
-          // cvv: self.card.cvc,
-          cardNumber: 4111111111111111,
-          cvv: 123,
-          // expirationMonth: parseInt((self.card.expiration + '').substring(0, 2)),
-          // expirationYear: parseInt((self.card.expiration + '').substring(2, (self.card.expiration + '').length)),
+          cardNumber: self.card.number,
+          cvv: self.card.cvc,
+          // cardNumber: 4111111111111111,
+          // cvv: 123,
+          expirationMonth: (self.card.expiration + '').substring(0, 2),
+          expirationYear: (self.card.expiration + '').substring(2, (self.card.expiration + '').length),
           // brand: brand.bin.brand.name,
-          brand: "visa",
-          expirationMonth: 8,
-          expirationYear: 2020,
+          brand: self.brand,
+          // expirationMonth: 12,
+          // expirationYear: 2030,
           success: function (response) {
             self.token = response['card']['token']
             self.$store.dispatch('setTest', response)

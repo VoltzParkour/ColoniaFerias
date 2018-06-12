@@ -444,7 +444,7 @@
       //sandbox
       // recaptchaScript.setAttribute('src', 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js')
       document.head.appendChild(recaptchaScript)
-      
+
     },
     beforeMount() {
       this.$store.dispatch('requestPayPalSessionId')
@@ -653,16 +653,16 @@
 
         this.$store.dispatch('requestPayPalCardTransaction', payload).then(
           response => {
-            this.$emit('paymentRequested', {code: response.paymentCode})
-            self.loading = false
-            self.paymentResult = true
-            self.resultText = 'Pagamento realizado com sucesso'
+            this.$emit('paymentRequested', {code: response.transactionCode})
+            this.loading = false
+            this.paymentResult = true
+            this.resultText = 'Pagamento realizado com sucesso'
             // this.boletoLink = response
           }
         ).catch(error => {
-          self.loading = false
-          self.paymentResult = false
-          self.resultText = 'Houve um erro ao processar o seu pagamento, tentar novamente mais tarde'
+          this.loading = false
+          this.paymentResult = false
+          this.resultText = 'Houve um erro ao processar o seu pagamento, tentar novamente mais tarde'
         })
       },
       onBackDialog() {

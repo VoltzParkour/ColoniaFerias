@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/prod.env.js" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/config/prod.env.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,8 +23,17 @@
       <file leaf-file-name="ClientPlanCard.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+            <state relative-caret-position="181">
+              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SelectionDialog.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="79" selection-start-line="79" selection-end-line="79" />
             </state>
           </provider>
         </entry>
@@ -65,11 +74,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="prod.env.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="prod.env.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/config/prod.env.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
               <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeekDaysPicker.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Home.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Home.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="776">
+              <caret line="64" selection-start-line="64" selection-end-line="64" />
             </state>
           </provider>
         </entry>
@@ -85,7 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cart</find>
       <find>onBol</find>
       <find>onBoleto</find>
       <find>dummyEmit</find>
@@ -115,6 +141,7 @@
       <find>boleto</find>
       <find>openContract2</find>
       <find>firebasestorage</find>
+      <find>alertMessage</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -132,7 +159,6 @@
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/admin/Colony.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/login/login.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/index.html" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/main.js" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/router/index.js" />
@@ -144,9 +170,10 @@
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCardList.vue" />
-        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/config/dev.env.js" />
         <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/config/prod.env.js" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue" />
+        <option value="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue" />
       </list>
     </option>
   </component>
@@ -206,22 +233,6 @@
               <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ColoniaFerias" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
-              <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ColoniaFerias" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ColoniaFerias" type="462c0819:PsiDirectoryNode" />
-              <item name="ColoniaFeriasWebsite" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ColoniaFerias" type="b2602c69:ProjectViewProjectNode" />
@@ -308,7 +319,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122165000" />
+    <option name="totallyTimeSpent" value="122951000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="803" extended-state="6" />
@@ -489,33 +500,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/forms/AddColony.vue" />
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-291">
-          <caret line="9" column="66" selection-start-line="9" selection-start-column="63" selection-end-line="9" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanCard.vue" />
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Colony.vue" />
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/login/login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="490">
           <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="65" selection-start-line="32" selection-start-column="65" selection-end-line="32" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Home.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
         </state>
       </provider>
     </entry>
@@ -531,6 +521,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="29" lean-forward="true" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -644,13 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/config/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-176" />
@@ -667,6 +653,34 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="53" selection-start-line="3" selection-start-column="53" selection-end-line="3" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/Home.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="776">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/WeekDaysPicker.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/ClientPlanCard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/SelectionDialog.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
         </state>
       </provider>
     </entry>

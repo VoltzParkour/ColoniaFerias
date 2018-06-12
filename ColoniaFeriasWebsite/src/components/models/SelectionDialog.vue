@@ -15,9 +15,6 @@
     </v-btn>
     <v-card>
       <v-container>
-      <v-alert :value="alert" type="warning" dismissable>
-        {{alertMessage}}
-      </v-alert>
         <v-layout row wrap>
           <v-flex xs12>
             <v-card-title class="headline black--text">Selecione os turnos das atividades!</v-card-title>
@@ -80,6 +77,12 @@
         </v-layout>
         <v-layout row wrap>
           <v-flex xs12>
+            <v-slide-x-transition>
+            <v-alert :value="alert" type="warning" dismissable>
+              {{alertMessage}}
+            </v-alert>
+
+            </v-slide-x-transition>
             <v-card-actions>
               <v-btn
               class="red--text darken-1"
@@ -143,7 +146,7 @@
         } else {
           Vue.set(this.datesHasLunch, dia, !this.datesHasLunch[dia])
         }
-        
+
       },
       onAgree () {
         if (this.remainingDays !== 0) {
@@ -157,7 +160,7 @@
                 selectedDates.push(this.datesFlat[j])
               }
             }
-            let price = parseInt(this.plan.price)          
+            let price = parseInt(this.plan.price)
             let lunchDays = []
             for (let i in this.datesHasLunch){
               if (this.datesHasLunch[i]){
@@ -204,32 +207,32 @@
           let month = (currentDate.getUTCMonth() + 1) > 9 ? (currentDate.getUTCMonth() + 1):'0' + (currentDate.getUTCMonth() + 1)
           let DateStr = currentDate.getUTCFullYear() + '-' + month + '-' + day
           console.log(DateStr)
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
-                    (this.colony.days == undefined || 
-                    this.colony.days[DateStr] == undefined || 
-                    this.colony.days[DateStr]['manha'] == undefined || 
-                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity)) 
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+                    (this.colony.days == undefined ||
+                    this.colony.days[DateStr] == undefined ||
+                    this.colony.days[DateStr]['manha'] == undefined ||
+                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity))
             {
               turnos.push({name:'Manhã',pos:this.datesStatus.length})
               this.datesFlat.push({date: new Date (currentDate), turno: 'Manhã'})
               this.datesStatus.push(false)
             }
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
-                    (this.colony.days == undefined || 
-                    this.colony.days[DateStr] == undefined || 
-                    this.colony.days[DateStr]['tarde'] == undefined || 
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+                    (this.colony.days == undefined ||
+                    this.colony.days[DateStr] == undefined ||
+                    this.colony.days[DateStr]['tarde'] == undefined ||
                     Object.keys(this.colony.days[DateStr]['tarde']).length < this.colony.capacity)) {
               turnos.push({name:'Tarde',pos:this.datesStatus.length})
               this.datesFlat.push({date: new Date (currentDate), turno: 'Tarde'})
               this.datesStatus.push(false)
             }
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true && 
-                    (this.colony.days == undefined || 
-                    this.colony.days[DateStr] == undefined || 
-                    this.colony.days[DateStr]['manha'] == undefined || 
-                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity || 
-                    this.colony.days[DateStr]['tarde'] == undefined || 
-                    Object.keys(this.colony.days[DateStr]['tarde']).length < this.colony.capacity)     
+            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+                    (this.colony.days == undefined ||
+                    this.colony.days[DateStr] == undefined ||
+                    this.colony.days[DateStr]['manha'] == undefined ||
+                    Object.keys(this.colony.days[DateStr]['manha']).length < this.colony.capacity ||
+                    this.colony.days[DateStr]['tarde'] == undefined ||
+                    Object.keys(this.colony.days[DateStr]['tarde']).length < this.colony.capacity)
                 ) {
 
               this.datesFlatDays.push({date: new Date (currentDate)})
@@ -244,7 +247,7 @@
       }
     },
     created () {
-        
+
     }
   }
 </script>

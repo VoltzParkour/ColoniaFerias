@@ -449,13 +449,13 @@
     beforeMount() {
       this.$store.dispatch('requestPayPalSessionId')
         .then(response => {
-          if (this.$store.getters.sessionId === '') {
-          console.log('Veio setar session id: ' + response.id)
+          // if (this.$store.getters.sessionId === '') {
+          // console.log('Veio setar session id: ' + response.id)
             PagSeguroDirectPayment.setSessionId(response.id)
-            this.$store.dispatch('setSessionId', response.id)
-          } else {
-            PagSeguroDirectPayment.setSessionId(this.$store.getters.sessionId)
-          }
+            // this.$store.dispatch('setSessionId', response.id)
+          // } else {
+          //   PagSeguroDirectPayment.setSessionId(this.$store.getters.sessionId)
+          // }
           this.$store.dispatch('setSessionId', response.id)
           var self = this
           PagSeguroDirectPayment.onSenderHashReady(function (response) {
@@ -609,9 +609,9 @@
           hash: this.$store.getters.hash,
           token: this.token,
           email: info.email,
-          name: info.resp_name,
-          phone_code: info.celphone.substring(0, 2),
-          phone: info.celphone.substring(2, info.celphone.length),
+          name: info.name,
+          phone_code: info.cel.substring(0, 2),
+          phone: info.cel.substring(2, info.cel.length),
           cpf: info.cpf,
           amount: cartAmountString,
           card_holder_name: this.card.name,

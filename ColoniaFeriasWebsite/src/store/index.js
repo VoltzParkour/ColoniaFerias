@@ -90,6 +90,7 @@ export const store = new Vuex.Store({
     },
     removePlanFromCart (state, payload) {
       state.cart.splice(payload, 1)
+      state.cartAmount = state.cartAmount - payload.price
     },
     addPlanToUserDirect (state, payload) {
       if (state.userDirectAmount === null) {

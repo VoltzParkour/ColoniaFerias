@@ -487,12 +487,13 @@
 
         let info = this.$store.getters.transaction
         let cartAmountString = '' + this.$store.getters.cartAmount
+        console.log('aaaa')
         let payload = {
           hash: this.$store.getters.hash,
           email: info.email,
-          name: info.resp_name,
-          phone_code: info.celphone.substring(0, 2),
-          phone: info.celphone.substring(2, info.celphone.length),
+          name: info.name,
+          phone_code: info.cel.substring(0, 2),
+          phone: info.cel.substring(2, info.cel.length),
           cpf: info.cpf,
           amount: cartAmountString
         }
@@ -503,6 +504,7 @@
         //   self.paymentResult = true
         //   self.resultText = 'Pagamento realizado com sucesso'
         // }, 3000)
+        console.log('bbb')
         this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
           response => {
             this.loading = false

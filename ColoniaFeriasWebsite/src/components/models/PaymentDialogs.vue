@@ -107,9 +107,6 @@
                     mask="####.####.####.####"
                     required
                   ></v-text-field>
-                  <v-alert v-model="failure" type="error" dismissible>
-                    Número de cartão inválido!
-                  </v-alert>
                   <v-text-field
                     v-model="card.name"
                     label="Nome do Titular"
@@ -150,6 +147,9 @@
                     </v-btn>
                   </v-card-actions>
                 </v-form>
+                <v-alert v-model="failure" type="error" dismissible>
+                  {{ failureMessage }}
+                </v-alert>
               </v-flex>
             </v-layout>
           </v-container>
@@ -231,6 +231,9 @@
                     </v-btn>
                   </v-card-actions>
                 </v-form>
+                <v-alert v-model="failure" type="error" dismissible>
+                  {{ failureMessage }}
+                </v-alert>
               </v-flex>
             </v-layout>
           </v-container>
@@ -366,8 +369,10 @@
             </v-layout>
             <v-slide-x-transition>
               <v-card-text v-if="paymentResult">
-                <a href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique aqui para imprimir seu contrato</a>
-                <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para imprimir seu Termo de Adesão</a>
+                <v-flex xs12>
+                  <a href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique aqui para imprimir seu contrato</a>
+                  <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para imprimir seu Termo de Adesão</a>
+                </v-flex>
               </v-card-text>
             </v-slide-x-transition>
           </v-container>
@@ -401,6 +406,7 @@
       return {
         dialogWidth: '600px',
         failure: false,
+        failureMessage: '',
         boletoDialog: false,
         cardDialog: false,
         cardHolderDialog: false,
@@ -487,7 +493,6 @@
 
         let info = this.$store.getters.transaction
         let cartAmountString = '' + this.$store.getters.cartAmount
-        console.log('aaaa')
         let payload = {
           hash: this.$store.getters.hash,
           email: info.email,
@@ -504,7 +509,6 @@
         //   self.paymentResult = true
         //   self.resultText = 'Pagamento realizado com sucesso'
         // }, 3000)
-        console.log('bbb')
         this.$store.dispatch('requestPayPalBoletoTransaction', payload).then(
           response => {
             this.loading = false
@@ -514,31 +518,108 @@
           })
 
       },
+      cardInfoIsValid() {
+        let date = new Date()
+        if (this.card.name.split(' ') < 2) {
+          this.failure = true
+          this.failureMessage = 'Nome do portador do cartão inválido'
+          return false
+        } else if((this.card.expiration + '').length < 6) {
+          this.failure = true
+          this.failureMessage = 'Expiração inválido'
+          return false
+        } else if (parseInt((this.card.expiration + '').substring(0, 2)) > 12 || parseInt((this.card.expiration + '').substring(0, 2)) < 1){
+          this.failure = true
+          this.failureMessage = 'Mês de expiração inválido'
+          return false
+        } else if (parseInt((this.card.expiration + '').substring(2, 6)) < date.getFullYear()) {
+          this.failure = true
+          this.failureMessage = 'Ano de expiração inválido'
+          return false
+        } else if ((this.card.cvc + '').length != 3) {
+          this.failure = true
+          this.failureMessage = 'Cvv inválido'
+          return false
+        }
+        return true
+      },
       onCardInfoInputed() {
         var self = this
-        PagSeguroDirectPayment.getBrand({
-          cardBin: self.card.number,
-          success: function (response) {
-            self.brand = response.brand.name
-            console.log('passou')
-            console.log(self.brand)
-            self.cardDialog = false
-            self.cardHolderDialog = true
-          },
-          error: function (response) {
-            console.log('falhoiu brand')
-            self.failure = true
-            self.cardDialog = true
-            self.cardHolderDialog = false
-          },
-          complete: function (response) {
-            //tratamento comum para todas chamadas
-          }
-        });
+        if (this.cardInfoIsValid()) {
+          PagSeguroDirectPayment.getBrand({
+            cardBin: self.card.number,
+            success: function (response) {
+              self.brand = response.brand.name
+              self.failure = false
+              self.cardDialog = false
+              self.cardHolderDialog = true
+            },
+            error: function (response) {
+              self.failure = true
+              self.failureMessage = 'Número do cartão inválido'
+              self.cardDialog = true
+              self.cardHolderDialog = false
+            },
+            complete: function (response) {
+              //tratamento comum para todas chamadas
+            }
+          })
+        }
+      },
+      cardHolderInfoIsvalid() {
+        let date = new Date()
+        let birthDateDay = parseInt((this.card.birth_date + '').substring(0, 2))
+        let birthDateMonth = parseInt((this.card.birth_date + '').substring(2,4))
+        let birthDateYear = parseInt((this.card.birth_date + '').substring(4,8))
+
+        if (this.card.birth_date === undefined || (this.card.birth_date + '').length < 8) {
+          this.failure = true
+          this.failureMessage = 'Data de nascimento inválida'
+          return false
+        } else if (birthDateDay > 31 || birthDateDay < 1){
+          this.failure = true
+          this.failureMessage = 'Dia de nascimento inválido'
+          return false
+        } else if (birthDateMonth > 12 || birthDateMonth < 1){
+          this.failure = true
+          this.failureMessage = 'Mês de nascimento inválido'
+          return false
+        } else if (birthDateYear > date.getFullYear() || birthDateYear < 1900){
+          this.failure = true
+          this.failureMessage = 'Ano de nascimento inválido'
+          return false
+        } else if (this.card.cpf === undefined || this.card.cpf.length != 11){
+          this.failure = true
+          this.failureMessage = 'CPF inválido'
+          return false
+        } else if (this.card.estate === undefined || this.card.estate.length !== 2){
+          this.failure = true
+          this.failureMessage = 'Estado inválido'
+          return false
+        } else if (this.card.city === undefined || this.card.city.length < 1){
+          this.failure = true
+          this.failureMessage = 'Cidade inválida'
+          return false
+        } else if (this.card.street_number === undefined || (this.card.street_number + '').length < 1){
+          this.failure = true
+          this.failureMessage = 'Número inválido'
+          return false
+        } else if (this.card.street === undefined || this.card.street.length < 1){
+          this.failure = true
+          this.failureMessage = 'Rua inválido'
+          return false
+        } else if (this.card.cep === undefined || (this.card.cep + '').length != 8){
+          this.failure = true
+          this.failureMessage = 'CEP inválido'
+          return false
+        }
+        return true
       },
       onCardHolderInputed() {
-        this.cardHolderDialog = false
-        this.cardConfirmationDialog = true
+        if (this.cardHolderInfoIsvalid()) {
+          this.cardHolderDialog = false
+          this.cardConfirmationDialog = true
+        }
       },
       onCardSelected() {
         this.$store.dispatch('setPaymentOptionsDialog', false)

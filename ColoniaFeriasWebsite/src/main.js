@@ -43,7 +43,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 window.axios = require('axios')
 // window.axios.defaults.headers.common['Accept'] = 'application/xml; charset=ISO-8859-1'
-window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+// window.axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 // axios.defaults.baseURL = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2';
 window.axios.defaults.headers.common['Content-Type'] = 'application/json';
 

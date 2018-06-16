@@ -25,9 +25,9 @@
               </v-layout>
               <v-layout row wrap justify-center>
                 <v-flex xs12>
-                <v-btn color="transparent" flat @click.native="onCardSelected">
-                  <img src="../../assets/credit_card_icon.png">
-                </v-btn>
+                  <v-btn color="transparent" flat @click.native="onCardSelected">
+                    <img src="../../assets/credit_card_icon.png">
+                  </v-btn>
                 </v-flex>
                 <span class="mt-5">Cartão de Crédito</span>
               </v-layout>
@@ -68,14 +68,14 @@
                   <transition name="fade" mode="out-in">
                     <v-progress-circular :size="50" indeterminate color="primary" v-if="loading"></v-progress-circular>
                     <v-flex v-else>
-                    <button style="background: none;border: none;" @click="openContract" class="link primary--text"
-                            >
-                      Clique para imprimir o contrato
-                    </button>
-                    <button style="background: none;border: none;" @click="openContract2" class="link primary--text"
-                            >
-                      Clique para imprimir o Termo de Adesão
-                    </button>
+                      <button style="background: none;border: none;" @click="openContract" class="link primary--text"
+                      >
+                        Clique para imprimir o contrato
+                      </button>
+                      <button style="background: none;border: none;" @click="openContract2" class="link primary--text"
+                      >
+                        Clique para imprimir o Termo de Adesão
+                      </button>
                     </v-flex>
                   </transition>
                 </v-layout>
@@ -139,12 +139,16 @@
                   </v-layout>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn
-                      flat
-                      class="primary--text"
-                      @click.native="onCardInfoInputed">
-                      Continuar
-                    </v-btn>
+                    <v-layout row wrap>
+                      <v-spacer></v-spacer>
+                      <v-progress-circular v-if="cardNumberLoading" indeterminate color="primary"></v-progress-circular>
+                      <v-btn
+                        flat
+                        class="primary--text ml-5"
+                        @click.native="onCardInfoInputed">
+                        Continuar
+                      </v-btn>
+                    </v-layout>
                   </v-card-actions>
                 </v-form>
                 <v-alert v-model="failure" type="error" dismissible>
@@ -173,12 +177,17 @@
                 <v-form>
                   <v-layout row wrap>
                     <v-flex sm5>
-                      <v-text-field
-                        v-model="card.cep"
-                        label="CEP"
-                        mask="##.###-###"
-                        required
-                      ></v-text-field>
+                      <v-layout row wrap>
+                        <v-text-field
+                          v-model="card.cep"
+                          label="CEP"
+                          @change="onCepChange"
+                          mask="##.###-###"
+                          required
+                        ></v-text-field>
+                        <v-progress-circular v-if="cepLoading" indeterminate
+                                             color="primary"></v-progress-circular>
+                      </v-layout>
                       <v-text-field
                         v-model="card.street"
                         label="Rua"
@@ -199,11 +208,12 @@
                         label="Cidade"
                         required
                       ></v-text-field>
-                      <v-text-field
+                      <v-select
+                        :items="estates"
                         v-model="card.estate"
                         label="Estado"
-                        required
-                      ></v-text-field>
+                        single-line
+                      ></v-select>
                     </v-flex>
                     <v-spacer></v-spacer>
                     <v-flex sm5>
@@ -370,8 +380,11 @@
             <v-slide-x-transition>
               <v-card-text v-if="paymentResult">
                 <v-flex xs12>
-                  <a href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique aqui para imprimir seu contrato</a>
-                  <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para imprimir seu Termo de Adesão</a>
+                  <a
+                    href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique
+                    aqui para imprimir seu contrato</a>
+                  <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para
+                    imprimir seu Termo de Adesão</a>
                 </v-flex>
               </v-card-text>
             </v-slide-x-transition>
@@ -418,7 +431,8 @@
           number: '',
           cvc: '',
           expiration: '',
-          name: ''
+          name: '',
+          street: ''
         },
         cardHolder: null,
         cardNumberRules: [
@@ -435,14 +449,19 @@
         ],
         boletoLink: null,
         loading: false,
+        cepLoading: false,
+        cardNumberLoading: false,
         brand: null,
-        sameAsResponsable: false
+        sameAsResponsable: false,
       }
     },
     computed: {
       paymentOptionsDialog() {
         return this.$store.getters.paymentOptionsDialog
       },
+      estates() {
+        return this.$store.getters.estates
+      }
     },
     created() {
       let recaptchaScript = document.createElement('script')
@@ -457,8 +476,8 @@
         .then(response => {
           // if (this.$store.getters.sessionId === '') {
           // console.log('Veio setar session id: ' + response.id)
-            PagSeguroDirectPayment.setSessionId(response.id)
-            // this.$store.dispatch('setSessionId', response.id)
+          PagSeguroDirectPayment.setSessionId(response.id)
+          // this.$store.dispatch('setSessionId', response.id)
           // } else {
           //   PagSeguroDirectPayment.setSessionId(this.$store.getters.sessionId)
           // }
@@ -524,11 +543,11 @@
           this.failure = true
           this.failureMessage = 'Nome do portador do cartão inválido'
           return false
-        } else if((this.card.expiration + '').length < 6) {
+        } else if ((this.card.expiration + '').length < 6) {
           this.failure = true
           this.failureMessage = 'Expiração inválido'
           return false
-        } else if (parseInt((this.card.expiration + '').substring(0, 2)) > 12 || parseInt((this.card.expiration + '').substring(0, 2)) < 1){
+        } else if (parseInt((this.card.expiration + '').substring(0, 2)) > 12 || parseInt((this.card.expiration + '').substring(0, 2)) < 1) {
           this.failure = true
           this.failureMessage = 'Mês de expiração inválido'
           return false
@@ -545,11 +564,13 @@
       },
       onCardInfoInputed() {
         var self = this
+        this.cardNumberLoading = true
         if (this.cardInfoIsValid()) {
           PagSeguroDirectPayment.getBrand({
             cardBin: self.card.number,
             success: function (response) {
               self.brand = response.brand.name
+              self.cardNumberLoading = false
               self.failure = false
               self.cardDialog = false
               self.cardHolderDialog = true
@@ -569,46 +590,46 @@
       cardHolderInfoIsvalid() {
         let date = new Date()
         let birthDateDay = parseInt((this.card.birth_date + '').substring(0, 2))
-        let birthDateMonth = parseInt((this.card.birth_date + '').substring(2,4))
-        let birthDateYear = parseInt((this.card.birth_date + '').substring(4,8))
+        let birthDateMonth = parseInt((this.card.birth_date + '').substring(2, 4))
+        let birthDateYear = parseInt((this.card.birth_date + '').substring(4, 8))
 
         if (this.card.birth_date === undefined || (this.card.birth_date + '').length < 8) {
           this.failure = true
           this.failureMessage = 'Data de nascimento inválida'
           return false
-        } else if (birthDateDay > 31 || birthDateDay < 1){
+        } else if (birthDateDay > 31 || birthDateDay < 1) {
           this.failure = true
           this.failureMessage = 'Dia de nascimento inválido'
           return false
-        } else if (birthDateMonth > 12 || birthDateMonth < 1){
+        } else if (birthDateMonth > 12 || birthDateMonth < 1) {
           this.failure = true
           this.failureMessage = 'Mês de nascimento inválido'
           return false
-        } else if (birthDateYear > date.getFullYear() || birthDateYear < 1900){
+        } else if (birthDateYear > date.getFullYear() || birthDateYear < 1900) {
           this.failure = true
           this.failureMessage = 'Ano de nascimento inválido'
           return false
-        } else if (this.card.cpf === undefined || this.card.cpf.length != 11){
+        } else if (this.card.cpf === undefined || this.card.cpf.length != 11) {
           this.failure = true
           this.failureMessage = 'CPF inválido'
           return false
-        } else if (this.card.estate === undefined || this.card.estate.length !== 2){
+        } else if (this.card.estate === undefined || this.card.estate.length !== 2) {
           this.failure = true
           this.failureMessage = 'Estado inválido'
           return false
-        } else if (this.card.city === undefined || this.card.city.length < 1){
+        } else if (this.card.city === undefined || this.card.city.length < 1) {
           this.failure = true
           this.failureMessage = 'Cidade inválida'
           return false
-        } else if (this.card.street_number === undefined || (this.card.street_number + '').length < 1){
+        } else if (this.card.street_number === undefined || (this.card.street_number + '').length < 1) {
           this.failure = true
           this.failureMessage = 'Número inválido'
           return false
-        } else if (this.card.street === undefined || this.card.street.length < 1){
+        } else if (this.card.street === undefined || this.card.street.length < 1) {
           this.failure = true
           this.failureMessage = 'Rua inválido'
           return false
-        } else if (this.card.cep === undefined || (this.card.cep + '').length != 8){
+        } else if (this.card.cep === undefined || (this.card.cep + '').length != 8) {
           this.failure = true
           this.failureMessage = 'CEP inválido'
           return false
@@ -733,6 +754,24 @@
       openContract2() {
         window.open('https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c')
 
+      },
+      onCepChange(change) {
+        console.log('cep change')
+        this.cepLoading = true
+        let self = this
+        this.$store.dispatch('getAddressByCEP', change).then(
+          function (response) {
+            let address = response.data
+            self.card.street = address.logradouro
+            self.card.city = address.localidade
+            self.card.estate = address.uf
+            self.cepLoading = false
+          }
+        ).catch(
+          function (error) {
+
+          }
+        )
       }
     }
   }

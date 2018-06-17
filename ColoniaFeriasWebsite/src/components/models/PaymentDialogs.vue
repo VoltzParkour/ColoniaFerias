@@ -578,6 +578,7 @@
             error: function (response) {
               self.failure = true
               self.failureMessage = 'Número do cartão inválido'
+              self.cardNumberLoading = false
               self.cardDialog = true
               self.cardHolderDialog = false
             },

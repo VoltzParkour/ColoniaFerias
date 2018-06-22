@@ -192,7 +192,6 @@
         this.datesStatus = lunchArr;
       },
       setDays () {
-        console.log('!@@@@@@')
         this.datesStatus = []
         this.datesFlat = []
         this.datesFlatDays = []
@@ -206,8 +205,7 @@
           let day = currentDate.getUTCDate() > 9 ? currentDate.getUTCDate():'0' + currentDate.getUTCDate()
           let month = (currentDate.getUTCMonth() + 1) > 9 ? (currentDate.getUTCMonth() + 1):'0' + (currentDate.getUTCMonth() + 1)
           let DateStr = currentDate.getUTCFullYear() + '-' + month + '-' + day
-          console.log(DateStr)
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+            if (this.colony.week_days[currentDate.getUTCDay()*2 - 2] === true &&
                     (this.colony.days == undefined ||
                     this.colony.days[DateStr] == undefined ||
                     this.colony.days[DateStr]['manha'] == undefined ||
@@ -217,7 +215,7 @@
               this.datesFlat.push({date: new Date (currentDate), turno: 'Manhã'})
               this.datesStatus.push(false)
             }
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+            if (this.colony.week_days[currentDate.getUTCDay()*2 - 2] === true &&
                     (this.colony.days == undefined ||
                     this.colony.days[DateStr] == undefined ||
                     this.colony.days[DateStr]['tarde'] == undefined ||
@@ -226,7 +224,7 @@
               this.datesFlat.push({date: new Date (currentDate), turno: 'Tarde'})
               this.datesStatus.push(false)
             }
-            if (this.colony.week_days[currentDate.getUTCDay()*2] === true &&
+            if (this.colony.week_days[currentDate.getUTCDay()*2 - 2] === true &&
                     (this.colony.days == undefined ||
                     this.colony.days[DateStr] == undefined ||
                     this.colony.days[DateStr]['manha'] == undefined ||
@@ -236,7 +234,6 @@
                 ) {
 
               this.datesFlatDays.push({date: new Date (currentDate)})
-              console.log(this.datesFlatDays.length)
             }
             if (turnos.length > 0){
             dateArray.push({date: new Date (currentDate), turnos: turnos})

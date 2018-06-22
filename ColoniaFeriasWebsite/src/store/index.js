@@ -25,18 +25,7 @@ localStorage.removeItem('vuex')
 export const store = new Vuex.Store({
   plugins: [vuexLocalStorage.plugin],
   state: {
-    news: [
-      {
-        imageUrl: 'https://www.insidehighered.com/sites/default/server_files/media/iStock-520374378.jpg',
-        id: 'first',
-        title: 'Title First'
-      },
-      {
-        imageUrl: 'https://www.timeshighereducation.com/sites/default/files/istock-499343530.jpg',
-        id: 'second',
-        title: 'Title Second'
-      },
-    ],
+    estates: ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],
     messages: [],
     colonies: [],
     plans: [],
@@ -59,28 +48,28 @@ export const store = new Vuex.Store({
     test: null,
   },
   mutations: {
-    addColony (state, payload) {
+    addColony(state, payload) {
       state.colonies.push(payload)
     },
-    setColonies (state, payload) {
+    setColonies(state, payload) {
       state.colonies = payload
     },
-    removeColony (state, payload) {
+    removeColony(state, payload) {
       state.colonies.splice(payload, 1)
     },
-    setSelectedColony (state, payload) {
+    setSelectedColony(state, payload) {
       state.selectedColony = payload
     },
-    clearSelectedColony (state, payload) {
+    clearSelectedColony(state, payload) {
       state.selectedColony = null
     },
-    setColonyParticipants (state, payload) {
+    setColonyParticipants(state, payload) {
       state.colonyParticipants = payload
     },
-    setSelectedPlans (state, payload) {
+    setSelectedPlans(state, payload) {
       state.selectedPlans = payload
     },
-    addPlanToCart (state, payload) {
+    addPlanToCart(state, payload) {
       if (state.cartAmount === null) {
         state.cartAmount = parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
       } else {
@@ -88,11 +77,11 @@ export const store = new Vuex.Store({
       }
       state.cart.push(payload)
     },
-    removePlanFromCart (state, payload) {
+    removePlanFromCart(state, payload) {
       state.cart.splice(payload, 1)
       state.cartAmount = state.cartAmount - payload.price
     },
-    addPlanToUserDirect (state, payload) {
+    addPlanToUserDirect(state, payload) {
       if (state.userDirectAmount === null) {
         state.userDirectAmount = parseFloat([payload.plan.price.slice(0, payload.plan.price.length - 2), '.', payload.plan.price.slice(payload.plan.price.length - 2)].join(''))
       } else {
@@ -100,39 +89,39 @@ export const store = new Vuex.Store({
       }
       state.userDirect.push(payload)
     },
-    removePlanFromUserDirect (state, payload) {
+    removePlanFromUserDirect(state, payload) {
       state.userDirect.splice(payload, 1)
     },
-    setBuyersCount (state, payload) {
+    setBuyersCount(state, payload) {
       state.buyersCount = payload
     },
-    createColonyParticipant (state, payload) {
+    createColonyParticipant(state, payload) {
       state.colonyParticipants.push(payload)
     },
-    setSessionId (state, payload) {
+    setSessionId(state, payload) {
       state.session_id = payload
     },
-    setHash (state, payload) {
+    setHash(state, payload) {
       state.hash = payload
     },
-    setPaymentMethods (state, payload) {
+    setPaymentMethods(state, payload) {
       state.payment_methods = payload
     },
-    setPaymentOptionsDialog (state, payload) {
+    setPaymentOptionsDialog(state, payload) {
       state.payment_options_dialog = payload
     },
-    setTransactionInfo (state, payload) {
+    setTransactionInfo(state, payload) {
       state.transaction = payload
     },
-    setTest (state, payload) {
+    setTest(state, payload) {
       state.test = payload
     },
-    setSessionId (state, payload) {
+    setSessionId(state, payload) {
       state.session_id = payload
     }
   },
   actions: {
-    CreateColony ({commit, getters}, payload) {
+    CreateColony({commit, getters}, payload) {
       if (getters.selectedColony != null) {
         firebase.database().ref('Colonies').child(getters.selectedColony.id)
           .set(payload)
@@ -154,7 +143,7 @@ export const store = new Vuex.Store({
       }
     },
 
-    createColonyParticipantTemporary ({commit, getters}, payload) {
+    createColonyParticipantTemporary({commit, getters}, payload) {
       const user = {
         name: payload.userData.name,
         age: payload.userData.age,
@@ -164,7 +153,7 @@ export const store = new Vuex.Store({
         paymentCode: payload.paymentCode
       }
       let selectedColonyId = payload.userData.colonyId
-      let string = 'colony_buyers_by_payment/'+ payload.paymentCode + '/' + selectedColonyId
+      let string = 'colony_buyers_by_payment/' + payload.paymentCode + '/' + selectedColonyId
       console.log('endereco: ' + string)
       firebase.database().ref(string).push(user)
         .then((data) => {
@@ -190,7 +179,7 @@ export const store = new Vuex.Store({
         })
       // Reach out to firebase and store it
     },
-    createColonyParticipant ({commit, getters}, payload) {
+    createColonyParticipant({commit, getters}, payload) {
       const user = {
         name: payload.name,
         age: payload.age,
@@ -209,7 +198,7 @@ export const store = new Vuex.Store({
           })
           let string_l = 'Colonies/' + selectedColonyId + '/Days/'
           user.days.forEach(turno => {
-            firebase.database().ref(string_l + '/' + turno.date + '/' + turno.turno.replace('ã','a').toLowerCase()).push(data.key)
+            firebase.database().ref(string_l + '/' + turno.date + '/' + turno.turno.replace('ã', 'a').toLowerCase()).push(data.key)
           })
 
         })
@@ -220,7 +209,7 @@ export const store = new Vuex.Store({
     },
 
 
-    LoadColonies ({commit}) {
+    LoadColonies({commit}) {
       // firebase.database().ref('Colonies').on('value')
       firebase.database().ref('Colonies').once('value')
         .then(
@@ -233,7 +222,7 @@ export const store = new Vuex.Store({
                 title: obj[key].title,
                 description: obj[key].description,
                 start_date: obj[key].start_date,
-                end_date : obj[key].end_date,
+                end_date: obj[key].end_date,
                 plans: obj[key].plans,
                 week_days: obj[key].week_days,
                 days: obj[key].Days,
@@ -253,7 +242,7 @@ export const store = new Vuex.Store({
           }
         )
     },
-    LoadColonyParticipants ({commit, getters}) {
+    LoadColonyParticipants({commit, getters}) {
       firebase.database().ref('colony_buyers').child(getters.selectedColony.id).once('value')
         .then(
           (data) => {
@@ -264,7 +253,7 @@ export const store = new Vuex.Store({
                 cpf: key,
                 name: obj[key].name,
                 age: obj[key].age,
-                responsable : obj[key].responsable,
+                responsable: obj[key].responsable,
                 days: obj[key].days
               }
               let days = []
@@ -286,10 +275,10 @@ export const store = new Vuex.Store({
           }
         )
     },
-    selectColony ({commit}, payload) {
+    selectColony({commit}, payload) {
       commit('setSelectedColony', payload)
     },
-    deleteColony ({commit, getters}, payload) {
+    deleteColony({commit, getters}, payload) {
       firebase.database().ref('Colonies')
         .child(payload.id)
         .remove()
@@ -304,43 +293,43 @@ export const store = new Vuex.Store({
           }
         )
     },
-    clearSelectedColony ({commit}) {
+    clearSelectedColony({commit}) {
       commit('clearSelectedColony')
     },
     setCreatePlans({commit}, payload) {
       commit('setSelectedPlans', payload)
     },
-    addPlanToCart ({commit}, payload) {
+    addPlanToCart({commit}, payload) {
       commit('addPlanToCart', payload)
     },
-    removePlanFromCart ({commit}, payload) {
+    removePlanFromCart({commit}, payload) {
       commit('removePlanFromCart', payload)
     },
-    addPlanToUserDirect ({commit}, payload) {
+    addPlanToUserDirect({commit}, payload) {
       commit('addPlanToUserDirect', payload)
     },
-    removePlanFromUserDirect ({commit}, payload) {
+    removePlanFromUserDirect({commit}, payload) {
       commit('removePlanFromUserDirect', payload)
     },
-    LoadBuyersCount ({commit}) {
+    LoadBuyersCount({commit}) {
       firebase.database().ref('colony_buyers').once('value')
-      .then(
-        (data) => {
-          const buyersCount = {}
-          const obj = data.val()
-          for (let colonia in obj) {
-            buyersCount[colonia] = Object.keys(obj[colonia]).length
+        .then(
+          (data) => {
+            const buyersCount = {}
+            const obj = data.val()
+            for (let colonia in obj) {
+              buyersCount[colonia] = Object.keys(obj[colonia]).length
+            }
+            console.log(buyersCount)
+            commit('setBuyersCount', buyersCount)
+          })
+        .catch(
+          (error) => {
+            console.log(error)
           }
-          console.log(buyersCount)
-          commit('setBuyersCount', buyersCount)
-        })
-      .catch(
-        (error) => {
-          console.log(error)
-        }
-      )
+        )
     },
-    requestPayPalSessionId ({commit}) {
+    requestPayPalSessionId({commit}) {
       return new Promise((resolve, reject) => {
         let url = process.env.ROOT_API + 'api/session'
         axios.get(url)
@@ -359,7 +348,7 @@ export const store = new Vuex.Store({
           )
       })
     },
-    requestPayPalBoletoTransaction ({commit}, payload) {
+    requestPayPalBoletoTransaction({commit}, payload) {
       // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
       let url = process.env.ROOT_API + 'api/payment/boleto'
       return new Promise((resolve, reject) => {
@@ -377,7 +366,7 @@ export const store = new Vuex.Store({
           )
       })
     },
-    requestPayPalCardTransaction ({commit}, payload) {
+    requestPayPalCardTransaction({commit}, payload) {
       // let url = 'transactions' + '?Accept=application%2Fvnd.pagseguro.com.br.v3%2Bxml&email=suporte%40lojamodelo.com.br&token=57BE455F4EC148E5A54D9BB91C5AC12C'
       let url = process.env.ROOT_API + 'api/payment/card'
       return new Promise((resolve, reject) => {
@@ -395,78 +384,99 @@ export const store = new Vuex.Store({
           )
       })
     },
-    setSessionId ({commit}, payload) {
+    getAddressByCEP({commit}, payload) {
+      console.log('payload')
+      console.log(payload)
+        return new Promise((resolve, reject) => {
+          let url = 'https://viacep.com.br/ws/' + payload +'/json/'
+          axios.get(url)
+            .then(
+              function (response) {
+                resolve(response)
+              }
+            )
+            .catch(
+              function (error) {
+                reject(error)
+              }
+            )
+        })
+    },
+    setSessionId({commit}, payload) {
       commit('setSessionId', payload)
     },
-    setHash ({commit}, payload) {
+    setHash({commit}, payload) {
       commit('setHash', payload)
     },
-    setPaymentMethods ({commit}, payload) {
+    setPaymentMethods({commit}, payload) {
       commit('setPaymentMethods', payload)
     },
-    setPaymentOptionsDialog ({commit}, payload) {
+    setPaymentOptionsDialog({commit}, payload) {
       commit('setPaymentOptionsDialog', payload)
     },
-    setTransactionInfo ({commit}, payload) {
+    setTransactionInfo({commit}, payload) {
       commit('setTransactionInfo', payload)
     },
-    setTest ({commit}, payload) {
+    setTest({commit}, payload) {
       commit('setTest', payload)
     },
-    setSessionId ({commit}, payload) {
+    setSessionId({commit}, payload) {
       commit('setSessionId', payload)
     }
   },
   getters: {
-    messages (state) {
+    messages(state) {
       return state.messages.sort((messageA, messageB) => {
         return messageA.sent > messageB.sent
       })
     },
-    selectedPlans (state) {
+    selectedPlans(state) {
       return state.selectedPlans
     },
-    colonies (state) {
+    colonies(state) {
       return state.colonies
     },
-    colonyParticipants (state) {
+    colonyParticipants(state) {
       return state.colonyParticipants
     },
-    selectedColony (state) {
+    selectedColony(state) {
       return state.selectedColony
     },
-    cart (state) {
+    cart(state) {
       return state.cart
     },
     cartAmount(state) {
       return state.cartAmount
     },
-    userDirect (state) {
+    userDirect(state) {
       return state.userDirect
     },
     userDirectAmount(state) {
       return state.userDirectAmount
     },
-    buyersCount (state) {
+    buyersCount(state) {
       return state.buyersCount
     },
-    sessionId (state) {
+    sessionId(state) {
       return state.session_id
     },
-    hash (state) {
+    hash(state) {
       return state.hash
     },
-    peymentMethods (state) {
+    peymentMethods(state) {
       return state.peyment_methods
     },
-    paymentOptionsDialog (state) {
+    paymentOptionsDialog(state) {
       return state.payment_options_dialog
     },
-    transaction (state) {
+    transaction(state) {
       return state.transaction
     },
-    sessionId (state) {
+    sessionId(state) {
       return state.session_id
+    },
+    estates(state) {
+      return state.estates
     }
 
   }

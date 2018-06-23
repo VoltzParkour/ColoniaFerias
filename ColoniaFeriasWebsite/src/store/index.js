@@ -30,6 +30,7 @@ export const store = new Vuex.Store({
     colonies: [],
     plans: [],
     cart: [],
+    kids: [],
     userDirect: [],
     userDirectAmount: null,
     selectedColony: null,
@@ -77,9 +78,18 @@ export const store = new Vuex.Store({
       }
       state.cart.push(payload)
     },
+    setPlanToCart(state, payload) {
+      state.cart[payload.index] = payload.data
+    },
     removePlanFromCart(state, payload) {
       state.cart.splice(payload, 1)
       state.cartAmount = state.cartAmount - payload.price
+    },
+    setPlanUser (state, payload) {
+      state.cart[payload.index].selectedUser = payload.user
+    },
+    addKid (state, payload) {
+      state.kids.push(payload)
     },
     addPlanToUserDirect(state, payload) {
       if (state.userDirectAmount === null) {
@@ -302,8 +312,17 @@ export const store = new Vuex.Store({
     addPlanToCart({commit}, payload) {
       commit('addPlanToCart', payload)
     },
+    setPlanToCart({commit}, payload) {
+      commit('setPlanToCart', payload)
+    },
     removePlanFromCart({commit}, payload) {
       commit('removePlanFromCart', payload)
+    },
+    setPlanUser({commit}, payload) {
+      commit('setPlanUser', payload)
+    },
+    addKid({commit}, payload) {
+      commit('addKid', payload)
     },
     addPlanToUserDirect({commit}, payload) {
       commit('addPlanToUserDirect', payload)
@@ -477,6 +496,9 @@ export const store = new Vuex.Store({
     },
     estates(state) {
       return state.estates
+    },
+    kids(state) {
+      return state.kids
     }
 
   }

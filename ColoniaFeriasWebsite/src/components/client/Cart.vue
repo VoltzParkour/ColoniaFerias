@@ -19,12 +19,13 @@
             <td>
               <v-select :items="kids"
               v-model="props.item.selectedUser"
+                        v-on:change="setIndex($event, props.index)"
               item-text="name"
               label="Selecione o usuário!"
               ></v-select>
             </td>
             <td>
-              <inscricao-dialog @addUser="addUser"></inscricao-dialog>
+              <inscricao-dialog @addUser="addUser($event, props.index)"></inscricao-dialog>
               <v-btn flat class="red--text" @click="removePlan">Remover plano</v-btn>
             </td>
         </template>
@@ -184,7 +185,7 @@
     data() {
       return {
         isRespFetcher: true,
-        kids: [],
+        // kids: [],
         alert: false,
         alertMessage: '',
         headers: [
@@ -248,6 +249,9 @@
         }
         return (total/100).toString().replace('.',',')
       },
+      kids() {
+        return this.$store.getters.kids
+      }
     },
     beforeMount() {
       for (let i in this.cart) {
@@ -255,13 +259,25 @@
       }
     },
     methods: {
-      addUser(data) {
-        this.kids.push(data)
-        for (let i in this.cart) {
-          this.cart[i].selectedUser = this.kids[0]
-        }
+      addUser(data, index) {
+        // this.kids.push(data)
+        this.$store.dispatch('addKid', data)
+        // for (let i in this.cart) {
+          let payload = {
+            index: index,
+            user: data
+          }
+          this.$store.dispatch('setPlanUser', payload)
+          // this.cart[i].selectedUser = this.kids[0]
+        // }
       },
-
+      setIndex(event, index) {
+        let payload = {
+          index: index,
+          user: event
+        }
+        this.$store.dispatch('setPlanUser', payload)
+      },
       priceAsInt(n) {
         price = parseInt(n)
         return (price / 100).toString().replace('.', ',')
@@ -296,6 +312,34 @@
             this.alertMessage = 'Escolha as crianças para cada plano'
             this.alert = true
             return false
+          }
+        }
+        for (let i = 0; i < this.cart.length - 1; i++) {
+          for (let j = i + 1; j < this.cart.length; j++) {
+            if (this.cart[i].selectedUser.name === this.cart[j].selectedUser.name) {
+              console.log('nome do dito cujo')
+              console.log(this.cart[i].selectedUser.name)
+              console.log(this.cart[j].selectedUser.name)
+              for (let k = 0; k < this.cart[i].dates.length; k++) {
+                for (let l = 0; l <  this.cart[j].dates.length; l++) {
+                  let firstDay = new Date(this.cart[i].dates[k].date)
+                  let secondDay = new Date(this.cart[j].dates[l].date)
+                  console.log(firstDay)
+                  console.log(secondDay)
+                  console.log(firstDay.getTime() === secondDay.getTime())
+                  console.log(this.cart[i].dates[k].turno)
+                  console.log(this.cart[j].dates[l].turno)
+                  console.log(this.cart[i].dates[k].turno === this.cart[j].dates[l].turno)
+                  if (firstDay.getTime() === secondDay.getTime() &&
+                    this.cart[i].dates[k].turno === this.cart[j].dates[l].turno) {
+                    console.log('entrou')
+                    this.alertMessage = 'Existem duas crianças para o mesmo dia, mesmo turno'
+                    this.alert = true
+                    return false
+                  }
+                }
+              }
+            }
           }
         }
         return true

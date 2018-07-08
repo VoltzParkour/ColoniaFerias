@@ -117,10 +117,10 @@
                       <v-text-field
                         v-model="card.expiration"
                         :rules="expirationRules"
-                        :counter="6"
+                        :counter="4"
                         validate-on-blur
                         label="Data de validade"
-                        mask="##/####"
+                        mask="##/##"
                         required
                       ></v-text-field>
                     </v-flex>
@@ -441,7 +441,7 @@
         ],
         expirationRules: [
           v => !!v || 'A data de validade é necessária',
-          v => v.length === 6 || 'Número de caracteres inválido'
+          v => v.length === 4 || 'Número de caracteres inválido'
         ],
         cvcRules: [
           v => !!v || 'A Cvv é necessário',
@@ -461,6 +461,11 @@
       },
       estates() {
         return this.$store.getters.estates
+      },
+      expirationGetter() {
+        let month = this.card.expiration.substring(0, 2)
+        let year = this.card.expiration.substring(2, 4)
+        return month + '20' + year
       }
     },
     created() {
@@ -543,15 +548,15 @@
           this.failure = true
           this.failureMessage = 'Nome do portador do cartão inválido'
           return false
-        } else if ((this.card.expiration + '').length < 6) {
+        } else if ((this.expirationGetter + '').length < 6) {
           this.failure = true
           this.failureMessage = 'Expiração inválido'
           return false
-        } else if (parseInt((this.card.expiration + '').substring(0, 2)) > 12 || parseInt((this.card.expiration + '').substring(0, 2)) < 1) {
+        } else if (parseInt((this.expirationGetter+ '').substring(0, 2)) > 12 || parseInt((this.expirationGetter + '').substring(0, 2)) < 1) {
           this.failure = true
           this.failureMessage = 'Mês de expiração inválido'
           return false
-        } else if (parseInt((this.card.expiration + '').substring(2, 6)) < date.getFullYear()) {
+        } else if (parseInt((this.expirationGetter + '').substring(2, 6)) < date.getFullYear()) {
           this.failure = true
           this.failureMessage = 'Ano de expiração inválido'
           return false
@@ -671,18 +676,11 @@
         let self = this
         self.$store.dispatch('setTest', 'teste')
 
-        console.log(self.brand)
-        console.log(self.card.number)
-        //dfsds
-        console.log(self.card.cvc)
-        console.log((self.card.expiration + '').substring(0, 2))
-        console.log((self.card.expiration + '').substring(2, (this.card.expiration + '').length))
-
         PagSeguroDirectPayment.createCardToken({
           cardNumber: self.card.number,
           cvv: self.card.cvc,
-          expirationMonth: parseInt((self.card.expiration + '').substring(0, 2)),
-          expirationYear: parseInt((self.card.expiration + '').substring(2, (self.card.expiration + '').length)),
+          expirationMonth: parseInt((self.expirationGetter + '').substring(0, 2)),
+          expirationYear: parseInt((self.expirationGetter + '').substring(2, (self.expirationGetter + '').length)),
           brand: self.brand,
           success: function (response) {
             self.token = response['card']['token']

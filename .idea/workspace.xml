@@ -4,10 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PlanAdder.vue" line="31" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" beforeDir="false" afterPath="$PROJECT_DIR$/ColoniaFeriasWebsite/src/components/models/PaymentDialogs.vue" afterDir="false" />
-    </list>
+    <list default="true" id="78a43b59-4c71-41da-86b6-1bbc629341cb" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -247,7 +244,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="137933000" />
+    <option name="totallyTimeSpent" value="138252000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="807" extended-state="6" />

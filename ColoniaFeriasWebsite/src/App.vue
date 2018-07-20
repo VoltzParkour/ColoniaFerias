@@ -127,7 +127,6 @@
         <v-icon>account_circle</v-icon>
         <v-card-text>ADMIN</v-card-text>
       </v-btn>
-      <p>fdsads</p>
     </v-footer>
   </v-app>
 </template>

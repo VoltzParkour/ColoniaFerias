@@ -23,10 +23,12 @@
               item-text="name"
               label="Selecione o usuário!"
               ></v-select>
+              <inscricao-dialog @addUser="addUser($event, props.index)" class="hidden-sm-and-up"></inscricao-dialog>
+              <v-btn flat class="red--text hidden-sm-and-up" @click="removePlan">Remover plano</v-btn>
             </td>
             <td>
-              <inscricao-dialog @addUser="addUser($event, props.index)"></inscricao-dialog>
-              <v-btn flat class="red--text" @click="removePlan">Remover plano</v-btn>
+              <inscricao-dialog @addUser="addUser($event, props.index)" class="hidden-xs-only"></inscricao-dialog>
+              <v-btn flat class="red--text hidden-xs-only" @click="removePlan">Remover plano</v-btn>
             </td>
         </template>
         <template slot="footer">

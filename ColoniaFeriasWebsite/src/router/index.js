@@ -8,6 +8,7 @@ import AdminSelectPlans from '@/components/admin/AdminSelectPlans'
 import Colony from '@/components/admin/Colony'
 import Login from '@/components/login/login'
 import Cart from '@/components/client/Cart'
+import Politica from '@/components/PoliticaPrivacidade'
 import * as firebase from 'firebase'
 
 
@@ -67,6 +68,11 @@ let router = new Router({
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/politica-privacidade',
+      name: 'Politica',
+      component: Politica
     }
   ]
 })

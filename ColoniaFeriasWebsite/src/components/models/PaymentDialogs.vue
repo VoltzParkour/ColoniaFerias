@@ -15,14 +15,14 @@
             </v-layout>
             <v-divider class="primary mb-3"></v-divider>
             <v-layout row wrap justify-center class="mt-5 pt-3">
-              <v-layout row wrap justify-center>
-                <v-flex xs12>
-                  <v-btn color="transparent" flat @click.native="onBoletoSelected">
-                    <img src="../../assets/boleto_icon.png">
-                  </v-btn>
-                </v-flex>
-                <span class="mt-5">Boleto</span>
-              </v-layout>
+<!--              <v-layout row wrap justify-center>-->
+<!--                <v-flex xs12>-->
+<!--                  <v-btn color="transparent" flat @click.native="onBoletoSelected">-->
+<!--                    <img src="../../assets/boleto_icon.png">-->
+<!--                  </v-btn>-->
+<!--                </v-flex>-->
+<!--                <span class="mt-5">Boleto</span>-->
+<!--              </v-layout>-->
               <v-layout row wrap justify-center>
                 <v-flex xs12>
                   <v-btn color="transparent" flat @click.native="onCardSelected">

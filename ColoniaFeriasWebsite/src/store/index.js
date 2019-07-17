@@ -11,6 +11,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 var email = 'luisfnicolau@hotmail.com'
 var token = '503F25BCA32146728390BA730AA376F1'
 
+const baseRef = ''
+
 Vue.use(Vuex)
 
 const vuexLocalStorage = new VuexPersist({
@@ -23,7 +25,7 @@ import Constants from '../utility/constants'
 localStorage.removeItem('vuex')
 
 export const store = new Vuex.Store({
-  plugins: [vuexLocalStorage.plugin],
+  // plugins: [vuexLocalStorage.plugin],
   state: {
     estates: ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],
     messages: [],
@@ -108,9 +110,6 @@ export const store = new Vuex.Store({
     createColonyParticipant(state, payload) {
       state.colonyParticipants.push(payload)
     },
-    setSessionId(state, payload) {
-      state.session_id = payload
-    },
     setHash(state, payload) {
       state.hash = payload
     },
@@ -133,7 +132,7 @@ export const store = new Vuex.Store({
   actions: {
     CreateColony({commit, getters}, payload) {
       if (getters.selectedColony != null) {
-        firebase.database().ref('Colonies').child(getters.selectedColony.id)
+        firebase.database().ref(baseRef + 'Colonies').child(getters.selectedColony.id)
           .set(payload)
           .then(
             (data) => {
@@ -141,7 +140,7 @@ export const store = new Vuex.Store({
             }
           )
       } else {
-        firebase.database().ref('Colonies').push(payload)
+        firebase.database().ref(baseRef + 'Colonies').push(payload)
           .then((data) => {
             // console.log(data)
             // commit('addColony', payload)
@@ -163,7 +162,7 @@ export const store = new Vuex.Store({
         paymentCode: payload.paymentCode
       }
       let selectedColonyId = payload.userData.colonyId
-      let string = 'colony_buyers_by_payment/' + payload.paymentCode + '/' + selectedColonyId
+      let string = baseRef + 'colony_buyers_by_payment/' + payload.paymentCode + '/' + selectedColonyId
       console.log('endereco: ' + string)
       firebase.database().ref(string).push(user)
         .then((data) => {
@@ -198,7 +197,7 @@ export const store = new Vuex.Store({
         days: payload.days
       }
       let selectedColonyId = payload.colonyId
-      let string = 'colony_buyers/' + selectedColonyId
+      let string = baseRef + 'colony_buyers/' + selectedColonyId
       firebase.database().ref(string).push(user)
         .then((data) => {
           const key = data.key
@@ -208,7 +207,7 @@ export const store = new Vuex.Store({
           })
           let string_l = 'Colonies/' + selectedColonyId + '/Days/'
           user.days.forEach(turno => {
-            firebase.database().ref(string_l + '/' + turno.date + '/' + turno.turno.replace('ã', 'a').toLowerCase()).push(data.key)
+            firebase.database().ref(baseRef + string_l + '/' + turno.date + '/' + turno.turno.replace('ã', 'a').toLowerCase()).push(data.key)
           })
 
         })
@@ -220,8 +219,8 @@ export const store = new Vuex.Store({
 
 
     LoadColonies({commit}) {
-      // firebase.database().ref('Colonies').on('value')
-      firebase.database().ref('Colonies').once('value')
+      // firebase.database().ref(baseRef + 'Colonies').on('value')
+      firebase.database().ref(baseRef + 'Colonies').once('value')
         .then(
           (data) => {
             const colonies = []
@@ -253,7 +252,7 @@ export const store = new Vuex.Store({
         )
     },
     LoadColonyParticipants({commit, getters}) {
-      firebase.database().ref('colony_buyers').child(getters.selectedColony.id).once('value')
+      firebase.database().ref(baseRef + 'colony_buyers').child(getters.selectedColony.id).once('value')
         .then(
           (data) => {
             const colony_buyers = []
@@ -289,7 +288,7 @@ export const store = new Vuex.Store({
       commit('setSelectedColony', payload)
     },
     deleteColony({commit, getters}, payload) {
-      firebase.database().ref('Colonies')
+      firebase.database().ref(baseRef + 'Colonies')
         .child(payload.id)
         .remove()
         .then(
@@ -331,7 +330,7 @@ export const store = new Vuex.Store({
       commit('removePlanFromUserDirect', payload)
     },
     LoadBuyersCount({commit}) {
-      firebase.database().ref('colony_buyers').once('value')
+      firebase.database().ref(baseRef + 'colony_buyers').once('value')
         .then(
           (data) => {
             const buyersCount = {}
@@ -350,7 +349,7 @@ export const store = new Vuex.Store({
     },
     requestPayPalSessionId({commit}) {
       return new Promise((resolve, reject) => {
-        let url = process.env.ROOT_API + 'api/session'
+        let url = 'http://159.203.67.240/api/' + 'api/session'
         axios.get(url)
           .then(
             function (response) {
@@ -421,9 +420,6 @@ export const store = new Vuex.Store({
             )
         })
     },
-    setSessionId({commit}, payload) {
-      commit('setSessionId', payload)
-    },
     setHash({commit}, payload) {
       commit('setHash', payload)
     },
@@ -475,9 +471,6 @@ export const store = new Vuex.Store({
     },
     buyersCount(state) {
       return state.buyersCount
-    },
-    sessionId(state) {
-      return state.session_id
     },
     hash(state) {
       return state.hash

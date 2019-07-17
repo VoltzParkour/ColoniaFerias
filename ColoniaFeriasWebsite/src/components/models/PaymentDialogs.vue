@@ -340,6 +340,9 @@
                     </v-card>
                   </v-flex>
                 </v-layout>
+                <v-flex xs12 class="headline mt-2 text-xs-right">
+                  Valor da compra: R$ {{cartAmount.toFixed(2)}}
+                </v-flex>
               </v-flex>
             </v-layout>
             <v-card-actions>
@@ -466,6 +469,9 @@
         let month = this.card.expiration.substring(0, 2)
         let year = this.card.expiration.substring(2, 4)
         return month + '20' + year
+      },
+      cartAmount() {
+        return this.$store.getters.cartAmount
       }
     },
     created() {

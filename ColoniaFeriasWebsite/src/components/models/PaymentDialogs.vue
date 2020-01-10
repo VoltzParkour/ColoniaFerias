@@ -384,7 +384,7 @@
               <v-card-text v-if="paymentResult">
                 <v-flex xs12>
                   <a
-                    href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/termo_adesao_colonia_ferias.pdf?alt=media&token=7615d77e-a90d-4e8f-919a-e743d5dc004c">Clique
+                    href="https://firebasestorage.googleapis.com/v0/b/coloniaferiasvoltz.appspot.com/o/Termo%20de%20adesao%20colonia%20de%20fe%CC%81rias.pdf?alt=media&token=5ad8775b-5125-4915-923a-fc4e73f55bf6">Clique
                     aqui para imprimir seu contrato</a>
                   <a href="http://voltzparkour.com/wp-content/uploads/2017/12/ADESAOCOLONIA.pdf">Clique aqui para
                     imprimir seu Termo de Adesão</a>
